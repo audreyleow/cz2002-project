@@ -11,52 +11,7 @@ public class UniDataBase {
 			ArrayList<Student> students = new ArrayList<Student>();
 			ArrayList<Admin> admins = new ArrayList<Admin>();
 			
-			// How to serialize the arraylist to file  - must close streams after adding data to file! (Class to file)
-			// FOR SERIALIZING THE ARRAYLIST<COURSE> INTO COURSESFILE
-			try {
-				FileOutputStream foCourses = new FileOutputStream(coursesFile);
-				ObjectOutputStream outputCourses = new ObjectOutputStream(foCourses);
-				for (Course s : courses) {
-					outputCourses.writeObject(s);
-				}
-				outputCourses.close();
-				foCourses.close();
-			}catch (IOException e) {  //  IOException is for when file cannot be opened/closed
-				System.out.println(e.getMessage());
-			}
 			
-			// FOR SERIALIZING THE ARRAYLIST<STUDENT> INTO STUDENTSFILE
-			try {
-				FileOutputStream foStudents = new FileOutputStream(studentsFile);
-				ObjectOutputStream outputStudents = new ObjectOutputStream(foStudents);
-				for (Student s : students) {
-					outputStudents.writeObject(s);
-				}
-				outputStudents.close();
-				foStudents.close();
-			}catch (IOException e) { //  IOException is for when file cannot be opened/closed
-				System.out.println(e.getMessage());
-			}
-			
-			// FOR SERIALIZING THE ARRAYLIST<ADMIN> INTO ADMINSFILE
-			try {
-				FileOutputStream foAdmins = new FileOutputStream(adminsFile);
-				ObjectOutputStream outputAdmins = new ObjectOutputStream(foAdmins);
-				for (Admin s : admins) {
-					outputAdmins.writeObject(s);
-				}
-				outputAdmins.close();
-				foAdmins.close();
-			}catch (IOException e) { //  IOException is for when file cannot be opened/closed
-				System.out.println(e.getMessage());
-			}
-			
-			
-			// Top half only has IOException because class definitely has to exist for you to even store it - file may not exist
-			// --------------------------------------------------------------------------------------------------------------
-			// Bottom half has ClassNotFoundException AND IOException because class AND file may not exist
-			
-			 
 			// How to deserialize the file back into the arraylist - must close after reading data from file! (file to class)
 			// FOR READING COURSESFILE INTO ARRAYLIST<COURSE>
 			FileInputStream fiCourses = null;
@@ -123,6 +78,55 @@ public class UniDataBase {
 			
 			
 			
+			
+			// Top half has ClassNotFoundException AND IOException because class AND file may not exist
+			// --------------------------------------------------------------------------------------------------------------
+			// Bottom half only has IOException because class definitely has to exist for you to even store it - file may not exist
+	
+			
+			
+			
+			// How to serialize the arraylist to file  - must close streams after adding data to file! (Class to file)
+			// FOR SERIALIZING THE ARRAYLIST<COURSE> INTO COURSESFILE
+			try {
+				FileOutputStream foCourses = new FileOutputStream(coursesFile);
+				ObjectOutputStream outputCourses = new ObjectOutputStream(foCourses);
+				for (Course s : courses) {
+					outputCourses.writeObject(s);
+				}
+				outputCourses.close();
+				foCourses.close();
+			}catch (IOException e) {  //  IOException is for when file cannot be opened/closed
+				System.out.println(e.getMessage());
+			}
+			
+			// FOR SERIALIZING THE ARRAYLIST<STUDENT> INTO STUDENTSFILE
+			try {
+				FileOutputStream foStudents = new FileOutputStream(studentsFile);
+				ObjectOutputStream outputStudents = new ObjectOutputStream(foStudents);
+				for (Student s : students) {
+					outputStudents.writeObject(s);
+				}
+				outputStudents.close();
+				foStudents.close();
+			}catch (IOException e) { //  IOException is for when file cannot be opened/closed
+				System.out.println(e.getMessage());
+			}
+			
+			// FOR SERIALIZING THE ARRAYLIST<ADMIN> INTO ADMINSFILE
+			try {
+				FileOutputStream foAdmins = new FileOutputStream(adminsFile);
+				ObjectOutputStream outputAdmins = new ObjectOutputStream(foAdmins);
+				for (Admin s : admins) {
+					outputAdmins.writeObject(s);
+				}
+				outputAdmins.close();
+				foAdmins.close();
+			}catch (IOException e) { //  IOException is for when file cannot be opened/closed
+				System.out.println(e.getMessage());
+			}
+			
+			
 			// printing out an arraylist iteratively
 			for (Course s : courses) {
 				System.out.println(s);
@@ -130,4 +134,3 @@ public class UniDataBase {
 		}
 
 	}
-
