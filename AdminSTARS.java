@@ -78,10 +78,12 @@ public class AdminStars {
 			indexNumList.add(new ClassIndex(indexNum,courseName,classSize,classSize,lessonList));
 			}
 		Course newCourse=new Course(courseCode,courseName,indexNumList,acadUnits,school);
-		}
 		//pass user input to uniDataBase
-		// to be continued
-	}
+		boolean success=uniDataBase.addToCourses(newCourse);
+		if (success=!false) System.out.println("Course added.");
+		else System.out.println("Course not added.");
+		}
+	
 	
 	public void printStudListByIndex() {
 		//request user for index number
