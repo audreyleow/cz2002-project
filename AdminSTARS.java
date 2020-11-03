@@ -14,6 +14,14 @@ public class AdminStars {
 		//request user for info needed to create course
 		System.out.println("Enter course code:");
 		String courseCode=sc.nextLine();
+		//send courseCode to unidatabase to check for duplicate
+		//if no duplicate, proceed. else, send error message
+		boolean duplicateTest1 = uniDataBase.checkCourseDup(courseCode);
+		while(duplicateTest1 == true){
+			System.out.println("Course code "+courseCode+" already exists. Enter another course code:");
+			courseCode=sc.nextLine();
+			duplicateCheck1 = uniDataBase.checkCourseIsDup(courseCode);
+		};
 		System.out.println("Enter course name:");
 		String courseName=sc.nextLine();
 		System.out.println("Enter school name:");
@@ -26,10 +34,18 @@ public class AdminStars {
 		for (int i=0;i<classIndexListSize;i++) {
 			System.out.println("Enter index number for class index "+ (i+1) + ":");
 			int indexNum = sc.nextInt();
+			//send indexNum to unidatabase to check for duplicate
+			//if no duplicate, proceed. else, send error message
+			boolean duplicateTest2 = uniDataBase.checkIndexDup(indexNum);
+			while(duplicateTest2 == true){
+				System.out.println("Index number "+indexNum+" already exists. Enter another index number:");
+				indexNum=sc.nextInt();
+				duplicateCheck2 = uniDataBase.checkIndexDup(indexNum);
+			};
 			//courseName obtained above
 			System.out.println("Enter class size for class index "+ indexNum + ":");
 			int classSize = sc.nextInt();
-			//assume no students
+			//assume no students when new course is added
 			System.out.println("Enter total number of lessons:");
 			int lessonListSize=sc.nextInt();
 			ArrayList<Lesson> lessonList = new ArrayList<Lesson>();
@@ -45,20 +61,6 @@ public class AdminStars {
 				LessonType lessonType = LessonType.values()[lessonTypeNum-1];
 				System.out.println("Enter class venue for lesson "+ (j+1) +":");
 				String classVenue=sc.nextLine();
-				/*int DayNum;
-				do {
-				System.out.println("Choose day of lesson "+(j+1)+":");
-				System.out.println("(1) Monday");
-				System.out.println("(2) Tuesday");
-				System.out.println("(3) Wednesday");
-				System.out.println("(4) Thursday");
-				System.out.println("(5) Friday");
-				System.out.println("(6) Saturday");
-				System.out.println("(7) Sunday");
-				lessonTypeNum = sc.nextInt();
-				}while(lessonTypeNum<1||lessonTypeNum>7);
-				Day classDay = Day.values()[DayNum-1];
-				*/
 				System.out.println("Enter total number dates with "+lessonType+":");
 				int numOfDate=sc.nextInt();
 				ArrayList<Integer> classDate= new ArrayList<>();
@@ -80,14 +82,19 @@ public class AdminStars {
 		Course newCourse=new Course(courseCode,courseName,indexNumList,acadUnits,school);
 		//pass user input to uniDataBase
 		boolean success=uniDataBase.addToCourses(newCourse);
-		if (success=!false) System.out.println("Course added.");
+		if (success=!false) 
+			{System.out.println("Course added.");
+			//display all courses after addition
+			//...
+			}
 		else System.out.println("Course not added.");
+		//display all courses after addition
 		}
 	
 	
 	public void printStudListByIndex() {
 		//request user for index number
-		System.out.println("Enter index number:");
+		System.out.println("Enter course index number:");
 		int indexNum=sc.nextInt();
 		
 		//pass user input to unidatabase
@@ -97,7 +104,7 @@ public class AdminStars {
 			ClassIndex classIndex = uniDataBase.getClassIndexPtr();
 			uniDataBase.printStudList(classIndex);	
 		}
-		else System.out.println("Index not found.");
+		else System.out.println("Course index not found.");
 	}
 		
 	public void printStudListByCourse() {
@@ -119,3 +126,4 @@ public class AdminStars {
 	
 	
 }
+
