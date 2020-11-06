@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-public class AdminStars {
+public class AdminStars extends STARS{
 	public static void main(String[] args) {}
 		Scanner sc = new Scanner(System.in);
 	
@@ -33,7 +33,7 @@ public class AdminStars {
 				
 				switch (choice1) {
 				case 1: 
-					int choice2;
+					int choice11;
 					System.out.println("(1)	Edit course code");
 					System.out.println("(2) Edit course name");
 					System.out.println("(3) Edit academic units");
@@ -41,9 +41,9 @@ public class AdminStars {
 					System.out.println("(5) Exit");
 					do {
 						System.out.println("Enter the update of your choice: ");
-						choice2 = sc.nextInt();
+						choice11 = sc.nextInt();
 						
-						switch (choice2) {
+						switch (choice11) {
 						case 1: 
 							System.out.println("Current course code : "+courseCode);
 							System.out.println("Enter new course code : ");
@@ -92,7 +92,7 @@ public class AdminStars {
 							System.out.println("(4) Edit school of course");
 							System.out.println("(5) Exit");
 						}
-					} while (choice2 !=5);
+					} while (choice11 !=5);
 					break;
 				case 2: 
 					//add new course index to existing course
@@ -110,36 +110,32 @@ public class AdminStars {
 					System.out.println("Enter class size for course index "+ indexNum + ":");
 					int classSize = sc.nextInt();
 					//assume no students when new course is added
-					System.out.println("Enter total number of lessons:");
+					System.out.println("Enter total number of lessons :");
 					int lessonListSize=sc.nextInt();
 					ArrayList<Lesson> lessonList = new ArrayList<Lesson>();
 					for (int j=0;j<lessonListSize;j++) {
 						int lessonTypeNum;
 						do {
 						System.out.println("Choose lesson type for lesson "+(j+1)+":");
-						System.out.println("(1) Lecture");
-						System.out.println("(2) Tutorial");
-						System.out.println("(3) Laboratory");
+						System.out.println("(1) Lecture\n(2) Tutorial\n(3) Laboratory");
 						lessonTypeNum = sc.nextInt();
 						}while(lessonTypeNum<1||lessonTypeNum>3);
 						LessonType lessonType = LessonType.values()[lessonTypeNum-1];
 						System.out.println("Enter class venue for lesson "+ (j+1) +":");
 						String classVenue=sc.nextLine();
-						System.out.println("Enter total number dates with "+lessonType+":");
-						int numOfDate=sc.nextInt();
-						ArrayList<Integer> classDate= new ArrayList<>();
-						ArrayList<int[]> classTime= new ArrayList<int[]>();
-						for (int k=0;k<numOfDate;k++){
-							System.out.println("Enter date " +(i+1)+" out of " +numOfDate+" in ddmmyy format:");
-							int date=sc.nextInt();
-							classDate.add(date);
-							System.out.println("Enter class start time for lesson "+ (j+1) +" on " + date +" in 24hr format (hhmm):");
-							int startTime=sc.nextInt();
-							System.out.println("Enter class end time for lesson "+ (j+1) +" on " + date+" in 24hr format (hhmm):");
-							int endTime=sc.nextInt();
-							classTime.add(new int[]{startTime,endTime});
-							}
-						lessonList.add(new Lesson(lessonType,classVenue,classDate,classTime));
+						int chooseDay;
+						do {
+							System.out.println("Enter day of the week for lesson "+ (j+1) +":");
+							System.out.println("(1) MON\n (2) TUE\n(3) WED\n (4) THU\n (5) FRI");
+							chooseDay=sc.nextInt();
+						}while(chooseDay<1||chooseDay>5);
+						Day classDay = Day.values()[chooseDay-1];
+						System.out.println("Enter class start time for lesson "+ (j+1) +" on " + classDay +" in 24hr format (hhmm):");
+						int startTime=sc.nextInt();
+						System.out.println("Enter class end time for lesson "+ (j+1) +" on " + classDay +" in 24hr format (hhmm):");
+						int endTime=sc.nextInt();
+						int[] classTime={startTime,endTime};
+						lessonList.add(new Lesson(lessonType,classVenue,classDay,classTime));
 						}
 					indexNumList.add(new ClassIndex(indexNum,courseName,classSize,classSize,lessonList));
 					
@@ -250,6 +246,7 @@ public class AdminStars {
 					classSize=newClassSize;
 					break;
 				case 3: 
+					ArrayList<Lesson> lessonList = classIndex.getLessonList();
 					int choice2;
 					System.out.println("(1)	Add lesson to course index");
 					System.out.println("(2) Remove lesson from course index");
@@ -260,11 +257,59 @@ public class AdminStars {
 						switch(choice2)
 						{
 						case 1:
-							//
+							int lessonTypeNum;
+							do {
+								System.out.println("Choose lesson type : ");
+								System.out.println("(1) Lecture\n(2) Tutorial\n(3) Laboratory");
+								lessonTypeNum = sc.nextInt();
+							}while(lessonTypeNum<1||lessonTypeNum>3);
+							LessonType lessonType = LessonType.values()[lessonTypeNum-1];
+							System.out.println("Enter class venue for the lesson : ");
+							String classVenue=sc.nextLine();
+							int chooseDay;
+							do {
+								System.out.println("Enter day of the week for the lesson :");
+								System.out.println("(1) MON\n (2) TUE\n(3) WED\n (4) THU\n (5) FRI");
+								chooseDay=sc.nextInt();
+							}while(chooseDay<1||chooseDay>5);
+							Day classDay = Day.values()[chooseDay-1];
+							System.out.println("Enter class start time for lesson in 24hr format (hhmm):");
+							int startTime=sc.nextInt();
+							System.out.println("Enter class end time for lesson in 24hr format (hhmm):");
+							int endTime=sc.nextInt();
+							int[] classTime={startTime,endTime};
+							lessonList.add(new Lesson(lessonType,classVenue,classDay,classTime));								
+							indexNumList.add(new ClassIndex(indexNum,courseName,classSize,classSize,lessonList));
+							
+							//send info to unidatabase
+							uniDataBase.updateCourseIndexNum(courseCode,indexNumList);
 							break;
 						case 2:
-							//
+							//show current list of lesson
+							System.out.println("Current list of lesson : ");
+							int lessonListSize = lessonList.size();
+							if (lessonListSize=0)
+							{
+								System.out.println("Currently there is no list of lesson for "+indexNum);
+								break;
+							}
+							for (int i=0;i<lessonListSize;i++)
+							{
+								System.out.println("Lesson "+(i+1)+"\tLesson type: "+lessonList.get(i).getLessonType()+"\tDay: "+lessonList.get(i).getClassDay());
+							}
+							int chooseLesson;
+							do {
+							System.out.println("Enter lesson to be removed : ");
+							for (int i=0;i<lessonListSize;i++)
+							{
+								System.out.println("("+(1+i)+")"+" Lesson "+(i+1)+"\tLesson type: "+lessonList.get(i).getLessonType()+"\tDay: "+lessonList.get(i).getClassDay());
+								chooseLesson = sc.nextInt();
+							}
+							}while(chooseLesson<1||chooseLesson>lessonListSize);
 							break;
+							lessonList.remove(chooseLesson-1);
+							//send info to unidatabase
+							uniDataBase.updateCourseIndexNum(courseCode,indexNumList);
 						default:
 							System.out.println("(1)	Add lesson to course index");
 							System.out.println("(2) Remove lesson from course index");
@@ -363,7 +408,7 @@ public class AdminStars {
 		
 	}
 	
-		public void createCourse() {
+	public void createCourse() {
 		//request user for info needed to create course
 		System.out.println("Enter course code:");
 		String courseCode=sc.nextLine();
@@ -420,9 +465,9 @@ public class AdminStars {
 					chooseDay=sc.nextInt();
 				}while(chooseDay<1||chooseDay>5);
 				Day classDay = Day.values()[chooseDay-1];
-				System.out.println("Enter class start time for lesson "+ (j+1) +" on " + date +" in 24hr format (hhmm):");
+				System.out.println("Enter class start time for lesson "+ (j+1) +" on " + classDay +" in 24hr format (hhmm):");
 				int startTime=sc.nextInt();
-				System.out.println("Enter class end time for lesson "+ (j+1) +" on " + date+" in 24hr format (hhmm):");
+				System.out.println("Enter class end time for lesson "+ (j+1) +" on " + classDay+" in 24hr format (hhmm):");
 				int endTime=sc.nextInt();
 				int[] classTime={startTime,endTime};
 				lessonList.add(new Lesson(lessonType,classVenue,classDay,classTime));
@@ -441,6 +486,9 @@ public class AdminStars {
 		
 		}
 	
+	public void createClass() {}
+	
+	public void createLesson() {}
 	
 	public void printStudListByIndex() {
 		//request user for index number
@@ -476,3 +524,4 @@ public class AdminStars {
 	
 	
 }
+	
