@@ -363,7 +363,7 @@ public class AdminStars {
 		
 	}
 	
-	public void createCourse() {
+		public void createCourse() {
 		//request user for info needed to create course
 		System.out.println("Enter course code:");
 		String courseCode=sc.nextLine();
@@ -400,36 +400,32 @@ public class AdminStars {
 			System.out.println("Enter class size for course index "+ indexNum + ":");
 			int classSize = sc.nextInt();
 			//assume no students when new course is added
-			System.out.println("Enter total number of lessons:");
+			System.out.println("Enter total number of lesson in a week in general:");
 			int lessonListSize=sc.nextInt();
 			ArrayList<Lesson> lessonList = new ArrayList<Lesson>();
 			for (int j=0;j<lessonListSize;j++) {
 				int lessonTypeNum;
 				do {
 				System.out.println("Choose lesson type for lesson "+(j+1)+":");
-				System.out.println("(1) Lecture");
-				System.out.println("(2) Tutorial");
-				System.out.println("(3) Laboratory");
+				System.out.println("(1) Lecture\n(2) Tutorial\n(3) Laboratory");
 				lessonTypeNum = sc.nextInt();
 				}while(lessonTypeNum<1||lessonTypeNum>3);
 				LessonType lessonType = LessonType.values()[lessonTypeNum-1];
 				System.out.println("Enter class venue for lesson "+ (j+1) +":");
 				String classVenue=sc.nextLine();
-				System.out.println("Enter total number dates with "+lessonType+":");
-				int numOfDate=sc.nextInt();
-				ArrayList<Integer> classDate= new ArrayList<>();
-				ArrayList<int[]> classTime= new ArrayList<int[]>();
-				for (int k=0;k<numOfDate;k++){
-					System.out.println("Enter date " +(i+1)+" out of " +numOfDate+" in ddmmyy format:");
-					int date=sc.nextInt();
-					classDate.add(date);
-					System.out.println("Enter class start time for lesson "+ (j+1) +" on " + date +" in 24hr format (hhmm):");
-					int startTime=sc.nextInt();
-					System.out.println("Enter class end time for lesson "+ (j+1) +" on " + date+" in 24hr format (hhmm):");
-					int endTime=sc.nextInt();
-					classTime.add(new int[]{startTime,endTime});
-					}
-				lessonList.add(new Lesson(lessonType,classVenue,classDate,classTime));
+				int chooseDay;
+				do {
+					System.out.println("Enter day of the week for lesson "+ (j+1) +":");
+					System.out.println("(1) MON\n (2) TUE\n(3) WED\n (4) THU\n (5) FRI");
+					chooseDay=sc.nextInt();
+				}while(chooseDay<1||chooseDay>5);
+				Day classDay = Day.values()[chooseDay-1];
+				System.out.println("Enter class start time for lesson "+ (j+1) +" on " + date +" in 24hr format (hhmm):");
+				int startTime=sc.nextInt();
+				System.out.println("Enter class end time for lesson "+ (j+1) +" on " + date+" in 24hr format (hhmm):");
+				int endTime=sc.nextInt();
+				int[] classTime={startTime,endTime};
+				lessonList.add(new Lesson(lessonType,classVenue,classDay,classTime));
 				}
 			indexNumList.add(new ClassIndex(indexNum,courseName,classSize,classSize,lessonList));
 			}
