@@ -151,6 +151,7 @@ public class AdminStars extends STARS{
 						LessonType lessonType = LessonType.values()[lessonTypeNum-1];
 						System.out.println("Enter class venue for lesson "+ (j+1) +":");
 						String classVenue=sc.nextLine();
+						//request input for Day
 						int chooseDay;
 						do {
 							System.out.println("Enter day of the week for lesson "+ (j+1) +":");
@@ -158,12 +159,21 @@ public class AdminStars extends STARS{
 							chooseDay=sc.nextInt();
 						}while(chooseDay<1||chooseDay>5);
 						Day classDay = Day.values()[chooseDay-1];
+						//request input for Week
+						int chooseWeek;
+						do {
+							System.out.println("Enter week type for lesson "+ (j+1) +":");
+							System.out.println("(1) Week 1-13\n (2) Even Weeks\n(3) Odd Weeks");
+							chooseWeek=sc.nextInt();
+						}while(chooseWeek<1||chooseWeek>3);
+						Week classWeek = Week.values()[chooseWeek-1];
+						//request input for Time
 						System.out.println("Enter class start time for lesson "+ (j+1) +" on " + classDay +" in 24hr format (hhmm):");
 						int startTime=sc.nextInt();
 						System.out.println("Enter class end time for lesson "+ (j+1) +" on " + classDay +" in 24hr format (hhmm):");
 						int endTime=sc.nextInt();
 						int[] classTime={startTime,endTime};
-						lessonList.add(new Lesson(lessonType,classVenue,classDay,classTime));
+						lessonList.add(new Lesson(lessonType,classVenue,classDay,classTime,classWeek));
 						}
 					indexNumList.add(new ClassIndex(indexNum,courseName,classSize,classSize,lessonList));
 					
@@ -301,12 +311,19 @@ public class AdminStars extends STARS{
 								chooseDay=sc.nextInt();
 							}while(chooseDay<1||chooseDay>5);
 							Day classDay = Day.values()[chooseDay-1];
+							int chooseWeek;
+							do {
+								System.out.println("Enter week type for the lesson :");
+								System.out.println("(1) Week 1-13\n (2) Even Weeks\n(3) Odd Weeks");
+								chooseWeek=sc.nextInt();
+							}while(chooseWeek<1||chooseWeek>3);
+							Week classWeek = Week.values()[chooseWeek-1];
 							System.out.println("Enter class start time for lesson in 24hr format (hhmm):");
 							int startTime=sc.nextInt();
 							System.out.println("Enter class end time for lesson in 24hr format (hhmm):");
 							int endTime=sc.nextInt();
 							int[] classTime={startTime,endTime};
-							lessonList.add(new Lesson(lessonType,classVenue,classDay,classTime));								
+							lessonList.add(new Lesson(lessonType,classVenue,classDay,classTime,classWeek));								
 							indexNumList.add(new ClassIndex(indexNum,courseName,classSize,classSize,lessonList));
 							
 							//send info to uniDataBase
@@ -493,12 +510,19 @@ public class AdminStars extends STARS{
 					chooseDay=sc.nextInt();
 				}while(chooseDay<1||chooseDay>5);
 				Day classDay = Day.values()[chooseDay-1];
+				int chooseWeek;
+				do {
+					System.out.println("Enter week type for lesson "+ (j+1) +":");
+					System.out.println("(1) Week 1-13\n (2) Even Weeks\n(3) Odd Weeks");
+					chooseWeek=sc.nextInt();
+				}while(chooseWeek<1||chooseWeek>3);
+				Week classWeek = Week.values()[chooseWeek-1];
 				System.out.println("Enter class start time for lesson "+ (j+1) +" on " + classDay +" in 24hr format (hhmm):");
 				int startTime=sc.nextInt();
 				System.out.println("Enter class end time for lesson "+ (j+1) +" on " + classDay+" in 24hr format (hhmm):");
 				int endTime=sc.nextInt();
 				int[] classTime={startTime,endTime};
-				lessonList.add(new Lesson(lessonType,classVenue,classDay,classTime));
+				lessonList.add(new Lesson(lessonType,classVenue,classDay,classTime,classWeek));
 				}
 			indexNumList.add(new ClassIndex(indexNum,courseName,classSize,classSize,lessonList));
 			}
@@ -549,4 +573,3 @@ public class AdminStars extends STARS{
 	
 	
 }
-	
