@@ -6,7 +6,35 @@ public class AdminStars extends STARS{
 	
 	public void editStudAccess() {}
 	
-	public void addStudent() {}
+	public void addStudent() {
+		//request all info needed for Student 
+		System.out.println("Enter new Student username : ");
+		String userName=sc.nextLine();
+		//check no duplicate username
+		//...
+		System.out.println("Enter new Student password : ");
+		String pwd = sc.nextLine();
+		//hash password
+		//...
+		System.out.println("Enter new Student name : ");
+		String name=sc.nextLine();
+		System.out.println("Enter new Student gender : ");
+		String gender=sc.nextLine();
+		System.out.println("Enter new Student nationality : ");
+		String gender=sc.nextLine();
+		System.out.println("Enter new Student matriculation number : ");
+		String matricNo=sc.nextLine();
+		//check no duplicate matric number
+		//...
+		System.out.println("Enter new Student email : ");
+		String email=sc.nextLine();
+		//check no duplicate email
+		//...
+		StudentRecords studentRecords=new StudentRecords();
+		Student newStudent=new Student(userName,pwd,name,gender,nationality,false, matricNo,email,studentRecords);
+		//send info to uniDataBase
+		uniDataBase.addToStudents(newStudent);
+	}
 	
 	public void updateCourse() {
 		//request user for course code, check if course code exist,loop if it doesn't exist
@@ -54,7 +82,7 @@ public class AdminStars extends STARS{
 								newCourseCode=sc.nextLine();
 								duplicateTest1 = uniDataBase.findCourseByCode(newCourseCode);
 							};
-							//send info to unidatabase
+							//send info to uniDataBase
 							uniDataBase.updateCourseCode(courseCode,newCourseCode);
 							courseCode=newCourseCode;
 							System.out.println("Course code updated.");
@@ -99,7 +127,7 @@ public class AdminStars extends STARS{
 					ArrayList<ClassIndex> indexNumList = course.getIndexNumList();
 					System.out.println("Enter course index number : ");
 					int indexNum = sc.nextInt();
-					//send indexNum to unidatabase to check for duplicate
+					//send indexNum to uniDataBase to check for duplicate
 					//if no duplicate, proceed. else, send error message
 					boolean duplicateTest2 = uniDataBase.findClassIndex(indexNum);
 					while(duplicateTest2 == true){
@@ -159,7 +187,7 @@ public class AdminStars extends STARS{
 					};
 					ClassIndex classIndex=uniDataBase.getClassIndexPtr();
 					indexNumList.remove(classIndex);
-					//send info to unidatabase
+					//send info to uniDataBase
 					uniDataBase.updateCourseIndexNum(courseCode,indexNumList);
 					System.out.println("Course index removed.");
 					break;
@@ -216,7 +244,7 @@ public class AdminStars extends STARS{
 						duplicateTest1 = uniDataBase.findClassIndex(newIndexNum);
 					};
 					classIndex.setIndexNum(newIndexNum);
-					//send info to unidatabase
+					//send info to uniDataBase
 					uniDataBase.updateCourseIndexNum(courseCode,indexNumList);
 					indexNum=newIndexNum;
 					System.out.println("Course index number updated.");
@@ -238,9 +266,9 @@ public class AdminStars extends STARS{
 					//update vacancy
 					int newClassVacancy = newClassSize-currentSize;
 					classIndex.setClassVacancy(newClassVacancy);	
-					//send info to unidatabase
+					//send info to uniDataBase
 					uniDataBase.updateCourseIndexNum(courseCode,indexNumList);
-					//send info to unidatabase
+					//send info to uniDataBase
 					uniDataBase.updateCourseVacancy(courseCode,indexNumList,newClassVacancy);
 					System.out.println("Class size updated.");
 					classSize=newClassSize;
@@ -281,7 +309,7 @@ public class AdminStars extends STARS{
 							lessonList.add(new Lesson(lessonType,classVenue,classDay,classTime));								
 							indexNumList.add(new ClassIndex(indexNum,courseName,classSize,classSize,lessonList));
 							
-							//send info to unidatabase
+							//send info to uniDataBase
 							uniDataBase.updateCourseIndexNum(courseCode,indexNumList);
 							break;
 						case 2:
@@ -308,7 +336,7 @@ public class AdminStars extends STARS{
 							}while(chooseLesson<1||chooseLesson>lessonListSize);
 							break;
 							lessonList.remove(chooseLesson-1);
-							//send info to unidatabase
+							//send info to uniDataBase
 							uniDataBase.updateCourseIndexNum(courseCode,indexNumList);
 						default:
 							System.out.println("(1)	Add lesson to course index");
@@ -348,7 +376,7 @@ public class AdminStars extends STARS{
 							};
 							Student student = uniDataBase.getStudentPtr();
 							studList2.add(student);
-							//send info to unidatabase
+							//send info to uniDataBase
 							uniDataBase.updateCourseIndexNum(courseCode,indexNumList);
 							break;
 						case 2:
@@ -379,7 +407,7 @@ public class AdminStars extends STARS{
 							//check if student is in the class
 							if(studList2.contains(student2)) {
 								studList2.remove(student2);
-								//send info to unidatabase
+								//send info to uniDataBase
 								uniDataBase.updateCourseIndexNum(courseCode,indexNumList);
 							}
 							else {
@@ -412,7 +440,7 @@ public class AdminStars extends STARS{
 		//request user for info needed to create course
 		System.out.println("Enter course code:");
 		String courseCode=sc.nextLine();
-		//send courseCode to unidatabase to check for duplicate
+		//send courseCode to uniDataBase to check for duplicate
 		//if no duplicate, proceed. else, send error message
 		boolean duplicateTest1 = uniDataBase.findCourseByCode(courseCode);
 		while(duplicateTest1 == true){
@@ -433,7 +461,7 @@ public class AdminStars extends STARS{
 			System.out.println("Enter course index number "+(i+1)+" of "+classIndexListSize+":");
 			
 			int indexNum = sc.nextInt();
-			//send indexNum to unidatabase to check for duplicate
+			//send indexNum to uniDataBase to check for duplicate
 			//if no duplicate, proceed. else, send error message
 			boolean duplicateTest2 = uniDataBase.findClassIndex(indexNum);
 			while(duplicateTest2 == true){
@@ -486,16 +514,13 @@ public class AdminStars extends STARS{
 		
 		}
 	
-	public void createClass() {}
-	
-	public void createLesson() {}
 	
 	public void printStudListByIndex() {
 		//request user for index number
 		System.out.println("Enter course index number:");
 		int indexNum=sc.nextInt();
 		
-		//pass user input to unidatabase
+		//pass user input to uniDataBase
 		boolean success=uniDataBase.findClassIndex(indexNum);
 		if (success!=false)
 		{  
@@ -510,7 +535,7 @@ public class AdminStars extends STARS{
 		System.out.println("Enter course code:");
 		String courseCode=sc.nextLine();
 		
-		//pass user input to unidatabase
+		//pass user input to uniDataBase
 		boolean success=uniDataBase.findCourseByCode(courseCode);
 		if (success!=false)
 		{
