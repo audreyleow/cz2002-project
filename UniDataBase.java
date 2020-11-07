@@ -3,15 +3,16 @@ import java.util.ArrayList;
 
 public class UniDataBase {
 	
-	File coursesFile;
-	File studentsFile;
-	File adminsFile;
-	ArrayList<Course> courses;
-	ArrayList<Student> students;
-	ArrayList<Admin> admins;
-	int tempCoursesIndex;
-	int tempClassIndex;
+	static File coursesFile;
+	static File studentsFile;
+	static File adminsFile;
+	static ArrayList<Course> courses;
+	static ArrayList<Student> students;
+	static ArrayList<Admin> admins;
+	static int tempCoursesIndex;
+	static int tempClassIndex;
 	
+	/*
 	public UniDataBase() {
 		coursesFile = new File("courses.txt");
 		studentsFile = new File("students.txt");
@@ -22,8 +23,9 @@ public class UniDataBase {
 		tempCoursesIndex = -1;
 		tempClassIndex = -1;
 	}
+	*/
 	
-	public void loadAllFiles() {
+	public static void loadAllFiles() {
 		//reading files in on start-up
 		// How to deserialize the file back into the arraylist - must close after reading data from file! (file to class)
 		// FOR READING COURSESFILE INTO ARRAYLIST<COURSE>
@@ -94,7 +96,7 @@ public class UniDataBase {
 		// --------------------------------------------------------------------------------------------------------------
 		// Bottom half only has IOException because class definitely has to exist for you to even store it - file may not exist
 	
-	public void saveAllFiles() {
+	public static void saveAllFiles() {
 		// How to serialize the arraylist to file  - must close streams after adding data to file! (Class to file)
 		// FOR SERIALIZING THE ARRAYLIST<COURSE> INTO COURSESFILE
 		try {
@@ -142,7 +144,7 @@ public class UniDataBase {
 		}
 	}
 	
-	public boolean verifyStudentAccount(String userName, String pwd) {
+	public static boolean verifyStudentAccount(String userName, String pwd) {
 		for (int i=0; i<students.size(); i++) {
 			if (students.get(i).getUserName() == userName) {
 				if (students.get(i).getPwd()==pwd)
@@ -154,7 +156,7 @@ public class UniDataBase {
 		return false;
 	}
 	
-	public boolean verifyAdminAccount(String userName, String pwd) {
+	public static boolean verifyAdminAccount(String userName, String pwd) {
 		for (int i=0; i<admins.size(); i++) {
 			if (admins.get(i).getUserName() == userName) {
 				if (admins.get(i).getPwd()==pwd)
@@ -166,7 +168,15 @@ public class UniDataBase {
 		return false;
 	}
 	
-	public boolean verifyCourse(String code) {
+	public static boolean verifyExistedStudent(String matricNo, String userName) {
+		for (int i=0; i<students.size(); i++) {
+			if (students.get(i).getMatricNo() == matricNo || students.get(i).getUserName() == userName)
+				return true;
+		}
+		return false;
+	}
+	
+	public static boolean verifyCourse(String code) {
 		for (int i =0; i<courses.size(); i++) {
 			if (courses.get(i).getCourseCode() == code)
 				return true;
@@ -174,7 +184,7 @@ public class UniDataBase {
 		return false;
 	}
 
-	public boolean verifyCLassIndex(int indexNum) {
+	public static boolean verifyCLassIndex(int indexNum) {
 		for (int i=0; i<courses.size(); i++) {
 			ArrayList<ClassIndex> indexNumList = courses.get(i).getIndexNumList();
 			for (int j=0; j<indexNumList.size(); j++) {
@@ -185,7 +195,7 @@ public class UniDataBase {
 		return false;
 	}
 	
-	public Course findCourseByCode(String code) {
+	public static Course findCourseByCode(String code) {
 		for (int i =0; i<courses.size(); i++) {
 			if (courses.get(i).getCourseCode() == code)
 				return courses.get(i);
@@ -193,7 +203,7 @@ public class UniDataBase {
 		return null;
 	}
 	
-	public ClassIndex findClassIndex(int indexNum) {
+	public static ClassIndex findClassIndex(int indexNum) {
 		for (int i=0; i<courses.size(); i++) {
 			ArrayList<ClassIndex> indexNumList = courses.get(i).getIndexNumList();
 			for (int j=0; j<indexNumList.size(); j++) {
@@ -204,38 +214,58 @@ public class UniDataBase {
 		return null;
 	}
 	
-	public void addToCourses(Course newCourse) {
+	public static void addToCourses(Course newCourse) {
 		courses.add(newCourse);
 	}
 	
-	public void updateCourseCode(String courseCode, String newCourseCode) {
-		findCourseByCode(courseCode).setCourseCode(newCourseCode);
+	public static void updateCourseCode(String courseCode, String newCourseCode) {
+		Course course = findCourseByCode(courseCode);
+		course.setCourseCode(newCourseCode);
+		for (int i=0; i<course.getIndexNumList().size(); i++) {
+			course.getIndexNumList().get(i).setCourseCode(newCourseCode);
+		}
 	}
 	
-	public void updateCourseSchool(String courseCode, String newSchool) {
+	public static void updateCourseSchool(String courseCode, String newSchool) {
 		findCourseByCode(courseCode).setSchool(newSchool);
 	}
 	
-	public void updateCourseVacancy(String courseCode, int indexNum, int newVacantNum) {
-		findClassIndex(indexNum).setClassVacancy(newVacantNum);
+	public static void updateCourseIndexNum(String courseCode, ArrayList<ClassIndex> newIndexNumList) {
+		Course course = findCourseByCode(courseCode);
+		course.setIndexNumList(newIndexNumList);
 	}
 	
-	public void addToStudents(Student newStudent) {
+	public static void updateCourseVacancy(String courseCode, int indexNum, int newVacantNum) {
+		Course course = findCourseByCode(courseCode);
+		for (int i=0; i<course.getIndexNumList().size(); i++) {
+			ClassIndex classIndex = course.getIndexNumList().get(i);
+			classIndex.setClassVacancy(newVacantNum);
+			while (classIndex.getWaitList().isEmpty() == false && classIndex.getStudentList().size() != classIndex.getClassVacancy()) {
+					Student student = classIndex.getWaitList().remove(0);
+					StudentRecords studentRecords = student.getStudentRecords();
+					classIndex.getStudentList().add(student);
+					studentRecords.addCourseRegistered(classIndex);
+					studentRecords.setAcadUnitsRegistered(studentRecords.getAcadUnitsRegistered() + course.getAcadUnits());
+					
+					//send email thingy here
+				}
+		}
+	}
+
+	public static void addToStudents(Student newStudent) {
 		students.add(newStudent);
 	}
 	
-	public void addCourseStudent(Student student, ClassIndex classIndex) {
+	public static void addCourseStudent(Student student, ClassIndex classIndex) {
 		
 		//classIndex is not filled yet
-		int tempClassVacancy = classIndex.getClassVacancy();
 		String courseCode = classIndex.getCourseCode();
 		Course course = findCourseByCode(courseCode);
-		if (tempClassVacancy != 0) {
+		if (classIndex.getStudentList().size() != classIndex.getClassVacancy()) {
 			student.getStudentRecords().addCourseRegistered(classIndex);
 			int tempAcadUnitsRegistered = student.getStudentRecords().getAcadUnitsRegistered(); 
 			student.getStudentRecords().setAcadUnitsRegistered(tempAcadUnitsRegistered + course.getAcadUnits());
 			classIndex.getStudentList().add(student);
-			classIndex.setClassVacancy(tempClassVacancy -= 1);
 		}
 		
 		//classIndex is filled currently --> add to waiting list
@@ -244,7 +274,7 @@ public class UniDataBase {
 		}
 	}
 	
-	public void removeCourseStudent(Student student, ClassIndex classIndex) {
+	public static void removeCourseStudent(Student student, ClassIndex classIndex) {
 		if (student.getStudentRecords().getCoursesRegistered().contains(classIndex)) {
 			String courseCode = classIndex.getCourseCode();
 			Course course = findCourseByCode(courseCode);
@@ -252,8 +282,6 @@ public class UniDataBase {
 			int tempAcadUnitsRegistered = student.getStudentRecords().getAcadUnitsRegistered();
 			student.getStudentRecords().setAcadUnitsRegistered(tempAcadUnitsRegistered - course.getAcadUnits());
 			classIndex.getStudentList().remove(student);
-			int tempClassVacancy = classIndex.getClassVacancy();
-			classIndex.setClassVacancy(tempClassVacancy + 1);
 			
 			//add students from waiting list if there is people waiting to get the class index
 			if (classIndex.getWaitList().isEmpty() == false) {
@@ -262,8 +290,6 @@ public class UniDataBase {
 				tempAcadUnitsRegistered = studentWaiting.getStudentRecords().getAcadUnitsRegistered();
 				studentWaiting.getStudentRecords().setAcadUnitsRegistered(tempAcadUnitsRegistered + course.getAcadUnits());
 				classIndex.getStudentList().add(studentWaiting);
-				tempClassVacancy = classIndex.getClassVacancy();
-				classIndex.setClassVacancy(tempClassVacancy - 1);
 				
 				/////need the sending email application here
 			}
@@ -271,7 +297,7 @@ public class UniDataBase {
 		}
 	}
 	
-	public void swopClassIndex(Student student1, Student student2, ClassIndex classIndex1, ClassIndex classIndex2) {
+	public static void swopClassIndex(Student student1, Student student2, ClassIndex classIndex1, ClassIndex classIndex2) {
 		if (classIndex1.getCourseCode() == classIndex2.getCourseCode()) {
 			classIndex1.getStudentList().remove(student1);
 			classIndex2.getStudentList().remove(student2);
@@ -284,7 +310,7 @@ public class UniDataBase {
 		}
 	}
 	
-	public void printStudList(Course course) {
+	public static void printStudList(Course course) {
 		int indexNumListSize = course.getIndexNumList().size();
 		for (int i=0; i<indexNumListSize; i++) {
 			ClassIndex classIndex = course.getIndexNumList().get(i);
@@ -296,7 +322,7 @@ public class UniDataBase {
 		
 	}
 	
-	public void printStudList(ClassIndex classIndex) {
+	public static void printStudList(ClassIndex classIndex) {
 		ArrayList<Student> studentList = classIndex.getStudentList();
 		for (int i=0; i<studentList.size(); i++) {
 			System.out.println(studentList.get(i).getName() + "		" + studentList.get(i).getMatricNo());
