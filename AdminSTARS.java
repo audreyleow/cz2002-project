@@ -1,10 +1,72 @@
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.sql.Time;
+import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.*;
+import java.util.Date;
 public class AdminStars extends STARS{
-	public static void main(String[] args) {}
+	public static void run() {}
 		Scanner sc = new Scanner(System.in);
 	
-	public void editStudAccess() {}
+	public void editStudAccess() {
+		int choice1;
+		System.out.println("(1) Edit student access period");
+		System.out.println("(2) Edit student access duration");
+		System.out.println("(3) Exit");
+		do {
+			System.out.println("Enter update of your choice : ");
+			choice1=sc.nextInt();
+			switch(choice1)
+			{
+				case 1:
+					System.out.println("Cuurent student access period : " + getStudentAccessPeriod()[0]+" to "+getStudentAccessPeriod()[1]);
+					System.out.println("Enter new student access starting date in dd-mm-yyyy format : ");
+					String date1=sc.nextLine();
+					SimpleDateFormat format=new SimpleDateFormat(“dd-mm-yyyy”);
+					Date startDate=format.parse(date1);
+					Date endDate;
+					do{
+					System.out.println("Enter new student access end date in dd-mm-yyyy format : ");
+					String date2=sc.nextLine();
+					SimpleDateFormat format=new SimpleDateFormat(“dd-mm-yyyy”);
+					Date endDate=format.parse(date2);
+					}while(startDate.compareTo(endDate)!=-1);
+					//send info to unidatabase
+					Date[] newPeriod = {startDate,endDate};
+					uniDataBase.setStudAccessPeriod(newPeriod);
+					System.out.println("Student access period updated.");
+					break;
+				case 2:
+					System.out.println("Cuurent student access duration : " + getStudentAccessDuration());
+					System.out.println("Adding new student access duration in (hh:mm:ss) format : ");
+					int hour;
+					do {
+					System.out.println("Enter new student access duration for hour (hh) : ");
+					hour=sc.nextInt();
+					}while(hour<0);
+					int min;
+					do {
+					System.out.println("Enter new student access duration for minute (mm) : ");
+					min=sc.nextInt();
+					}while(min<0||min>=60);
+					int sec;
+					do {
+					System.out.println("Enter new student access duration for second (ss) : ");
+					sec=sc.nextInt();
+					}while(sec<0||sec>=60);
+					long milli = (60*((60*hour)+min)+sec)*1000;
+					//send info to unidatabase
+					Time newDuration = new Time(milli);
+					uniDataBase.setStudAccessDuration(newDuration);
+					System.out.println("Student access duration updated.");
+					break;
+				default:
+					System.out.println("(1) Edit student access period");
+					System.out.println("(2) Edit student access duration");
+					System.out.println("(3) Exit");
+					break;
+			}
+		}while(choice1!=3);	
+	}
 	
 	public void addStudent() {
 		//request all info needed for Student 
