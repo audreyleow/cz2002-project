@@ -207,11 +207,18 @@ public class AdminStars extends STARS{
 						indexNum=sc.nextInt();
 						duplicateTest2 = uniDataBase.verifyClassIndex(indexNum);
 					};
+					int classSize;
+					do {
 					System.out.println("Enter class size for course index "+ indexNum + ":");
-					int classSize = sc.nextInt();
+					classSize = sc.nextInt();
+					}while(classSize<=0);
+					int classVacancy=classSize;
 					//assume no students when new course is added
+					int lessonListSize;
+					do {
 					System.out.println("Enter total number of lessons :");
-					int lessonListSize=sc.nextInt();
+					lessonListSize=sc.nextInt();
+					}while(lessonListSize<=0);
 					ArrayList<Lesson> lessonList = new ArrayList<Lesson>();
 					for (int j=0;j<lessonListSize;j++) {
 						int lessonTypeNum;
@@ -249,7 +256,7 @@ public class AdminStars extends STARS{
 						}
 					ArrayList<Student> studentsList = new ArrayList<Student>();
 					ArrayList<Student> waitList=new ArrayList<Student>();
-					indexNumList.add(new ClassIndex(courseName,courseCode,indexNum,classSize,classSize,lessonList,studentsList,waitList));
+					indexNumList.add(new ClassIndex(courseName,courseCode,indexNum,classSize,classVacancy,lessonList,studentsList,waitList));
 					
 					//send info to uniDataBase
 					uniDataBase.updateCourseIndexNum(courseCode,indexNumList);
@@ -399,10 +406,7 @@ public class AdminStars extends STARS{
 							int endTime=sc.nextInt();
 							int[] classTime={startTime,endTime};
 							lessonList.add(new Lesson(lessonType,classVenue,classDay,classTime,classWeek));								
-							ArrayList<Student> studentsList = new ArrayList<Student>();
-							ArrayList<Student> waitList=new ArrayList<Student>();
-							indexNumList.add(new ClassIndex(courseName,courseCode,indexNum,classSize,classSize,lessonList,studentsList,waitList));
-							
+
 							//send info to uniDataBase
 							uniDataBase.updateCourseIndexNum(courseCode,indexNumList);
 							break;
@@ -562,12 +566,19 @@ public class AdminStars extends STARS{
 				indexNum=sc.nextInt();
 				duplicateTest2 = uniDataBase.verifyClassIndex(indexNum);
 			};
-			//courseName obtained above
+			//courseName & courseCode obtained above
+			int classSize;
+			do {
 			System.out.println("Enter class size for course index "+ indexNum + ":");
-			int classSize = sc.nextInt();
+			classSize = sc.nextInt();
+			}while(ClassSize<=0);
+			int classVacancy = classSize;
 			//assume no students when new course is added
+			int lessonListSize;
+			do {
 			System.out.println("Enter total number of lesson in a week in general:");
-			int lessonListSize=sc.nextInt();
+			lessonListSize=sc.nextInt();
+			}while(lessonListSize<=0);
 			ArrayList<Lesson> lessonList = new ArrayList<Lesson>();
 			for (int j=0;j<lessonListSize;j++) {
 				int lessonTypeNum;
@@ -602,7 +613,7 @@ public class AdminStars extends STARS{
 				}
 			ArrayList<Student> studentsList = new ArrayList<Student>();
 			ArrayList<Student> waitList=new ArrayList<Student>();
-			indexNumList.add(new ClassIndex(courseName,courseCode,indexNum,classSize,classSize,lessonList,studentsList,waitList));
+			indexNumList.add(new ClassIndex(courseName,courseCode,indexNum,classSize,classVacancy,lessonList,studentsList,waitList));
 			}
 		Course newCourse=new Course(courseCode,courseName,indexNumList,acadUnits,school);
 		//pass user input to uniDataBase
@@ -651,6 +662,3 @@ public class AdminStars extends STARS{
 	
 	
 }
-	
-
-	
