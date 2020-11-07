@@ -144,29 +144,39 @@ public class AdminStars extends STARS{
 								newCourseCode=sc.nextLine();
 								duplicateTest1 = uniDataBase.VerifyCourse(newCourseCode);
 							};
+							//update coursecode of classindex belonging to the course
+							ArrayList<ClassIndex> indexNumList = course.getIndexNumList();
+							for (int count=0;count<indexNumList.size();count++) {
+								indexNumList.get(count).setCourseCode(newCourseCode);
+							};
 							//send info to uniDataBase
 							uniDataBase.updateCourseCode(courseCode,newCourseCode);
 							courseCode=newCourseCode;
 							System.out.println("Course code updated.");
+							uniDataBase.updateCourseIndexNum(courseCode,indexNumList);
+							System.out.println("Course code of the relevant course index updated.");
+						
 							break;
 						case 2: 
 							System.out.println("Current course name : " + course.getCourseName());
 							System.out.println("Enter new course name : ");
 							String newCourseName=sc.nextLine();
 							uniDataBase.updateCourseName(courseCode,newCourseName);
+							System.out.println("Course name updated.");
+							//update course name of relevant course index
 							ArrayList<ClassIndex> indexNumList = course.getIndexNumList();
 							for (int count=0;count<indexNumList.size();count++) {
 								indexNumList.get(count).setCourseName(newCourseName);
 							};
 							uniDataBase.updateCourseIndexNum(courseCode,indexNumList);
-							System.out.println("Course name updated.");
+							System.out.println("Course name of the relevant course index updated.");
 							break;
 						case 3: 
 							System.out.println("Current academic units (AU) : "+course.getAcadUnits());
 							System.out.println("Enter new academic units (AU) :");
 							int newAcadUnits=sc.nextInt();
 							uniDataBase.updateCourseAcadUnits(courseCode,newAcadUnits);
-							System.out.println("Academic units updated.")
+							System.out.println("Academic units updated.");
 							break;
 						case 4: 
 							System.out.println("Current school name : "+course.getSchool());
@@ -189,6 +199,8 @@ public class AdminStars extends STARS{
 					ArrayList<ClassIndex> indexNumList = course.getIndexNumList();
 					System.out.println("Enter course index number : ");
 					int indexNum = sc.nextInt();
+					String courseName = course.getCourseName();
+					String courseCode = course.getcourseCode();
 					//send indexNum to uniDataBase to check for duplicate
 					//if no duplicate, proceed. else, send error message
 					boolean duplicateTest2 = uniDataBase.verifyClassIndex(indexNum);
@@ -237,7 +249,7 @@ public class AdminStars extends STARS{
 						int[] classTime={startTime,endTime};
 						lessonList.add(new Lesson(lessonType,classVenue,classDay,classTime,classWeek));
 						}
-					indexNumList.add(new ClassIndex(indexNum,courseName,classSize,classSize,lessonList));
+					indexNumList.add(new ClassIndex(courseName,courseCode,indexNum,classSize,classSize,lessonList));
 					
 					//send info to uniDataBase
 					uniDataBase.updateCourseIndexNum(courseCode,indexNumList);
@@ -279,6 +291,7 @@ public class AdminStars extends STARS{
 	
 	public void updateClassIndex(Course course) {
 		String courseCode=course.getCourseCode();
+		String courseName=course.getCourseName();
 		//select course/class index to be edited
 		ArrayList<ClassIndex> indexNumList = course.getIndexNumList();
 		System.out.println("Current list of course index numbers : ");
@@ -386,7 +399,7 @@ public class AdminStars extends STARS{
 							int endTime=sc.nextInt();
 							int[] classTime={startTime,endTime};
 							lessonList.add(new Lesson(lessonType,classVenue,classDay,classTime,classWeek));								
-							indexNumList.add(new ClassIndex(indexNum,courseName,classSize,classSize,lessonList));
+							indexNumList.add(new ClassIndex(courseName,courseCode,indexNum,classSize,classSize,lessonList));
 							
 							//send info to uniDataBase
 							uniDataBase.updateCourseIndexNum(courseCode,indexNumList);
@@ -586,7 +599,7 @@ public class AdminStars extends STARS{
 				int[] classTime={startTime,endTime};
 				lessonList.add(new Lesson(lessonType,classVenue,classDay,classTime,classWeek));
 				}
-			indexNumList.add(new ClassIndex(indexNum,courseName,classSize,classSize,lessonList));
+			indexNumList.add(new ClassIndex(courseName,courseCode,indexNum,classSize,classSize,lessonList));
 			}
 		Course newCourse=new Course(courseCode,courseName,indexNumList,acadUnits,school);
 		//pass user input to uniDataBase
