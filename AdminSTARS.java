@@ -70,23 +70,21 @@ public class AdminStars extends STARS{
 	
 	public void addStudent() {
 		//request all info needed for Student 
-		System.out.println("Enter new Student username : ");
-		String userName=sc.nextLine();
-		//check no duplicate username
-		//...
-		System.out.println("Enter new Student password : ");
-		String pwd = sc.nextLine();
-		//hash password
-		//...
 		System.out.println("Enter new Student name : ");
 		String name=sc.nextLine();
 		System.out.println("Enter new Student gender : ");
 		String gender=sc.nextLine();
 		System.out.println("Enter new Student nationality : ");
-		String gender=sc.nextLine();
+		String nationality=sc.nextLine();
 		System.out.println("Enter new Student matriculation number : ");
 		String matricNo=sc.nextLine();
 		//check no duplicate matric number
+		//...
+		System.out.println("Enter new Student username : ");
+		String userName=matricNo;
+		System.out.println("Enter new Student password : ");
+		String pwd = matricNo;
+		//hash password
 		//...
 		System.out.println("Enter new Student email : ");
 		String email=sc.nextLine();
@@ -653,4 +651,6 @@ public class AdminStars extends STARS{
 	
 	
 }
+	
+
 	
