@@ -509,7 +509,6 @@ public class AdminStars extends STARS{
 							else {
 								System.out.println("Student with matriculation number "+matricNo+" is not in the class list.");
 							}
-;
 							break;
 						default:
 							System.out.println("(1)	Add student to course index");
