@@ -249,7 +249,9 @@ public class AdminStars extends STARS{
 						int[] classTime={startTime,endTime};
 						lessonList.add(new Lesson(lessonType,classVenue,classDay,classTime,classWeek));
 						}
-					indexNumList.add(new ClassIndex(courseName,courseCode,indexNum,classSize,classSize,lessonList));
+					ArrayList<Student> studentsList = new ArrayList<Student>();
+					ArrayList<Student> waitList=new ArrayList<Student>();
+					indexNumList.add(new ClassIndex(courseName,courseCode,indexNum,classSize,classSize,lessonList,studentsList,waitList));
 					
 					//send info to uniDataBase
 					uniDataBase.updateCourseIndexNum(courseCode,indexNumList);
@@ -399,7 +401,9 @@ public class AdminStars extends STARS{
 							int endTime=sc.nextInt();
 							int[] classTime={startTime,endTime};
 							lessonList.add(new Lesson(lessonType,classVenue,classDay,classTime,classWeek));								
-							indexNumList.add(new ClassIndex(courseName,courseCode,indexNum,classSize,classSize,lessonList));
+							ArrayList<Student> studentsList = new ArrayList<Student>();
+							ArrayList<Student> waitList=new ArrayList<Student>();
+							indexNumList.add(new ClassIndex(courseName,courseCode,indexNum,classSize,classSize,lessonList,studentsList,waitList));
 							
 							//send info to uniDataBase
 							uniDataBase.updateCourseIndexNum(courseCode,indexNumList);
@@ -599,7 +603,9 @@ public class AdminStars extends STARS{
 				int[] classTime={startTime,endTime};
 				lessonList.add(new Lesson(lessonType,classVenue,classDay,classTime,classWeek));
 				}
-			indexNumList.add(new ClassIndex(courseName,courseCode,indexNum,classSize,classSize,lessonList));
+			ArrayList<Student> studentsList = new ArrayList<Student>();
+			ArrayList<Student> waitList=new ArrayList<Student>();
+			indexNumList.add(new ClassIndex(courseName,courseCode,indexNum,classSize,classSize,lessonList,studentsList,waitList));
 			}
 		Course newCourse=new Course(courseCode,courseName,indexNumList,acadUnits,school);
 		//pass user input to uniDataBase
