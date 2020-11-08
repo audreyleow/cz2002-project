@@ -7,9 +7,15 @@ public class AdminStars extends STARS{
 	Scanner sc = new Scanner(System.in);
 	public static void run() {}
 	
-	public void  editStudAccess(Date startDate,Date endDate) {}
+	public void  editStudAccess(Date startDate,Date endDate) {
+		//verify startdate<=endDate
+		//update access period
+	}
 	
-	public void  editStudAccess(Time duration) {}
+	public void  editStudAccess(Time duration) {
+		//verify startDate + duration <=endDate
+		//update access duration
+	}
 	
 	public void addStudent(String name, String matricNo, String gender, String nationality, String userName, String pwd ,String email){
 		//verifications
@@ -25,6 +31,7 @@ public class AdminStars extends STARS{
 		//send parameters to unidatabase
 		addToStudents(newStudent);
 	}
+	
 	public void  updateCourseCode(String currentCourseCode, String updatedCourseCode) {
 		//verifications
 		if (verifyCourse(currentCourseCode)==false) {
@@ -35,7 +42,7 @@ public class AdminStars extends STARS{
 			System.out.println("Course code "+updatedCourseCode+" already exists");
 			break;
 		}
-		//sendparameters to unidatabase
+		//send parameters to unidatabase
 		updateCourseCode(currentCourseCode,updatedCourseCode);
 	}
 	
@@ -135,7 +142,4 @@ public class AdminStars extends STARS{
 		
 	}
 	
-	
-	
 }
-	
