@@ -13,8 +13,15 @@ public class STARS {
 	
 	private long studentAccessDuration;
 	
-	public Boolean checkVacancies() {
-		
+	public void checkVacancies(int indexNumber) {
+		//verification
+		if (verifyClassIndex(indexNumber)==false) {
+			System.out.println("Course index "+indexNumber+" does not exist");
+			break;
+		}
+		ClassIndex classIndex = findClassIndex(indexNumber);
+		int classVacancy= classIndex.getClassVacancy();
+		System.out.println("Course index "+indexNumber+" has "+classVacancy+" slot(s) left");
 	}
 	
 	public void showErrorMessage() {
