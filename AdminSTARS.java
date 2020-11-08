@@ -13,7 +13,7 @@ public class AdminStars extends STARS{
 	}
 	
 	public void  editStudAccess(Time duration) {
-		//verify startDate + duration <=endDate
+		//verify  duration <=24hrs (some max duration)
 		//update access duration
 	}
 	
