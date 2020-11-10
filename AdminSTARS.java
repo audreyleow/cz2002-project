@@ -53,7 +53,6 @@ public class AdminStars extends STARS{
 					newUserName = scan.nextLine();
 					// IS THERE CHECK FOR STRING INPUT? Remove whitespace?
 					newPassword = newMatricNo;
-					// No need to pass in empty string - may not even me necessary as an attribute
 					// addStudent(newName, newMatricNo, newGender, newNationality, newUserName, newPassword);
 					break;
 				case 3: // Add A Course  
