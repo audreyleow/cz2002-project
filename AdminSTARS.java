@@ -55,10 +55,10 @@ public class AdminStars extends STARS{
 						newGender = "Female";
 					}
 					// IS THERE CHECK FOR STRING INPUT? Remove whitespace?
-					System.out.print("Input name of new student:");
+					System.out.print("Input nationality of new student:");
 					newNationality = scan.nextLine();
 					// IS THERE CHECK FOR STRING INPUT? Remove whitespace?
-					System.out.print("Input name of new student:");
+					System.out.print("Input username of new student:");
 					newUserName = scan.nextLine();
 					// IS THERE CHECK FOR STRING INPUT? Remove whitespace?
 					newPassword = newMatricNo;
