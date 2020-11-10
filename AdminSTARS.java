@@ -37,14 +37,22 @@ public class AdminStars extends STARS{
 					System.out.print("Input matriculation number of new student:");
 					newMatricNo = scan.nextLine();
 					// IS THERE CHECK FOR STRING INPUT? Remove whitespace?
+					System.out.println("======= Gender =========\r\n" + 
+				   "|1. Male   |2. Female  |\r\n" + 
+				   "========================\r\n");
 					do {
-						System.out.print("Input gender of new student(male/female):");
-						newGender = scan.nextLine();
-						newGender = newGender.toLowerCase();
-						if (!newGender.equals("male") && !newGender.equals("female")) {
-							System.out.println("Please input male or female.");
+						System.out.print("Input gender of new student:");
+						genderChoice = scan.nextInt();
+						if (genderChoice<1 || genderChoice>2) {
+							System.out.println("Please input a positive integer from 1 or 2");
 						}
-					}while (!newGender.equals("male") && !newGender.equals("female"));
+					}while (genderChoice<1 || genderChoice>2);
+					if(genderChoice == 1) {
+						newGender = "Male";
+					}
+					else {
+						newGender = "Female";
+					}
 					// IS THERE CHECK FOR STRING INPUT? Remove whitespace?
 					System.out.print("Input name of new student:");
 					newNationality = scan.nextLine();
