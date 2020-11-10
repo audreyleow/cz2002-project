@@ -5,7 +5,348 @@ import java.util.*;
 import java.util.Date;
 public class AdminStars extends STARS{
 	Scanner sc = new Scanner(System.in);
-	public static void run() {}
+	public static void run ()
+	{
+		System.out.println("============== STARS Menu ==============\r\n" + 
+				   "|1. Edit Student Access Period         |\r\n" + 
+				   "|2. Add A Student                      |\r\n" + 
+				   "|3. Add A Course                       |\r\n" +
+				   "|4. Update Course Code                 |\r\n" +
+				   "|5. Update Course School               |\r\n" +
+				   "|6. Update Course Index Number         |\r\n" +
+				   "|7. Update Index Number Vacancy        |\r\n" +
+				   "|8. Check Class Vacancies              |\r\n" + 
+				   "|9. Print Student List by Index Number |\r\n" + 
+				   "|10.Print Student List by Course       |\r\n" + 
+				   "|11.Log Out                            |\r\n" + 
+				   "========================================\r\n");
+		int inputChoice;
+		Scanner scan = new Scanner(System.in);
+		do {
+			System.out.print ("\nWhat do you wish to do?");
+			inputChoice = scan.nextInt();
+			switch(inputChoice) {
+				case 1: // Edit Student Access Period
+					// Insert code later
+					break;
+				case 2: // Add A Student
+					String newName, newMatricNo, newGender, newNationality,newUserName, newPassword;
+					System.out.print("Input name of new student:");
+					newName = scan.nextLine();
+					// IS THERE CHECK FOR STRING INPUT? Remove whitespace?
+					System.out.print("Input matriculation number of new student:");
+					newMatricNo = scan.nextLine();
+					// IS THERE CHECK FOR STRING INPUT? Remove whitespace?
+					do {
+						System.out.print("Input gender of new student(male/female):");
+						newGender = scan.nextLine();
+						newGender = newGender.toLowerCase();
+						if (!newGender.equals("male") && !newGender.equals("female")) {
+							System.out.println("Please input male or female.");
+						}
+					}while (!newGender.equals("male") && !newGender.equals("female"));
+					// IS THERE CHECK FOR STRING INPUT? Remove whitespace?
+					System.out.print("Input name of new student:");
+					newNationality = scan.nextLine();
+					// IS THERE CHECK FOR STRING INPUT? Remove whitespace?
+					System.out.print("Input name of new student:");
+					newUserName = scan.nextLine();
+					// IS THERE CHECK FOR STRING INPUT? Remove whitespace?
+					newPassword = newMatricNo;
+					// No need to pass in empty string - may not even me necessary as an attribute
+					// addStudent(newName, newMatricNo, newGender, newNationality, newUserName, newPassword);
+					break;
+				case 3: // Add A Course  
+					String newCourseCode;
+					String newCourseName, newSchool;
+					int newIndexNum, newClassVacancy; // Initialize ClassIndex
+					int newAcadUnits, schoolNo, dayNo, weekNo, startTime, endTime;
+					String newLessonType = "LECT";
+					String newClassVenue, newClassDay, newClassWeek;
+					int[] newClassTiming = new int[2];  // first is startTime, second is endTime
+					System.out.print("Input course code of new course:");
+					newCourseCode = scan.nextLine();
+					// IS THERE CHECK FOR STRING INPUT? Remove whitespace? 
+					System.out.println("Input course name of new course:");
+					newCourseName = scan.nextLine();
+					// IS THERE CHECK FOR STRING INPUT? Remove whitespace?
+					System.out.println("============= Schools ==============\r\n" + 
+							   "|1. NBS          |10. SSS          |\r\n" + 
+							   "|2. CBE          |11. WKWSCI       |\r\n" +
+							   "|3. CEE          |12. SBS          |\r\n" +
+							   "|4. SCSE         |13. SPMS         |\r\n" + 
+							   "|5. EEE          |14. ASE          |\r\n" + 
+							   "|6. MSE          |15. LKCSoM       |\r\n" + 
+							   "|7. MAE          |16. NIE          |\r\n" + 
+							   "|8. ADM          |17. RSIS         |\r\n" + 
+							   "|9. SOH                            |\r\n" +
+							   "====================================\r\n");
+					String [] listOfSchools = {"NBS", "CBE", "CEE","SCSE","EEE","MSE","MAE","ADM","SOH","SSS","WKWSCI","SBS","SPMS","ASE","LKCSoM","NIE","RSIS"}; 
+					do {
+						System.out.println("Input school of new course(1-17):");
+						schoolNo = scan.nextInt();
+						if(schoolNo<1 || schoolNo>17) {
+							System.out.println("Please insert a positive integer from 1 to 17.");
+						}
+					}while(schoolNo<1 || schoolNo>17);
+					newSchool = listOfSchools[schoolNo-1];
+					// IS THERE CHECK FOR STRING INPUT?
+					do {
+						System.out.print("Input course's academic units:");
+						newAcadUnits = scan.nextInt();
+						if(newAcadUnits<1 || newAcadUnits>4) {
+							System.out.println("Please insert a positive value from 1 to 4");
+						}
+					}while(newAcadUnits<1 || newAcadUnits>4);
+					do {
+						System.out.print("Input an index number of the new course (Additional index numbers to be added using the update course means):");
+						newIndexNum = scan.nextInt();
+						if(newIndexNum <= 0) {
+							System.out.println("Please insert a positive integer.");
+						}
+					}while(newIndexNum <= 0);
+					do {
+						System.out.print("Input class vacancy of new course:");
+						newClassVacancy = scan.nextInt();
+						if(newClassVacancy <= 0) {
+							System.out.println("Please insert a positive integer.");
+						}
+					}while(newClassVacancy <= 0);
+					System.out.print("Input lecture class venue of new course:");
+					newCourseCode = scan.nextLine();
+					// IS THERE CHECK FOR STRING INPUT? Remove whitespace? 
+					System.out.println("========== Days of Week ===========\r\n" + 
+							   "|1. MON          |4. THUR         |\r\n" + 
+							   "|2. TUE          |5. FRI          |\r\n" +
+							   "|3. WED                           |\r\n" +
+							   "====================================\r\n");
+					String [] listOfDays = {"MON", "TUE", "WED","THUR","FRI"}; 
+					do {
+						System.out.println("Input day of the week that lecture of new course occurs:");
+						dayNo = scan.nextInt();
+						if(dayNo<1 || dayNo>5) {
+							System.out.println("Please insert a positive integer from 1 to 5.");
+						}
+					}while(dayNo<1 || dayNo>5);
+					newClassDay = listOfDays[dayNo-1];
+					System.out.println("============= Frequency of Class ==============\r\n" + 
+							   "|1. Weekly   |2. Odd Weeks   |3. Even Weeks   |\r\n" + 
+							   "===============================================\r\n");
+					String [] listOfWeeks = {"EVERY", "ODD", "EVEN"}; 
+					do {
+						System.out.println("Does the lecture occur weekly? If not, does it occur on even or odd weeks?");
+						weekNo = scan.nextInt();
+						if(weekNo<1 || weekNo>3) {
+							System.out.println("Please insert a positive integer from 1 to 3.");
+						}
+					}while(weekNo<1 || weekNo>3);
+					newClassWeek = listOfWeeks[weekNo-1];
+					
+					do {
+						do {	// HANDLING START TIME
+						System.out.println("Input the time that lecture commeneces (in 24hr format - eg.8am = 0800, 3.30pm = 1530 :");
+						startTime = scan.nextInt();
+						if(((startTime%100)>=60) || (startTime>2400) || (startTime<0)) {
+							if(startTime<0) {
+								System.out.println("Time input cannot be negative.");
+							}
+							else if(startTime<10) {
+								System.out.println("There is no 000" + startTime + " hours.");
+							}
+							else if(startTime<100) {
+								System.out.println("There is no 00" + startTime + " hours.");
+							}
+							else if(startTime<1000) {
+								System.out.println("There is no 0" + startTime + " hours.");
+							}
+							else {
+								System.out.println("There is no " + startTime + " hours.");
+							}
+							System.out.println("This time format is incorrect. ");
+					}
+					}while(((startTime%100)>=60) || (startTime>2400) || (startTime<0));
+					if(startTime==2400 || startTime==0) {
+						startTime = 0;
+						System.out.println("Lecture starting time: 000"+startTime+" hours");
+					}
+					else if(startTime<10) {
+						System.out.println("Lecture starting time: 000"+startTime+" hours");
+					}
+					else if(startTime<100) {
+						System.out.println("Lecture starting time: 00"+startTime+" hours");
+					}
+					else if(startTime<1000) {
+						System.out.println("Lecture starting time: 0"+startTime+" hours");
+					}
+					else {
+						System.out.println("Lecture starting time: "+startTime+" hours");
+					}
+					do {	// HANDLING END TIME
+						System.out.println("Input the time lecture ends in 24hrs format (Please ensure that this time is later than the time the lecture starts):");
+						endTime = scan.nextInt();
+						if(((endTime%100)>=60) || (endTime>2400) || (endTime<0)) {
+							if(endTime<0) {
+								System.out.println("Time input cannot be negative.");
+							}
+							else if(endTime<10) {
+								System.out.println("There is no 000" + endTime + " hours.");
+							}
+							else if(endTime<100) {
+								System.out.println("There is no 00" + endTime + " hours.");
+							}
+							else if(endTime<1000) {
+								System.out.println("There is no 0" + endTime + " hours.");
+							}
+							else {
+								System.out.println("There is no " + endTime + " hours.");
+							}
+							System.out.println("This time format is incorrect. ");
+					}
+					}while(((endTime%100)>=60) || (endTime>2400) || (endTime<0));
+					if(endTime==2400 || endTime==0) {
+						endTime = 0;
+						System.out.println("Lecture ending time: 000"+endTime+" hours");
+					}
+					else if(endTime<10) {
+						System.out.println("Lecture ending time: 000"+endTime+" hours");
+					}
+					else if(endTime<100) {
+						System.out.println("Lecture ending time: 00"+endTime+" hours");
+					}
+					else if(endTime<1000) {
+						System.out.println("Lecture ending time: 0"+endTime+" hours");
+					}
+					else {
+						System.out.println("Lecture ending time: "+endTime+" hours");
+					}
+					
+					if (startTime>=endTime) {	// COMPARING START TIME & END TIME
+						if((endTime == 0) && (startTime!=0)) {
+							System.out.println("Lecture timing: " + startTime +" - 000"+ endTime);
+						}
+						else {
+							System.out.println("Lecture ending time should be later than lecture starting time. Lecture cannot end beyond 0000 hours");
+							System.out.println("Please input lecture start timing and end timing again.");
+						}
+					}
+					else {
+						newClassTiming[0] = startTime;
+						newClassTiming[1] = endTime;
+					}
+					}while(((startTime>endTime) && (endTime!=0)) || (startTime==endTime));
+					// createCourse(newCourseCode, newCourseName, newSchool, newIndexNumber, newClassVacancy,newLessonType, newClassVenue, newClassDay, newClassWeek, newClassTiming, newAcadUnits); 
+					break;
+				case 4: // Update Course Code
+					String currentCourseCode, updatedCourseCode;
+					System.out.print("Input current course code of course:");
+					currentCourseCode = scan.nextLine();
+					// IS THERE CHECK FOR STRING INPUT? Remove whitespace? 
+					System.out.print("Input updated course code of course:");
+					updatedCourseCode = scan.nextLine();
+					// IS THERE CHECK FOR STRING INPUT? Remove whitespace? 
+					// updateCourseCode(currentCourseCode,updatedCourseCode);
+					break;
+				case 5: // Update Course School
+					String courseCode, updatedSchool;
+					int updatedSchoolNo;
+					System.out.print("Input course code you wish to update:");
+					courseCode = scan.nextLine();
+					// IS THERE CHECK FOR STRING INPUT? Remove whitespace? 
+					System.out.print("Input updated school of course:");
+					System.out.println("============= Schools ==============\r\n" + 
+							   "|1. NBS          |10. SSS          |\r\n" + 
+							   "|2. CBE          |11. WKWSCI       |\r\n" +
+							   "|3. CEE          |12. SBS          |\r\n" +
+							   "|4. SCSE         |13. SPMS         |\r\n" + 
+							   "|5. EEE          |14. ASE          |\r\n" + 
+							   "|6. MSE          |15. LKCSoM       |\r\n" + 
+							   "|7. MAE          |16. NIE          |\r\n" + 
+							   "|8. ADM          |17. RSIS         |\r\n" + 
+							   "|9. SOH                            |\r\n" +
+							   "====================================\r\n");
+					String [] listOfSchools2 = {"NBS", "CBE", "CEE","SCSE","EEE","MSE","MAE","ADM","SOH","SSS","WKWSCI","SBS","SPMS","ASE","LKCSoM","NIE","RSIS"}; 
+					do {
+						System.out.println("Input updated school of course(1-17):");
+						updatedSchoolNo = scan.nextInt();
+						if(updatedSchoolNo<1 || updatedSchoolNo>17) {
+							System.out.println("Please insert a positive integer from 1 to 17.");
+						}
+					}while(updatedSchoolNo<1 || updatedSchoolNo>17);
+					updatedSchool = listOfSchools2[updatedSchoolNo-1];
+					// updateCourseSchool(courseCode,updatedSchool);
+					break;
+				case 6: // Update Course Index Number
+					int currentIndexNumber, updatedIndexNumber;
+					do {
+						System.out.print("Input index number of course to be changed:");
+						currentIndexNumber = scan.nextInt();
+						if(currentIndexNumber<=0) {
+							System.out.println("Please insert a positive value");
+						}
+					}while(currentIndexNumber<=0);
+					do {
+						System.out.print("Input updated index number of course:");
+						updatedIndexNumber = scan.nextInt();
+						if(updatedIndexNumber<=0) {
+							System.out.println("Please insert a positive value");
+						}
+					}while(updatedIndexNumber<=0);
+					// updateCourseIndexNumber(currentIndexNumber,updatedIndexNumber);
+					break;
+				case 7: // Update Index Number Vacancy
+					int indexNumber, updatedVacancyNumber;
+					do {
+						System.out.print("Input index number of course to be changed:");
+						indexNumber = scan.nextInt();
+						if(indexNumber<=0) {
+							System.out.println("Please insert a positive value");
+						}
+					}while(indexNumber<=0);
+					do {
+						System.out.print("Input updated vacancy number of course:");
+						updatedVacancyNumber = scan.nextInt();
+						if(updatedVacancyNumber<0) {
+							System.out.println("Please insert a positive value");
+						}
+					}while(updatedVacancyNumber<0);
+					// updateCourseIndexNumber(currentIndexNumber,updatedIndexNumber);
+					break;
+				case 8: // Check Class Vacancies
+					int indexNumberTemp1;
+					do {
+						System.out.print("Input index number to check class vacancy:");
+						indexNumberTemp1 = scan.nextInt();
+						if(indexNumberTemp1<=0) {
+							System.out.println("Please insert a positive value");
+						}
+					}while(indexNumberTemp1<=0);
+					// checkVacancies(indexNumberTemp1); 
+					break;
+				case 9: // Print Student List by Index Number
+					int indexNumberTemp2;
+					do {
+						System.out.print("Input index number of course to print student list:");
+						indexNumberTemp2 = scan.nextInt();
+						if(indexNumberTemp2<=0) {
+							System.out.println("Please insert a positive value");
+						}
+					}while(indexNumberTemp2<=0);
+					// printStudListByIndex(indexNumberTemp2); 
+					break;
+				case 10: // Print Student List by Course
+					String courseCodeTemp;
+					System.out.print("Input course code to print student list:");
+					courseCodeTemp = scan.nextLine();
+					// printStudListByCourse(courseCodeTemp);
+					break;
+				case 11: // Exit
+					// Call method to (re)write files
+					System.out.println("You have logged out.");
+					break;
+				default:
+					System.out.println("Please insert a positive integer from 1-11");
+			}
+		}while(inputChoice!=11);
 	
 	public void  editStudAccess(Date startDate,Date endDate) {
 		//verify startdate<=endDate
