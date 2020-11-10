@@ -31,6 +31,7 @@ public class AdminStars extends STARS{
 					break;
 				case 2: // Add A Student
 					String newName, newMatricNo, newGender, newNationality,newUserName, newPassword;
+					int genderChoice;
 					System.out.print("Input name of new student:");
 					newName = scan.nextLine();
 					// IS THERE CHECK FOR STRING INPUT? Remove whitespace?
