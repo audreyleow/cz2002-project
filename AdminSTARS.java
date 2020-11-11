@@ -472,8 +472,8 @@ public class AdminStars extends STARS{
 			System.out.println("Course index "+indexNum+" already exists");
 			return;
 		}
-		if (verifyVenueClash(classVenue,classDay,classTime)==true) {
-			System.out.println("There is a clash of venue at "+ classVenue +" on "+classDay+" from "
+		if (verifyLessonClash(classVenue,classDay,classTime)==true) {
+			System.out.println("There is a clash with an existing lesson at "+ classVenue +" on "+classDay+" from "
 					+ classTime[0] + " to " + classTime[1]);
 			return;
 		}
