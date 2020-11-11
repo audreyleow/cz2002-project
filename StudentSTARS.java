@@ -121,21 +121,65 @@ public class StudentStars extends STARS { //student page
 
 	}
 	
-	public void addCourse(int addIndexNumber) { // invokes addCourseStudent in unidatabase?
-		
-// 		System.out.println("Add course for student:");
-// 		Course.add(scan.next());
-		ClassIndex classIndexTemp = findClassIndex(indexNumberTemp);
-		addCourseStudent(studentLoggedIn, classIndexTemp);
-		
-		
+	public void addCourse(Student studentLoggedIn,int addIndexNumber) {
+		//verification
+		if (verifyClassIndex(addIndexNumber)==false) {
+			System.out.println("Course index "+ addIndexNumber +" does not exist");
+			return;
+		}
+		//check if the course index has been registered by the student
+		StudentRecords studRec=studentLoggedIn.getstudentRecords();
+		ArrayList<ClassIndex> coursesReg = studRec.getCoursesRegistered();
+		int coursesRegSize = coursesReg.size();
+		for(int i;i<coursesRegSize;i++) {
+			if(coursesReg.get(i).getIndexNum()==addIndexNumber);{
+			System.out.println("Course index "+ addIndexNumber +" has already been added");
+			return;
+			}	
+		}
+		//check if student is already in the waitlist
+		ClassIndex classIndex=findClassIndex(addIndexNumber);
+		if(classIndex.getWaitList().contains(studentLoggedIn)){
+			System.out.println("You are already in the waitlist for course index "+ addIndexNumber );
+			return;
+		}
+		//verify timetable clash
+		if(verifyTimeTableClash == true){
+			System.out.println("There is a timetable clash with course index "+ addIndexNumber );
+			return;
+		}
+		//register student into course
+		addCourseStudent(studentLoggedIn, classIndex);
+		if(classIndex.getClassVacancy()==0){
+			System.out.println("There are no vacanies at the moment. You have been added into the waitlist for course index "+ addIndexNumber );
+		}
+		else{
+			System.out.println("Your course has been added!");
+		}
 	}
-	public void dropCourse(int dropIndexNumber) { // invoke removeCourseStudent in unidatabase?
-		
-		System.out.println("Drop course for student");
-		Course.remove(scan.next());
-		
+	
+	public void dropCourse(Student studentLoggedIn,int dropIndexNumber) {
+		//verification
+		if (verifyClassIndex(addIndexNumber)==false) {
+			System.out.println("Course index "+ dropIndexNumber +" does not exist");
+			return;
+		}
+		//check if the course index has been registered by the student
+		StudentRecords studRec=studentLoggedIn.getstudentRecords();
+		ArrayList<ClassIndex> coursesReg = studRec.getCoursesRegistered();
+		int coursesRegSize = coursesReg.size();
+		ClassIndex classIndex=findClassIndex(dropIndexNumber);
+		for(int i;i<coursesRegSize;i++) {
+			if(coursesReg.get(i).getIndexNum()==dropIndexNumber){
+			removeCourseStudent(studentLoggedIn,classIndex);
+			System.out.println("Course index "+ dropIndexNumber +" has been dropped");
+			return;
+			}
+		}
+		//possible to drop course while in waitlist?
+		System.out.println("You are not registered to course index "+ dropIndexNumber);
 	}
+	
 	public void printCourses(Student studentLoggedIn) { // student id stored or student name stored in student Arraylist?
 		
 		System.out.println("Enter index of student:"); //user input unique identity (id?) of student that u want to print out
