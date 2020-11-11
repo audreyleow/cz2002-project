@@ -3,11 +3,11 @@ import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Date;
+import java.util.Scanner;
 
 public class AdminStars extends STARS{
-	Scanner sc = new Scanner(System.in);
 	
-	public static void run ()
+	public static void run() 
 	{
 		System.out.println("============== STARS Menu ==============\r\n" + 
 				   "|1. Edit Student Access Period         |\r\n" + 
@@ -25,19 +25,20 @@ public class AdminStars extends STARS{
 		int inputChoice;
 		Scanner scan = new Scanner(System.in);
 		do {
-			System.out.print ("\nWhat do you wish to do?");
+			System.out.print ("What do you wish to do? Input choices from 1-11: ");
 			inputChoice = scan.nextInt();
 			switch(inputChoice) {
 				case 1: // Edit Student Access Period
+					scan.nextLine();  // Consume newline left-over
 					// Insert code later
 					break;
 				case 2: // Add A Student
 					String newName, newMatricNo, newGender, newNationality,newUserName, newPassword;
 					int genderChoice;
+					scan.nextLine();  // Consume newline left-over
 					System.out.print("Input name of new student:");
 					newName = scan.nextLine();
 					newName = newName.trim();								// Remove any whitespace at both ends of String
-					newName = newName.replaceAll("\\s+","");				// Remove any whitespace in String 
 					System.out.println("New Name Input: "+newName);
 					System.out.print("Input matriculation number of new student:");
 					newMatricNo = scan.nextLine();
@@ -65,13 +66,12 @@ public class AdminStars extends STARS{
 					System.out.println("New Gender Input: "+newGender);
 					System.out.print("Input nationality of new student:");
 					newNationality = scan.nextLine();
-					newNationality = newNationality.trim();					// Remove any whitespace at both ends of String
-					newNationality = newNationality.replaceAll("\\s+","");	// Remove any whitespace in String 
+					newNationality = newNationality.trim();								// Remove any whitespace at both ends of String
 					System.out.println("New Nationality Input: "+newNationality);
 					System.out.print("Input username of new student:");
 					newUserName = scan.nextLine();
-					newUserName = newUserName.trim();						// Remove any whitespace at both ends of String
-					newUserName = newUserName.replaceAll("\\s+","");		// Remove any whitespace in String
+					newUserName = newUserName.trim();									// Remove any whitespace at both ends of String
+					newUserName = newUserName.replaceAll("\\s+","");					// Remove any whitespace in String
 					System.out.println("New Username Input: "+newUserName);
 					newPassword = newMatricNo;
 					System.out.println("New Password Input: "+newPassword);
@@ -82,6 +82,7 @@ public class AdminStars extends STARS{
 					int newIndexNum, newClassVacancy, newAcadUnits, schoolNo, dayNo, weekNo, startTime, endTime;
 					String newLessonType = "LECT";
 					int[] newClassTiming = new int[2];  // first is startTime, second is endTime
+					scan.nextLine();  // Consume newline left-over
 					System.out.print("Input course code of new course:");
 					newCourseCode = scan.nextLine();
 					newCourseCode = newCourseCode.trim();								// Remove any whitespace at both ends of String
@@ -140,8 +141,8 @@ public class AdminStars extends STARS{
 					scan.nextLine();  // Consume newline left-over
 					System.out.print("Input lecture class venue of new course:");
 					newClassVenue = scan.nextLine();
-					newClassVenue = newClassVenue.trim();								// Remove any whitespace at both ends of String
-					newClassVenue = newClassVenue.replaceAll("\\s+","");				// Remove any whitespace in String 
+					newClassVenue = newClassVenue.trim();									// Remove any whitespace at both ends of String
+					newClassVenue = newClassVenue.replaceAll("\\s+","");					// Remove any whitespace in String 
 					System.out.println("New Course Lecture Venue Input: "+newClassVenue);
 					System.out.println("========== Days of Week ===========\r\n" + 
 							   "|1. MON          |4. THUR         |\r\n" + 
@@ -267,21 +268,29 @@ public class AdminStars extends STARS{
 					break;
 				case 4: // Update Course Code
 					String currentCourseCode, updatedCourseCode;
+					scan.nextLine();  // Consume newline left-over
 					System.out.print("Input current course code of course:");
 					currentCourseCode = scan.nextLine();
-					// IS THERE CHECK FOR STRING INPUT? Remove whitespace? 
+					currentCourseCode = currentCourseCode.trim();							// Remove any whitespace at both ends of String
+					currentCourseCode = currentCourseCode.replaceAll("\\s+","");			// Remove any whitespace in String 
+					System.out.println("Course Code to be Updated: "+currentCourseCode);
 					System.out.print("Input updated course code of course:");
 					updatedCourseCode = scan.nextLine();
-					// IS THERE CHECK FOR STRING INPUT? Remove whitespace? 
+					updatedCourseCode = updatedCourseCode.trim();							// Remove any whitespace at both ends of String
+					updatedCourseCode = updatedCourseCode.replaceAll("\\s+","");			// Remove any whitespace in String 
+					System.out.println("Course "+currentCourseCode+" is being updated to Course "+updatedCourseCode+".");
 					// updateCourseCode(currentCourseCode,updatedCourseCode);
 					break;
 				case 5: // Update Course School
 					String courseCode, updatedSchool;
 					int updatedSchoolNo;
+					scan.nextLine();  // Consume newline left-over
 					System.out.print("Input course code you wish to update:");
 					courseCode = scan.nextLine();
-					// IS THERE CHECK FOR STRING INPUT? Remove whitespace? 
-					System.out.print("Input updated school of course:");
+					courseCode = courseCode.trim();											// Remove any whitespace at both ends of String
+					courseCode = courseCode.replaceAll("\\s+","");
+					System.out.println("School of Course "+courseCode+" is being updated.");// Remove any whitespace in String 
+					System.out.println("Input updated school of course:");
 					System.out.println("============= Schools ==============\r\n" + 
 							   "|1. NBS          |10. SSS          |\r\n" + 
 							   "|2. CBE          |11. WKWSCI       |\r\n" +
@@ -302,6 +311,7 @@ public class AdminStars extends STARS{
 						}
 					}while(updatedSchoolNo<1 || updatedSchoolNo>17);
 					updatedSchool = listOfSchools2[updatedSchoolNo-1];
+					System.out.println("School of Course "+courseCode+" is being updated to "+updatedSchool+".");
 					// updateCourseSchool(courseCode,updatedSchool);
 					break;
 				case 6: // Update Course Index Number
@@ -313,6 +323,7 @@ public class AdminStars extends STARS{
 							System.out.println("Please insert a positive value");
 						}
 					}while(currentIndexNumber<=0);
+					System.out.println("Index Number of Course "+currentIndexNumber+" is being updated.");
 					do {
 						System.out.print("Input updated index number of course:");
 						updatedIndexNumber = scan.nextInt();
@@ -320,24 +331,27 @@ public class AdminStars extends STARS{
 							System.out.println("Please insert a positive value");
 						}
 					}while(updatedIndexNumber<=0);
+					System.out.println("Index Number of Course "+currentIndexNumber+" is being updated to "+updatedIndexNumber+".");
 					// updateCourseIndexNumber(currentIndexNumber,updatedIndexNumber);
 					break;
 				case 7: // Update Index Number Vacancy
 					int indexNumber, updatedVacancyNumber;
 					do {
-						System.out.print("Input index number of course to be changed:");
+						System.out.print("Input index number of course vacancy to be changed:");
 						indexNumber = scan.nextInt();
 						if(indexNumber<=0) {
 							System.out.println("Please insert a positive value");
 						}
 					}while(indexNumber<=0);
+					System.out.println("Vacancy of Index Number "+indexNumber+" is being updated.");
 					do {
 						System.out.print("Input updated vacancy number of course:");
 						updatedVacancyNumber = scan.nextInt();
 						if(updatedVacancyNumber<0) {
-							System.out.println("Please insert a positive value");
+							System.out.println("Please insert a non-negative value");
 						}
 					}while(updatedVacancyNumber<0);
+					System.out.println("Vacancy of Index Number "+indexNumber+" is being updated to "+updatedVacancyNumber+".");
 					// updateCourseIndexNumber(currentIndexNumber,updatedIndexNumber);
 					break;
 				case 8: // Check Class Vacancies
@@ -349,6 +363,7 @@ public class AdminStars extends STARS{
 							System.out.println("Please insert a positive value");
 						}
 					}while(indexNumberTemp1<=0);
+					System.out.println("Checking the Class Vacancies of Index Number "+indexNumberTemp1+"...");
 					// checkVacancies(indexNumberTemp1); 
 					break;
 				case 9: // Print Student List by Index Number
@@ -360,12 +375,17 @@ public class AdminStars extends STARS{
 							System.out.println("Please insert a positive value");
 						}
 					}while(indexNumberTemp2<=0);
+					System.out.println("Printing the Student List by Index Number "+indexNumberTemp2+"...");
 					// printStudListByIndex(indexNumberTemp2); 
 					break;
 				case 10: // Print Student List by Course
 					String courseCodeTemp;
+					scan.nextLine();  // Consume newline left-over
 					System.out.print("Input course code to print student list:");
 					courseCodeTemp = scan.nextLine();
+					courseCodeTemp = courseCodeTemp.trim();									// Remove any whitespace at both ends of String
+					courseCodeTemp = courseCodeTemp.replaceAll("\\s+","");					// Remove any whitespace in String 
+					System.out.println("Printing the Student List by Course "+courseCodeTemp+"...");
 					// printStudListByCourse(courseCodeTemp);
 					break;
 				case 11: // Exit
@@ -376,7 +396,6 @@ public class AdminStars extends STARS{
 					System.out.println("Please insert a positive integer from 1-11");
 			}
 		}while(inputChoice!=11);
-		
 	}
 	
 	public void  editStudAccess(Date startDate,Date endDate) {
