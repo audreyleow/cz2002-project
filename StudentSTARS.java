@@ -180,29 +180,72 @@ public class StudentStars extends STARS { //student page
 		System.out.println("You are not registered to course index "+ dropIndexNumber);
 	}
 	
-	public void printCourses(Student studentLoggedIn) { // student id stored or student name stored in student Arraylist?
-		
-		System.out.println("Enter index of student:"); //user input unique identity (id?) of student that u want to print out
-		Integer studentId = scan.nextInt();
-		for (int i =0; i < Student.size(); i++) {    //find student in the arraylist
-			if (studentId == Student.get(i))
-				// print courses of specific student
+		public void printCourses(Student studentLoggedIn) {
+		System.out.println("Printing courses registered...");
+		StudentRecords studRec=studentLoggedIn.getstudentRecords();
+		ArrayList<ClassIndex> coursesReg = studRec.getCoursesRegistered();
+		int coursesRegSize = coursesReg.size();
+		String courseCode,courseName,indexNum;
+		ArrayList<Lesson> lessonList;
+		int lessonListSize;
+		String lessonType,classVenue,classDay,classWeek;
+		int[] classTiming;
+		for(int i;i<coursesRegSize;i++) {
+			courseCode = coursesReg.get(i).getCourseCode(); 
+			courseName = coursesReg.get(i).getCourseName();
+			indexNum = coursesReg.get(i).getIndexNum();
+			//print course info
+			//...
+			lessonList = coursesReg.get(i).getlessonList();
+			lessonListSize = lessonList.size();
+			for(int j;j<lessonListSize;j++) {
+				lessonType = lessonList.get(j).getLessonType();
+				classVenue = lessonList.get(j).getClassVenue();
+				classDay = lessonList.get(j).getClassDay();
+				classTiming = lessonList.get(j).getClassTiming();
+				classWeek = lessonList.get(j).getClassWeek();
+				//print class index info
+				//...
+			}
+			
 		}
-		
-		// or print directly w/o finding student id
-		System.out.println("Printing courses registered..."); 
-		System.out.println(Course.get());
-		
 		
 	}
-	public void changeIndex(int oldIndexNumber, int newIndexNumber) { // input second student id
-		System.out.println("Enter index of second student:");
-		Integer studentId = scan.nextInt();
-		for (int i =0; i < Student.size(); i++) {    //find student in the arraylist
-			if (studentId == Student.get(i))
-				// invoke swopClassIndex() in unidatabase?
+	
+	public void changeIndex(Student studentLoggedIn,int oldIndexNumber, int newIndexNumber) {
+		//verify indexes exist
+		if (verifyClassIndex(oldIndexNumber)==false) {
+			System.out.println("Course index "+ oldIndexNumber +" does not exist");
+			return;
 		}
-		
+		if (verifyClassIndex(newIndexNumber)==false) {
+			System.out.println("Course index "+ newIndexNumber +" does not exist");
+			return;
+		}
+		//verify indexes belong to same course
+		Course course1,course2;
+		course1=findCourseByCode(oldIndexNumber);
+		course2=findCourseByCode(newIndexNumber);
+		if(course1.getCourseCode()!=course2.getCourseCode()){
+			System.out.println("Course index "+ oldIndexNumber +" and course index "+ newIndexNumber +" do not belong to the same course.");
+			return;
+		}
+		//verify indexes are different
+		if(oldIndexNumber == newIndexNumber) {
+				System.out.println("Invalid input, you cannot put the same indexes.");
+				return;
+		}
+		//check vacancies for newIndexNumber,change if vacancy > 0
+		ClassIndex currentClassIndex = findClassIndex(oldIndexNumber);
+		ClassIndex newClassIndex = findClassIndex(newIndexNumber);
+		if (currentClassIndex.getClassVacancy()>0) {
+			changeClassIndex(studentLoggedIn,currentClassIndex,newClassIndex);
+			System.out.println("Course index changed from  "+ oldIndexNumber +" to "+ newIndexNumber);
+			}
+		System.out.println("There are no vacanies at the moment for course index " + newIndexNumber);
+	}
+	
+	public void swopIndex(int userIndexNumber, String peerUserName, String peerPassword, int peerIndexNumber ){
 		
 	}
 
