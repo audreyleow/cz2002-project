@@ -31,38 +31,49 @@ public class AdminStars extends STARS{
 					break;
 				case 2: // Add A Student
 					String newName, newMatricNo, newGender, newNationality,newUserName, newPassword;
-					int genderChoice;
-					System.out.print("Input name of new student:");
-					newName = scan.nextLine();
-					// IS THERE CHECK FOR STRING INPUT? Remove whitespace?
-					System.out.print("Input matriculation number of new student:");
-					newMatricNo = scan.nextLine();
-					// IS THERE CHECK FOR STRING INPUT? Remove whitespace?
-					System.out.println("======= Gender =========\r\n" + 
+		int genderChoice;
+		System.out.print("Input name of new student:");
+		newName = scan.nextLine();
+		newName = newName.trim();								// Remove any whitespace at both ends of String
+		newName = newName.replaceAll("\\s+","");				// Remove any whitespace in String 
+		System.out.println("New Name Input: "+newName);
+		System.out.print("Input matriculation number of new student:");
+		newMatricNo = scan.nextLine();
+		newMatricNo = newMatricNo.trim();						// Remove any whitespace at both ends of String
+		newMatricNo = newMatricNo.replaceAll("\\s+","");		// Remove any whitespace in String 
+		System.out.println("New Matriculation Number Input: "+newMatricNo);
+		// ---------------------------------------Gender---------------------------------
+		System.out.println("======= Gender =========\r\n" + 
 				   "|1. Male   |2. Female  |\r\n" + 
 				   "========================\r\n");
-					do {
-						System.out.print("Input gender of new student:");
-						genderChoice = scan.nextInt();
-						if (genderChoice<1 || genderChoice>2) {
-							System.out.println("Please input a positive integer from 1 or 2");
-						}
-					}while (genderChoice<1 || genderChoice>2);
-					if(genderChoice == 1) {
-						newGender = "Male";
-					}
-					else {
-						newGender = "Female";
-					}
-					// IS THERE CHECK FOR STRING INPUT? Remove whitespace?
-					System.out.print("Input nationality of new student:");
-					newNationality = scan.nextLine();
-					// IS THERE CHECK FOR STRING INPUT? Remove whitespace?
-					System.out.print("Input username of new student:");
-					newUserName = scan.nextLine();
-					// IS THERE CHECK FOR STRING INPUT? Remove whitespace?
-					newPassword = newMatricNo;
-					// addStudent(newName, newMatricNo, newGender, newNationality, newUserName, newPassword);
+		do {
+			System.out.print("Input gender of new student:");
+			genderChoice = scan.nextInt();
+			if (genderChoice<1 || genderChoice>2) {
+				System.out.println("Please input a positive integer from 1 or 2");
+			}
+		}while (genderChoice<1 || genderChoice>2);
+		if(genderChoice == 1) {
+			newGender = "Male";
+		}
+		else {
+			newGender = "Female";
+		}
+		scan.nextLine();  // Consume newline left-over
+		System.out.println("New Gender Input: "+newGender);
+		System.out.print("Input nationality of new student:");
+		newNationality = scan.nextLine();
+		newNationality = newNationality.trim();					// Remove any whitespace at both ends of String
+		newNationality = newNationality.replaceAll("\\s+","");	// Remove any whitespace in String 
+		System.out.println("New Nationality Input: "+newNationality);
+		System.out.print("Input username of new student:");
+		newUserName = scan.nextLine();
+		newUserName = newUserName.trim();						// Remove any whitespace at both ends of String
+		newUserName = newUserName.replaceAll("\\s+","");		// Remove any whitespace in String
+		System.out.println("New Username Input: "+newUserName);
+		newPassword = newMatricNo;
+		System.out.println("New Password Input: "+newPassword);
+		// addStudent(newName, newMatricNo, newGender, newNationality, newUserName, newPassword);
 					break;
 				case 3: // Add A Course  
 					String newCourseCode;
