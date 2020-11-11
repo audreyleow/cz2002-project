@@ -394,7 +394,7 @@ public class AdminStars extends STARS{
 		if (verifyExistedStudent(matricNo,userName)==true) {
 			System.out.println("Student with matric number "+ matricNo +" or student with username " +
 		userName+ " already exists");
-			break;
+			return;
 		}
 		//create student
 		StudentRecords studentRecords = new StudentRecords();
@@ -410,11 +410,11 @@ public class AdminStars extends STARS{
 		//verifications
 		if (verifyCourse(currentCourseCode)==false) {
 			System.out.println("Course code "+ currentCourseCode+" does not exist");
-			break;
+			return;
 		}
 		if (verifyCourse(updatedCourseCode)==true) {
 			System.out.println("Course code "+updatedCourseCode+" already exists");
-			break;
+			return;
 		}
 		//send parameters to unidatabase
 		updateCourseCode(currentCourseCode,updatedCourseCode);
@@ -424,7 +424,7 @@ public class AdminStars extends STARS{
 		//verifications
 		if (verifyCourse(courseCode)==false) {
 			System.out.println("Course code "+courseCode+" does not exist");
-			break;
+			return;
 		}
 		//send parameters to unidatabase
 		updateCourseSchool(courseCode, updatedSchool);
@@ -435,11 +435,11 @@ public class AdminStars extends STARS{
 		//verifications
 		if (verifyClassIndex(currentIndexNumber)==false) {
 			System.out.println("Course index "+ currentIndexNumber +" does not exist");
-			break;
+			return;
 		}
 		if (verifyClassIndex(updatedIndexNumber)==true) {
 			System.out.println("Course index "+updatedIndexNumber+" already exists");
-			break;
+			return;
 		}
 		ClassIndex classIndex = findClassIndex(currentIndexNumber);
 		String courseCode= classIndex.getCourseCode();
@@ -452,7 +452,7 @@ public class AdminStars extends STARS{
 		//verification
 		if (verifyClassIndex(indexNumber)==false) {
 			System.out.println("Course index "+indexNumber+" does not exist");
-			break;
+			return;
 		}
 		ClassIndex classIndex = findClassIndex(indexNumber);
 		String courseCode= classIndex.getCourseCode();
@@ -466,16 +466,16 @@ public class AdminStars extends STARS{
 		//verifications
 		if (verifyCourse(courseCode)==true) {
 			System.out.println("Course code "+courseCode+" already exists");
-			break;
+			return;
 		}
 		if (verifyClassIndex(indexNum)==true) {
 			System.out.println("Course index "+indexNum+" already exists");
-			break;
+			return;
 		}
 		if (verifyVenueClash(classVenue,classDay,classTime)==true) {
 			System.out.println("There is a clash of venue at "+ classVenue +" on "+classDay+" from "
 					+ classTime[0] + " to " + classTime[1]);
-			break;
+			return;
 		}
 		//create all ArrayList required
 		ArrayList <ClassIndex> indexNumList = new ArrayList <ClassIndex>();
