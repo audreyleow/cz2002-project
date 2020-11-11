@@ -402,6 +402,8 @@ public class AdminStars extends STARS{
 				email, studentRecords);
 		//send parameters to unidatabase
 		addToStudents(newStudent);
+		//list all students
+		displayAllStudents();
 	}
 	
 	public void  updateCourseCode(String currentCourseCode, String updatedCourseCode) {
