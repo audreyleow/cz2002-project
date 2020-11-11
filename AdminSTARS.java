@@ -78,19 +78,20 @@ public class AdminStars extends STARS{
 					// addStudent(newName, newMatricNo, newGender, newNationality, newUserName, newPassword);
 					break;
 				case 3: // Add A Course  
-					String newCourseCode;
-					String newCourseName, newSchool;
-					int newIndexNum, newClassVacancy; // Initialize ClassIndex
-					int newAcadUnits, schoolNo, dayNo, weekNo, startTime, endTime;
+					String newCourseCode, newCourseName, newSchool, newClassVenue, newClassDay, newClassWeek;
+					int newIndexNum, newClassVacancy, newAcadUnits, schoolNo, dayNo, weekNo, startTime, endTime;
 					String newLessonType = "LECT";
-					String newClassVenue, newClassDay, newClassWeek;
 					int[] newClassTiming = new int[2];  // first is startTime, second is endTime
 					System.out.print("Input course code of new course:");
 					newCourseCode = scan.nextLine();
-					// IS THERE CHECK FOR STRING INPUT? Remove whitespace? 
-					System.out.println("Input course name of new course:");
+					newCourseCode = newCourseCode.trim();								// Remove any whitespace at both ends of String
+					newCourseCode = newCourseCode.replaceAll("\\s+","");				// Remove any whitespace in String 
+					System.out.println("New Course Code Input: "+newCourseCode);
+					System.out.print("Input course name of new course:");
 					newCourseName = scan.nextLine();
-					// IS THERE CHECK FOR STRING INPUT? Remove whitespace?
+					newCourseName = newCourseName.trim();								// Remove any whitespace at both ends of String
+					newCourseName = newCourseName.replaceAll("\\s+","");				// Remove any whitespace in String 
+					System.out.println("New Course Name Input: "+newCourseName);
 					System.out.println("============= Schools ==============\r\n" + 
 							   "|1. NBS          |10. SSS          |\r\n" + 
 							   "|2. CBE          |11. WKWSCI       |\r\n" +
@@ -111,7 +112,7 @@ public class AdminStars extends STARS{
 						}
 					}while(schoolNo<1 || schoolNo>17);
 					newSchool = listOfSchools[schoolNo-1];
-					// IS THERE CHECK FOR STRING INPUT?
+					System.out.println("New Course School Input: "+newSchool);
 					do {
 						System.out.print("Input course's academic units:");
 						newAcadUnits = scan.nextInt();
@@ -119,13 +120,15 @@ public class AdminStars extends STARS{
 							System.out.println("Please insert a positive value from 1 to 4");
 						}
 					}while(newAcadUnits<1 || newAcadUnits>4);
+					System.out.println("New Course Academic Units Input: "+newAcadUnits);
 					do {
-						System.out.print("Input an index number of the new course (Additional index numbers to be added using the update course means):");
+						System.out.print("Input an index number of the new course (Additional index numbers to be added using the update course option):");
 						newIndexNum = scan.nextInt();
 						if(newIndexNum <= 0) {
 							System.out.println("Please insert a positive integer.");
 						}
 					}while(newIndexNum <= 0);
+					System.out.println("New Course Lecture Index Number Input: "+newIndexNum);
 					do {
 						System.out.print("Input class vacancy of new course:");
 						newClassVacancy = scan.nextInt();
@@ -133,9 +136,13 @@ public class AdminStars extends STARS{
 							System.out.println("Please insert a positive integer.");
 						}
 					}while(newClassVacancy <= 0);
+					System.out.println("New Course Lecture Vacancy Input: "+newClassVacancy);
+					scan.nextLine();  // Consume newline left-over
 					System.out.print("Input lecture class venue of new course:");
-					newCourseCode = scan.nextLine();
-					// IS THERE CHECK FOR STRING INPUT? Remove whitespace? 
+					newClassVenue = scan.nextLine();
+					newClassVenue = newClassVenue.trim();								// Remove any whitespace at both ends of String
+					newClassVenue = newClassVenue.replaceAll("\\s+","");				// Remove any whitespace in String 
+					System.out.println("New Course Lecture Venue Input: "+newClassVenue);
 					System.out.println("========== Days of Week ===========\r\n" + 
 							   "|1. MON          |4. THUR         |\r\n" + 
 							   "|2. TUE          |5. FRI          |\r\n" +
@@ -150,6 +157,7 @@ public class AdminStars extends STARS{
 						}
 					}while(dayNo<1 || dayNo>5);
 					newClassDay = listOfDays[dayNo-1];
+					System.out.println("New Course Lecture Day Input: "+newClassDay);
 					System.out.println("============= Frequency of Class ==============\r\n" + 
 							   "|1. Weekly   |2. Odd Weeks   |3. Even Weeks   |\r\n" + 
 							   "===============================================\r\n");
@@ -162,7 +170,7 @@ public class AdminStars extends STARS{
 						}
 					}while(weekNo<1 || weekNo>3);
 					newClassWeek = listOfWeeks[weekNo-1];
-					
+					System.out.println("New Course Lecture Week Input: "+newClassWeek);
 					do {
 						do {	// HANDLING START TIME
 						System.out.println("Input the time that lecture commeneces (in 24hr format - eg.8am = 0800, 3.30pm = 1530 :");
