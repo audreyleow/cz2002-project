@@ -180,7 +180,7 @@ public class StudentStars extends STARS { //student page
 		System.out.println("You are not registered to course index "+ dropIndexNumber);
 	}
 	
-		public void printCourses(Student studentLoggedIn) {
+	public void printCourses(Student studentLoggedIn) {
 		System.out.println("Printing courses registered...");
 		StudentRecords studRec=studentLoggedIn.getstudentRecords();
 		ArrayList<ClassIndex> coursesReg = studRec.getCoursesRegistered();
@@ -235,6 +235,20 @@ public class StudentStars extends STARS { //student page
 				System.out.println("Invalid input, you cannot put the same indexes.");
 				return;
 		}
+		//verify student has oldindexnumber as registered course
+		StudentRecords studRec=studentLoggedIn.getstudentRecords();
+		ArrayList<ClassIndex> coursesReg = studRec.getCoursesRegistered();
+		int coursesRegSize = coursesReg.size();
+		boolean hasIndex=false;
+		for(int i=0;i<coursesRegSize;i++) {
+			if(coursesReg.get(i).getIndexNum()== oldIndexNumber){
+			hasIndex =true;
+			}
+		}
+		if (hasIndex==false) {
+			System.out.println("Invalid input, you are not registered to course index " +oldIndexNumber);
+			return;
+		}
 		//check vacancies for newIndexNumber,change if vacancy > 0
 		ClassIndex currentClassIndex = findClassIndex(oldIndexNumber);
 		ClassIndex newClassIndex = findClassIndex(newIndexNumber);
@@ -243,10 +257,69 @@ public class StudentStars extends STARS { //student page
 			System.out.println("Course index changed from  "+ oldIndexNumber +" to "+ newIndexNumber);
 			}
 		System.out.println("There are no vacanies at the moment for course index " + newIndexNumber);
+		
 	}
 	
-	public void swopIndex(int userIndexNumber, String peerUserName, String peerPassword, int peerIndexNumber ){
-		
+	public void swopIndex(Student studentLoggedIn,int userIndexNumber, String peerUserName, String peerPassword, int peerIndexNumber ){
+		//verify indexes exist
+		if (verifyClassIndex(userIndexNumber)==false) {
+			System.out.println("Course index "+ userIndexNumber +" does not exist");
+			return;
+		}
+		if (verifyClassIndex(peerIndexNumber)==false) {
+			System.out.println("Course index "+ peerIndexNumber +" does not exist");
+			return;
+		}
+		//verify indexes belong to same course
+		ClassIndex classIndex1,classIndex2;
+		classIndex1=findClassIndex(userIndexNumber);
+		classIndex2=findClassIndex(peerIndexNumber);
+		if(classIndex1.getCourseCode()!=classIndex2.getCourseCode()){
+			System.out.println("Course index "+ userIndexNumber +" and course index "+ peerIndexNumber +" do not belong to the same course.");
+			return;
+		}
+		//verify indexes are different
+		if(userIndexNumber == peerIndexNumber) {
+				System.out.println("Invalid input, you cannot put the same indexes.");
+				return;
+		}
+		//verify peer's account
+		if(verifyStudentAccount(peerUserName,peerPassword)==false) {
+			System.out.println("Invalid account username/password.");
+			return;
+		}
+		//fetch student2 after verification of account
+		//.... Student peer = findStudent( //some parameters );
+		//verify student1 has userIndexNumber as registered course
+		StudentRecords studRec=studentLoggedIn.getstudentRecords();
+		ArrayList<ClassIndex> coursesReg = studRec.getCoursesRegistered();
+		int coursesRegSize = coursesReg.size();
+		boolean hasIndex=false;
+		for(int i=0;i<coursesRegSize;i++) {
+			if(coursesReg.get(i).getIndexNum()== userIndexNumber){
+			hasIndex =true;
+			}
+		}
+		if (hasIndex==false) {
+			System.out.println("Invalid input, you are not registered to course index " +userIndexNumber);
+			return;
+		}
+		//verify student2 has peerIndexNumber as registered course
+		StudentRecords studRec2=peer.getstudentRecords();
+		ArrayList<ClassIndex> coursesReg2 = studRec2.getCoursesRegistered();
+		int coursesRegSize2 = coursesReg2.size();
+		hasIndex=false;
+		for(int i=0;i<coursesRegSize2;i++) {
+			if(coursesReg.get(i).getIndexNum()== peerIndexNumber){
+			hasIndex =true;
+			}
+		}
+		if (hasIndex==false) {
+			System.out.println("Invalid input, your peer is not registered to course index " +peerIndexNumber);
+			return;
+		}
+		//call to swop index
+		swopClassIndex(studentLoggedIn, peer, classIndex1,classIndex2);	
 	}
 
 }
