@@ -169,7 +169,7 @@ public class AdminStars extends STARS{
 					}
 					break;
 				case 2: // Add A Student
-					String newName, newMatricNo, newGender, newNationality,newUserName, newPassword;
+					String newName, newMatricNo, newGender, newNationality,newUserName, newPassword, newEmail;
 					int genderChoice;
 					scan.nextLine();  // Consume newline left-over
 					System.out.print("Input name of new student:");
@@ -209,9 +209,10 @@ public class AdminStars extends STARS{
 					newUserName = newUserName.trim();									// Remove any whitespace at both ends of String
 					newUserName = newUserName.replaceAll("\\s+","");					// Remove any whitespace in String
 					System.out.println("New Username Input: "+newUserName);
+					newEmail = newUserName+"@e.ntu.edu.sg";
 					newPassword = newMatricNo;
 					System.out.println("New Password Input: "+newPassword);
-					// addStudent(newName, newMatricNo, newGender, newNationality, newUserName, newPassword);
+					// addStudent(newName, newMatricNo, newGender, newNationality, newUserName, newPassword, newEmail);
 					break;
 				case 3: // Add A Course  
 					String newCourseCode, newCourseName, newSchool, newClassVenue, newClassDay, newClassWeek;
