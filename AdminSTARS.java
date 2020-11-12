@@ -210,8 +210,7 @@ public class AdminStars extends STARS{
 					newUserName = newUserName.replaceAll("\\s+","");					// Remove any whitespace in String
 					System.out.println("New Username Input: "+newUserName);
 					newEmail = newUserName+"@e.ntu.edu.sg";
-					newPassword = newMatricNo;
-					System.out.println("New Password Input: "+newPassword);
+					newPassword = HashPassword.generateHash(newMatricNo);
 					// addStudent(newName, newMatricNo, newGender, newNationality, newUserName, newPassword, newEmail);
 					break;
 				case 3: // Add A Course  
