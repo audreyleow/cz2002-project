@@ -29,8 +29,108 @@ public class AdminStars extends STARS{
 			inputChoice = scan.nextInt();
 			switch(inputChoice) {
 				case 1: // Edit Student Access Period
+					int startMonth, startDate, startHour,startMinute;
+					int endMonth, endDate, endHour,endMinute;
 					scan.nextLine();  // Consume newline left-over
-					// Insert code later
+					do {
+						System.out.println("Please input numerical month of starting date of access: ");
+						startMonth = scan.nextInt();
+						if(startMonth<1 || startMonth>12) {
+							System.out.println("Please input a positive integer from 1 to 12.");
+						}
+					}while(startMonth<1 || startMonth>12);
+					if (startMonth==2) {
+						do {
+							System.out.println("Please input date of starting date of access: ");
+							startDate = scan.nextInt();
+							if(startDate<1 || startDate>28) {
+								System.out.println("Please input a positive integer from 1 to 28.");
+							}
+						}while(startDate<1 || startDate>28);
+					}
+					else if ((startMonth == 4) || (startMonth == 6) || (startMonth == 9) || (startMonth == 11)) {
+						do {
+							System.out.println("Please input numerical date of starting date of access: ");
+							startDate = scan.nextInt();
+							if(startDate<1 || startDate>30) {
+								System.out.println("Please input a positive integer from 1 to 30.");
+							}
+						}while(startDate<1 || startDate>30);
+					}
+					else {
+						do {
+						System.out.println("Please input numerical date of starting date of access: ");
+						startDate = scan.nextInt();
+						if(startDate<1 || startDate>31) {
+							System.out.println("Please input a positive integer from 1 to 31.");
+						}
+						}while(startDate<1 || startDate>31);
+					}
+					do {
+						System.out.println("Please input hour of starting date of access (in 24hr format): ");
+						startHour = scan.nextInt();
+						if(startHour<1 || startHour>23) {
+							System.out.println("Please input a positive integer from 1 to 23.");
+						}
+					}while(startHour<1 || startHour>23);
+					do {
+						System.out.println("Please input minute of starting date of access: ");
+						startMinute = scan.nextInt();
+						if(startMinute<1 || startMinute>59) {
+							System.out.println("Please input a positive integer from 1 to 59.");
+						}
+					}while(startMinute<1 || startMonth>59);
+					do {
+						System.out.println("Please input numerical month of ending date of access: ");
+						endMonth = scan.nextInt();
+						if(endMonth<1 || endMonth>12) {
+							System.out.println("Please input a positive integer from 1 to 12.");
+						}
+					}while(endMonth<1 || endMonth>12);
+					if (endMonth==2) {
+						do {
+							System.out.println("Please input date of ending date of access: ");
+							endDate = scan.nextInt();
+							if(endDate<1 || endDate>28) {
+								System.out.println("Please input a positive integer from 1 to 28.");
+							}
+						}while(endDate<1 || endDate>28);
+					}
+					else if ((endMonth == 4) || (endMonth == 6) || (endMonth == 9) || (endMonth == 11)) {
+						do {
+							System.out.println("Please input numerical date of ending date of access: ");
+							endDate = scan.nextInt();
+							if(endDate<1 || endDate>30) {
+								System.out.println("Please input a positive integer from 1 to 30.");
+							}
+						}while(endDate<1 || endDate>30);
+					}
+					else {
+						do {
+						System.out.println("Please input numerical date of ending date of access: ");
+						endDate = scan.nextInt();
+						if(endDate<1 || endDate>31) {
+							System.out.println("Please input a positive integer from 1 to 31.");
+						}
+						}while(endDate<1 || endDate>31);
+					}
+					do {
+						System.out.println("Please input hour of ending date of access (in 24hr format): ");
+						endHour = scan.nextInt();
+						if(endHour<1 || endHour>23) {
+							System.out.println("Please input a positive integer from 1 to 23.");
+						}
+					}while(endHour<1 || endHour>23);
+					do {
+						System.out.println("Please input minute of starting date of access: ");
+						endMinute = scan.nextInt();
+						if(endMinute<1 || endMinute>59) {
+							System.out.println("Please input a positive integer from 1 to 59.");
+						}
+					}while(endMinute<1 || endMonth>59);
+					// These variables will be passed to the database to be used to intialise 2 LocalDate Time objects
+					//LocalDateTime startAccessDate = LocalDateTime.of(2020, startMonth, startDate, startHour, startMinute, 00);
+					//LocalDateTime endAccessDate = LocalDateTime.of(2020, endMonth, endDate, endHour, endMinute, 00);
 					break;
 				case 2: // Add A Student
 					String newName, newMatricNo, newGender, newNationality,newUserName, newPassword;
