@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.time.Month;
 
-public class UniDataBase2 {
+public class UniDataBase {
 	
 	static File coursesFile;
 	static File studentsFile;
@@ -17,7 +17,7 @@ public class UniDataBase2 {
 	static LocalDateTime endAccessDate; 
 	
 	/*
-	public UniDataBase2() {
+	public UniDataBase() {
 		coursesFile = new File("courses.txt");
 		studentsFile = new File("students.txt");
 		adminsFile = new File("admins.txt");
