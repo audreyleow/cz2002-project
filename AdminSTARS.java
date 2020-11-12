@@ -31,7 +31,6 @@ public class AdminStars extends STARS{
 				case 1: // Edit Student Access Period
 					int startMonth, startDate, startHour,startMinute;
 					int endMonth, endDate, endHour,endMinute;
-					scan.nextLine();  // Consume newline left-over
 					do {
 						System.out.println("Please input numerical month of starting date of access: ");
 						startMonth = scan.nextInt();
@@ -69,17 +68,17 @@ public class AdminStars extends STARS{
 					do {
 						System.out.println("Please input hour of starting date of access (in 24hr format): ");
 						startHour = scan.nextInt();
-						if(startHour<1 || startHour>23) {
-							System.out.println("Please input a positive integer from 1 to 23.");
+						if(startHour<0 || startHour>23) {
+							System.out.println("Please input a non-negative integer from 0 to 23.");
 						}
-					}while(startHour<1 || startHour>23);
+					}while(startHour<0 || startHour>23);
 					do {
 						System.out.println("Please input minute of starting date of access: ");
 						startMinute = scan.nextInt();
-						if(startMinute<1 || startMinute>59) {
-							System.out.println("Please input a positive integer from 1 to 59.");
+						if(startMinute<0 || startMinute>59) {
+							System.out.println("Please input a non-negative integer from 0 to 59.");
 						}
-					}while(startMinute<1 || startMinute>59);
+					}while(startMinute<0 || startMinute>59);
 					System.out.println("The starting access time is "+startDate+"--"+startMonth+"--2020 "+startHour+":"+startMinute+":00");
 					do {
 						System.out.println("Please input numerical month of ending date of access: ");
@@ -118,22 +117,56 @@ public class AdminStars extends STARS{
 					do {
 						System.out.println("Please input hour of ending date of access (in 24hr format): ");
 						endHour = scan.nextInt();
-						if(endHour<1 || endHour>23) {
-							System.out.println("Please input a positive integer from 1 to 23.");
+						if(endHour<0 || endHour>23) {
+							System.out.println("Please input a non-negative integer from 0 to 23.");
 						}
-					}while(endHour<1 || endHour>23);
+					}while(endHour<0 || endHour>23);
 					do {
-						System.out.println("Please input minute of starting date of access: ");
+						System.out.println("Please input minute of ending date of access: ");
 						endMinute = scan.nextInt();
-						if(endMinute<1 || endMinute>59) {
-							System.out.println("Please input a positive integer from 1 to 59.");
+						if(endMinute<0 || endMinute>59) {
+							System.out.println("Please input a non-negative integer from 0 to 59.");
 						}
-					}while(endMinute<1 || endMonth>59);
+					}while(endMinute<0 || endMinute>59);
 					System.out.println("The ending access time is "+endDate+"--"+endMonth+"--2020 "+endHour+":"+endMinute+":00");
-					// Still missing time mutual time checking comparison
-					// These variables will be passed to the database to be used to intialise 2 LocalDate Time objects
-					//LocalDateTime startAccessDate = LocalDateTime.of(2020, startMonth, startDate, startHour, startMinute, 00);
-					//LocalDateTime endAccessDate = LocalDateTime.of(2020, endMonth, endDate, endHour, endMinute, 00);
+					if(endMonth>startMonth) {				// LATER MONTH
+						System.out.println("You are updating the student access period.");
+						setStartAccessDate(startMonth, startDate, startHour, startMinute);
+						setEndAccessDate(endMonth, endDate, endHour, endMinute);
+					}
+					else if (endMonth==startMonth) {
+						if(endDate>startDate) {				// SAME MONTH, LATER DAY
+							System.out.println("You are updating the student access period.");
+							setStartAccessDate(startMonth, startDate, startHour, startMinute);
+							setEndAccessDate(endMonth, endDate, endHour, endMinute);
+						}
+						else if(endDate == startDate){
+							if(endHour>startHour) {			// SAME MONTH & DATE, LATER HOUR
+								System.out.println("You are updating the student access period.");
+								setStartAccessDate(startMonth, startDate, startHour, startMinute);
+								setEndAccessDate(endMonth, endDate, endHour, endMinute);
+							}
+							else if(endHour == startHour) {
+								if(endMinute>startMinute) {	// SAME MONTH, DATE & HOUR, LATER MINUTE
+									System.out.println("You are updating the student access period.");
+									setStartAccessDate(startMonth, startDate, startHour, startMinute);
+									setEndAccessDate(endMonth, endDate, endHour, endMinute);
+								}
+								else {						// SAME MONTH, DATE & HOUR, EARLIER/SAME MINUTE
+									System.out.println("The ending access time must be later than the starting access time. Update failed.");
+								}
+							}
+							else {							// SAME MONTH & DATE, EARLIER HOUR
+								System.out.println("The ending access time must be later than the starting access time. Update failed.");
+							}
+						}
+						else {								// SAME MONTH, EARLIER DATE
+							System.out.println("The ending access time must be later than the starting access time. Update failed.");
+						}
+					}
+					else {									// EARLIER MONTH
+						System.out.println("The ending access time must be later than the starting access time. Update failed.");
+					}
 					break;
 				case 2: // Add A Student
 					String newName, newMatricNo, newGender, newNationality,newUserName, newPassword;
