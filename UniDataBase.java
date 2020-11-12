@@ -1,5 +1,7 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.time.LocalDateTime;
+import java.time.Month;
 
 public class UniDataBase {
 	
@@ -11,19 +13,8 @@ public class UniDataBase {
 	static ArrayList<Admin> admins;
 	static int tempCoursesIndex;
 	static int tempClassIndex;
-	
-	/*
-	public UniDataBase() {
-		coursesFile = new File("courses.txt");
-		studentsFile = new File("students.txt");
-		adminsFile = new File("admins.txt");
-		courses = new ArrayList<Course>();
-		students = new ArrayList<Student>();
-		admins = new ArrayList<Admin>();
-		tempCoursesIndex = -1;
-		tempClassIndex = -1;
-	}
-	*/
+	static LocalDateTime startAccessDate;
+	static LocalDateTime endAccessDate; 
 	
 	public static void loadAllFiles() {
 		//reading files in on start-up
@@ -168,6 +159,97 @@ public class UniDataBase {
 		return false;
 	}
 	
+	public static void setStartAccessDate(int startMonth, int startDate, int startHour, int startMinute){
+		switch(startMonth) {
+		case 1:
+			startAccessDate = LocalDateTime.of(2020, Month.JANUARY, startDate, startHour, startMinute, 0);
+			break;
+		case 2:
+			startAccessDate = LocalDateTime.of(2020, Month.FEBRUARY, startDate, startHour, startMinute, 0);
+			break;
+		case 3:
+			startAccessDate = LocalDateTime.of(2020, Month.MARCH, startDate, startHour, startMinute, 0);
+			break;
+		case 4:
+			startAccessDate = LocalDateTime.of(2020, Month.APRIL, startDate, startHour, startMinute, 0);
+			break;
+		case 5:
+			startAccessDate = LocalDateTime.of(2020, Month.MAY, startDate, startHour, startMinute, 0);
+			break;
+		case 6:
+			startAccessDate = LocalDateTime.of(2020, Month.JUNE, startDate, startHour, startMinute, 0);
+			break;
+		case 7:
+			startAccessDate = LocalDateTime.of(2020, Month.JULY, startDate, startHour, startMinute, 0);
+			break;
+		case 8:
+			startAccessDate = LocalDateTime.of(2020, Month.AUGUST, startDate, startHour, startMinute, 0);
+			break;
+		case 9:
+			startAccessDate = LocalDateTime.of(2020, Month.SEPTEMBER, startDate, startHour, startMinute, 0);
+			break;
+		case 10:
+			startAccessDate = LocalDateTime.of(2020, Month.OCTOBER, startDate, startHour, startMinute, 0);
+			break;
+		case 11:
+			startAccessDate = LocalDateTime.of(2020, Month.NOVEMBER, startDate, startHour, startMinute, 0);
+			break;
+		case 12:
+			startAccessDate = LocalDateTime.of(2020, Month.DECEMBER, startDate, startHour, startMinute, 0);
+			break;
+		}
+	}
+	
+	public static void setEndAccessDate(int endMonth, int endDate, int endHour, int endMinute) {
+		switch(endMonth) {
+		case 1:
+			endAccessDate = LocalDateTime.of(2020, Month.JANUARY, endDate, endHour, endMinute, 0);
+			break;
+		case 2:
+			endAccessDate = LocalDateTime.of(2020, Month.FEBRUARY, endDate, endHour, endMinute, 0);
+			break;
+		case 3:
+			endAccessDate = LocalDateTime.of(2020, Month.MARCH, endDate, endHour, endMinute, 0);
+			break;
+		case 4:
+			endAccessDate = LocalDateTime.of(2020, Month.APRIL, endDate, endHour, endMinute, 0);
+			break;
+		case 5:
+			endAccessDate = LocalDateTime.of(2020, Month.MAY, endDate, endHour, endMinute, 0);
+			break;
+		case 6:
+			endAccessDate = LocalDateTime.of(2020, Month.JUNE, endDate, endHour, endMinute, 0);
+			break;
+		case 7:
+			endAccessDate = LocalDateTime.of(2020, Month.JULY, endDate, endHour, endMinute, 0);
+			break;
+		case 8:
+			endAccessDate = LocalDateTime.of(2020, Month.AUGUST, endDate, endHour, endMinute, 0);
+			break;
+		case 9:
+			endAccessDate = LocalDateTime.of(2020, Month.SEPTEMBER, endDate, endHour, endMinute, 0);
+			break;
+		case 10:
+			endAccessDate = LocalDateTime.of(2020, Month.OCTOBER, endDate, endHour, endMinute, 0);
+			break;
+		case 11:
+			endAccessDate = LocalDateTime.of(2020, Month.NOVEMBER, endDate, endHour, endMinute, 0);
+			break;
+		case 12:
+			endAccessDate = LocalDateTime.of(2020, Month.DECEMBER, endDate, endHour, endMinute, 0);
+			break;
+		}
+	}
+	
+	public static LocalDateTime getStartAccessDate() {
+		return startAccessDate;
+	}
+	
+	public static LocalDateTime getEndAccessDate() {
+		return endAccessDate;
+	}
+
+	
 	public static boolean verifyExistedStudent(String matricNo, String userName) {
 		for (int i=0; i<students.size(); i++) {
 			if (students.get(i).getMatricNo() == matricNo || students.get(i).getUserName() == userName)
@@ -193,6 +275,17 @@ public class UniDataBase {
 			}
 		}
 		return false;
+	}
+	
+	public static Student findStudentByAccount(String userName, String pwd) {
+		int i;
+		for (i=0; i<students.size(); i++) {
+			if (students.get(i).getUserName() == userName) {
+				if (students.get(i).getPwd()==pwd)
+					break;
+			}
+		}
+		return students.get(i);
 	}
 	
 	public static Course findCourseByCode(String code) {
@@ -230,7 +323,16 @@ public class UniDataBase {
 		findCourseByCode(courseCode).setSchool(newSchool);
 	}
 	
-	public static void updateCourseIndexNum(String courseCode, ArrayList<ClassIndex> newIndexNumList) {
+	public static void updateCourseIndexNum(String courseCode, int currentIndexNumber, int updatedIndexNumber) {
+		Course course = findCourseByCode(courseCode);
+		ArrayList<ClassIndex> classIndexList = course.getIndexNumList();
+		for (int i=0; i<classIndexList.size(); i++) {
+			if (classIndexList.get(i).getIndexNum() == currentIndexNumber)
+				classIndexList.get(i).setIndexNum(updatedIndexNumber);
+		}
+	}
+	
+	public static void updateCourseIndexNumList(String courseCode, ArrayList<ClassIndex> newIndexNumList) {
 		Course course = findCourseByCode(courseCode);
 		course.setIndexNumList(newIndexNumList);
 	}
@@ -271,6 +373,7 @@ public class UniDataBase {
 		//classIndex is filled currently --> add to waiting list
 		else {
 			classIndex.getWaitList().add(student);
+			student.getStudentRecords().getStudentWaitList().add(classIndex);
 		}
 	}
 	
@@ -286,15 +389,28 @@ public class UniDataBase {
 			//add students from waiting list if there is people waiting to get the class index
 			if (classIndex.getWaitList().isEmpty() == false) {
 				Student studentWaiting = classIndex.getWaitList().get(0);
+				studentWaiting.getStudentRecords().getStudentWaitList().remove(classIndex);
 				studentWaiting.getStudentRecords().getCoursesRegistered().add(classIndex);
 				tempAcadUnitsRegistered = studentWaiting.getStudentRecords().getAcadUnitsRegistered();
 				studentWaiting.getStudentRecords().setAcadUnitsRegistered(tempAcadUnitsRegistered + course.getAcadUnits());
 				classIndex.getStudentList().add(studentWaiting);
+				classIndex.getWaitList().remove(student);
 				
 				/////need the sending email application here
 			}
-			
 		}
+		
+		if (student.getStudentRecords().getStudentWaitList().contains(classIndex)) {
+			student.getStudentRecords().getStudentWaitList().remove(classIndex);
+			classIndex.getWaitList().remove(student);
+		}
+	}
+	
+	public static void changeClassIndex(Student student, ClassIndex currentClassIndex, ClassIndex newClassIndex) {
+		newClassIndex.getStudentList().add(student);
+		currentClassIndex.getStudentList().remove(student);
+		student.getStudentRecords().getCoursesRegistered().add(newClassIndex);
+		student.getStudentRecords().getCoursesRegistered().remove(currentClassIndex);
 	}
 	
 	public static void swopClassIndex(Student student1, Student student2, ClassIndex classIndex1, ClassIndex classIndex2) {
@@ -316,7 +432,7 @@ public class UniDataBase {
 			ClassIndex classIndex = course.getIndexNumList().get(i);
 			ArrayList<Student> studentList = classIndex.getStudentList();
 			for (i=0; i<studentList.size(); i++) {
-				System.out.println(studentList.get(i).getName() + "		" + studentList.get(i).getMatricNo());
+				System.out.println(studentList.get(i).getName() + "\t" + studentList.get(i).getNationality() + "\t" + studentList.get(i).getGender());
 			}
 		}
 		
@@ -325,8 +441,66 @@ public class UniDataBase {
 	public static void printStudList(ClassIndex classIndex) {
 		ArrayList<Student> studentList = classIndex.getStudentList();
 		for (int i=0; i<studentList.size(); i++) {
-			System.out.println(studentList.get(i).getName() + "		" + studentList.get(i).getMatricNo());
+			System.out.println(studentList.get(i).getName() + "\t" + studentList.get(i).getNationality() + "\t" + studentList.get(i).getGender());
 		}
 	}
-
+	
+	public static boolean verifyLessonClash(String classVenue, Day classDay, int[] classTime) {
+		for (int i=0; i<courses.size(); i++) {
+			for (int j=0; j<courses.get(i).getIndexNumList().size(); j++) {
+				for (int k=0; k<courses.get(i).getIndexNumList().get(j).getLessonsList().size(); k++) {
+					Lesson lesson = courses.get(i).getIndexNumList().get(j).getLessonsList().get(k);
+					if (lesson.getClassVenue() == classVenue) {
+						if (lesson.getClassDay() == classDay) {
+							if (lesson.getClassTiming()[0] > classTime[0] && lesson.getClassTiming()[0] < classTime[1])
+								return true;
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
+	public static boolean verifyTimetableClash(Student student, int newClassIndex) {
+		ClassIndex classIndex = findClassIndex(newClassIndex);
+		Lesson lesson1, lesson2;
+		ArrayList<ClassIndex> coursesRegistered = student.getStudentRecords().getCoursesRegistered();
+		for (int i=0; i<coursesRegistered.size(); i++) {
+			for (int j=0; j<coursesRegistered.get(i).getLessonsList().size(); j++) {
+				lesson1 = coursesRegistered.get(i).getLessonsList().get(j);
+				for (int k=0; k<classIndex.getLessonsList().size(); k++) {
+					lesson2 = classIndex.getLessonsList().get(k);
+					if (lesson1.getClassTiming()[0] > lesson2.getClassTiming()[0] && lesson1.getClassTiming()[0] < lesson2.getClassTiming()[1])
+						return true;
+				}
+			}
+		}
+		ArrayList<ClassIndex> studentWaitingList = student.getStudentRecords().getStudentWaitList();
+		for (int i=0; i<studentWaitingList.size(); i++) {
+			for (int j=0; j<studentWaitingList.get(i).getLessonsList().size(); j++) {
+				lesson1 = studentWaitingList.get(i).getLessonsList().get(j);
+				for (int k=0; k<classIndex.getLessonsList().size(); k++) {
+					lesson2 = classIndex.getLessonsList().get(k);
+					if (lesson1.getClassTiming()[0] > lesson2.getClassTiming()[0] && lesson1.getClassTiming()[0] < lesson2.getClassTiming()[1])
+						return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public static void displayAllCourses() {
+		for (int i=0; i<courses.size(); i++) {
+			System.out.println(courses.get(i).getCourseCode() + "\t" + courses.get(i).getCourseName());
+		}
+	}
+	
+	public static void displayAllStudents() {
+		for (int i=0; i<students.size(); i++) {
+			System.out.println(students.get(i).getName() + "\t" + students.get(i).getMatricNo() + "\t" + students.get(i).getNationality() + "\t" + students.get(i).getGender());
+		}
+	}
+	
+	
 }
