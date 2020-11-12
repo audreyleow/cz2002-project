@@ -58,7 +58,7 @@ public class User implements Serializable{
 		this.nationality = nationality;
 	}
 
-	public boolean isAccessLevel() {
+	public boolean getAccessLevel() {
 		return accessLevel;
 	}
 
