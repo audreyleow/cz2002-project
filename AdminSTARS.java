@@ -79,7 +79,8 @@ public class AdminStars extends STARS{
 						if(startMinute<1 || startMinute>59) {
 							System.out.println("Please input a positive integer from 1 to 59.");
 						}
-					}while(startMinute<1 || startMonth>59);
+					}while(startMinute<1 || startMinute>59);
+					System.out.println("The starting access time is "+startDate+"--"+startMonth+"--2020 "+startHour+":"+startMinute+":00");
 					do {
 						System.out.println("Please input numerical month of ending date of access: ");
 						endMonth = scan.nextInt();
@@ -128,6 +129,8 @@ public class AdminStars extends STARS{
 							System.out.println("Please input a positive integer from 1 to 59.");
 						}
 					}while(endMinute<1 || endMonth>59);
+					System.out.println("The ending access time is "+endDate+"--"+endMonth+"--2020 "+endHour+":"+endMinute+":00");
+					// Still missing time mutual time checking comparison
 					// These variables will be passed to the database to be used to intialise 2 LocalDate Time objects
 					//LocalDateTime startAccessDate = LocalDateTime.of(2020, startMonth, startDate, startHour, startMinute, 00);
 					//LocalDateTime endAccessDate = LocalDateTime.of(2020, endMonth, endDate, endHour, endMinute, 00);
