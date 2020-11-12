@@ -7,16 +7,16 @@ public class MySTARSApp {
 		String userNameLogIn, passwordLogIn;
 		int logInOption = 1;
 		Scanner scan = new Scanner(System.in);
-		System.out.println("Please input your username:");
-		userNameLogIn = scan.nextLine();
-		System.out.println("Please input your password:");
-		passwordLogIn = scan.nextLine();
-		// Missing hashing for password
-        // Call uniDataBase methods for start time and end time object
-         LocalDateTime startAccessDate = getStartAccessDate();
-         LocalDateTime endAccessDate = getEndAccessDate();
-         LocalDateTime now = LocalDateTime.now();
         do{
+        	System.out.println("Please input your username:");
+    		userNameLogIn = scan.nextLine();
+    		System.out.println("Please input your password:");
+    		passwordLogIn = scan.nextLine();
+    		// Missing hashing for password
+            // Call uniDataBase methods for start time and end time object
+             LocalDateTime startAccessDate = getStartAccessDate();
+             LocalDateTime endAccessDate = getEndAccessDate();
+             LocalDateTime now = LocalDateTime.now();
         	if(verifyStudentAccount(userNameLogIn, passwordLogIn) == true) { // STUDENT USER
     			if((now.isAfter(startAccessDate) || (now.isEqual(startAccessDate))) && now.isBefore(endAccessDate)) {
     				Student studentLoggedIn = findStudentByAccount(userNameLogIn, passwordLogIn);
