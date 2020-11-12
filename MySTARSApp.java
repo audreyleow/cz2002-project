@@ -1,25 +1,30 @@
 import java.util.Scanner;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDateTime;  
 import java.time.format.DateTimeFormatter; 
 	
 public class MySTARSApp {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		String userNameLogIn, passwordLogIn;
 		int logInOption = 1;
 		Scanner scan = new Scanner(System.in);
         do{
         	System.out.println("Please input your username:");
     		userNameLogIn = scan.nextLine();
+    		userNameLogIn = userNameLogIn.trim();									// Remove any whitespace at both ends of String
+    		userNameLogIn = userNameLogIn.replaceAll("\\s+","");					// Remove any whitespace in String
     		System.out.println("Please input your password:");
     		passwordLogIn = scan.nextLine();
-    		// Missing hashing for password
-            // Call uniDataBase methods for start time and end time object
+    		passwordLogIn = passwordLogIn.trim();									// Remove any whitespace at both ends of String
+    		passwordLogIn = passwordLogIn.replaceAll("\\s+","");					// Remove any whitespace in String
+    		String hashedPasswordInput = HashPassword.generateHash(passwordLogIn);
+    		 //Call uniDataBase methods for start time and end time object
              LocalDateTime startAccessDate = getStartAccessDate();
              LocalDateTime endAccessDate = getEndAccessDate();
              LocalDateTime now = LocalDateTime.now();
-        	if(verifyStudentAccount(userNameLogIn, passwordLogIn) == true) { // STUDENT USER
+        	if(verifyStudentAccount(userNameLogIn, hashedPasswordInput) == true) { // STUDENT USER
     			if((now.isAfter(startAccessDate) || (now.isEqual(startAccessDate))) && now.isBefore(endAccessDate)) {
-    				Student studentLoggedIn = findStudentByAccount(userNameLogIn, passwordLogIn);
+    				Student studentLoggedIn = findStudentByAccount(userNameLogIn, hashedPasswordInput);
     				StudentSTARS.run(studentLoggedIn);
     			}
     			else {
@@ -29,7 +34,7 @@ public class MySTARSApp {
     				System.out.println("Not allowed to access now. You may only log in from "+ startAccessDateTimeFormatted + " to "+endAccessDateTimeFormatted+".");
     			}
     		}
-    		else if(verifyAdminAccount(userNameLogIn, passwordLogIn) == true) { // ADMIN USER
+    		else if(verifyAdminAccount(userNameLogIn, hashedPasswordInput) == true) { // ADMIN USER
     			AdminStars.run();
     		}
     		else {
