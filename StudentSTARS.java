@@ -289,7 +289,7 @@ public class StudentStars extends STARS { //student page
 			return;
 		}
 		//fetch student2 after verification of account
-		//.... Student peer = findStudent( //some parameters );
+		Student peer = findStudentByAccount(peerUserName,peerPassword);
 		//verify student1 has userIndexNumber as registered course
 		StudentRecords studRec=studentLoggedIn.getstudentRecords();
 		ArrayList<ClassIndex> coursesReg = studRec.getCoursesRegistered();
@@ -319,7 +319,8 @@ public class StudentStars extends STARS { //student page
 			return;
 		}
 		//call to swop index
-		swopClassIndex(studentLoggedIn, peer, classIndex1,classIndex2);	
+		swopClassIndex(studentLoggedIn, peer, classIndex1,classIndex2);
+		System.out.println("Swop successful.");
 	}
 
 }
