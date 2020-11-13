@@ -128,7 +128,7 @@ public class StudentStars extends STARS { //student page
 	
 	public void addCourse(Student studentLoggedIn,int addIndexNumber) {
 		//verification
-		if (verifyClassIndex(addIndexNumber)==false) {
+		if (uniDataBase.verifyClassIndex(addIndexNumber)==false) {
 			System.out.println("Course index "+ addIndexNumber +" does not exist");
 			return;
 		}
@@ -149,12 +149,13 @@ public class StudentStars extends STARS { //student page
 			return;
 		}
 		//verify timetable clash
-		if(verifyTimeTableClash == true){
+		ClassIndex addClassIndex = uniDataBase.findClassIndex(addIndexNumber);
+		if(uniDataBase.verifyTimeTableClash(studentLoggedIn,addClassIndex) == true){
 			System.out.println("There is a timetable clash with course index "+ addIndexNumber );
 			return;
 		}
 		//register student into course
-		addCourseStudent(studentLoggedIn, classIndex);
+		uniDataBase.addCourseStudent(studentLoggedIn, classIndex);
 		if(classIndex.getClassVacancy()==0){
 			System.out.println("There are no vacanies at the moment. You have been added into the waitlist for course index "+ addIndexNumber );
 		}
@@ -165,7 +166,7 @@ public class StudentStars extends STARS { //student page
 	
 	public void dropCourse(Student studentLoggedIn,int dropIndexNumber) {
 		//verification
-		if (verifyClassIndex(addIndexNumber)==false) {
+		if (uniDataBase.verifyClassIndex(addIndexNumber)==false) {
 			System.out.println("Course index "+ dropIndexNumber +" does not exist");
 			return;
 		}
@@ -173,10 +174,10 @@ public class StudentStars extends STARS { //student page
 		StudentRecords studRec=studentLoggedIn.getstudentRecords();
 		ArrayList<ClassIndex> coursesReg = studRec.getCoursesRegistered();
 		int coursesRegSize = coursesReg.size();
-		ClassIndex classIndex=findClassIndex(dropIndexNumber);
+		ClassIndex classIndex=uniDataBase.findClassIndex(dropIndexNumber);
 		for(int i;i<coursesRegSize;i++) {
 			if(coursesReg.get(i).getIndexNum()==dropIndexNumber){
-			removeCourseStudent(studentLoggedIn,classIndex);
+			uniDataBase.removeCourseStudent(studentLoggedIn,classIndex);
 			System.out.println("Course index "+ dropIndexNumber +" has been dropped");
 			return;
 			}
@@ -219,18 +220,18 @@ public class StudentStars extends STARS { //student page
 	
 	public void changeIndex(Student studentLoggedIn,int oldIndexNumber, int newIndexNumber) {
 		//verify indexes exist
-		if (verifyClassIndex(oldIndexNumber)==false) {
+		if (uniDataBase.verifyClassIndex(oldIndexNumber)==false) {
 			System.out.println("Course index "+ oldIndexNumber +" does not exist");
 			return;
 		}
-		if (verifyClassIndex(newIndexNumber)==false) {
+		if (uniDataBase.verifyClassIndex(newIndexNumber)==false) {
 			System.out.println("Course index "+ newIndexNumber +" does not exist");
 			return;
 		}
 		//verify indexes belong to same course
 		Course course1,course2;
-		course1=findCourseByCode(oldIndexNumber);
-		course2=findCourseByCode(newIndexNumber);
+		course1=uniDataBase.findCourseByCode(oldIndexNumber);
+		course2=uniDataBase.findCourseByCode(newIndexNumber);
 		if(course1.getCourseCode()!=course2.getCourseCode()){
 			System.out.println("Course index "+ oldIndexNumber +" and course index "+ newIndexNumber +" do not belong to the same course.");
 			return;
@@ -255,10 +256,10 @@ public class StudentStars extends STARS { //student page
 			return;
 		}
 		//check vacancies for newIndexNumber,change if vacancy > 0
-		ClassIndex currentClassIndex = findClassIndex(oldIndexNumber);
-		ClassIndex newClassIndex = findClassIndex(newIndexNumber);
+		ClassIndex currentClassIndex = uniDataBase.findClassIndex(oldIndexNumber);
+		ClassIndex newClassIndex = uniDataBase.findClassIndex(newIndexNumber);
 		if (currentClassIndex.getClassVacancy()>0) {
-			changeClassIndex(studentLoggedIn,currentClassIndex,newClassIndex);
+			uniDataBase.changeClassIndex(studentLoggedIn,currentClassIndex,newClassIndex);
 			System.out.println("Course index changed from  "+ oldIndexNumber +" to "+ newIndexNumber);
 			}
 		System.out.println("There are no vacanies at the moment for course index " + newIndexNumber);
@@ -267,34 +268,34 @@ public class StudentStars extends STARS { //student page
 	
 	public void swopIndex(Student studentLoggedIn,int userIndexNumber, String peerUserName, String peerPassword, int peerIndexNumber ){
 		//verify indexes exist
-		if (verifyClassIndex(userIndexNumber)==false) {
+		if (uniDataBase.verifyClassIndex(userIndexNumber)==false) {
 			System.out.println("Course index "+ userIndexNumber +" does not exist");
 			return;
 		}
-		if (verifyClassIndex(peerIndexNumber)==false) {
+		if (uniDataBase.verifyClassIndex(peerIndexNumber)==false) {
 			System.out.println("Course index "+ peerIndexNumber +" does not exist");
 			return;
 		}
 		//verify indexes belong to same course
 		ClassIndex classIndex1,classIndex2;
-		classIndex1=findClassIndex(userIndexNumber);
-		classIndex2=findClassIndex(peerIndexNumber);
+		classIndex1=uniDataBase.findClassIndex(userIndexNumber);
+		classIndex2=uniDataBase.findClassIndex(peerIndexNumber);
 		if(classIndex1.getCourseCode()!=classIndex2.getCourseCode()){
 			System.out.println("Course index "+ userIndexNumber +" and course index "+ peerIndexNumber +" do not belong to the same course.");
 			return;
 		}
 		//verify indexes are different
 		if(userIndexNumber == peerIndexNumber) {
-				System.out.println("Invalid input, you cannot put the same indexes.");
-				return;
+			System.out.println("Invalid input, you cannot put the same indexes.");
+			return;
 		}
 		//verify peer's account
-		if(verifyStudentAccount(peerUserName,peerPassword)==false) {
+		if(uniDataBase.verifyStudentAccount(peerUserName,peerPassword)==false) {
 			System.out.println("Invalid account username/password.");
 			return;
 		}
 		//fetch student2 after verification of account
-		Student peer = findStudentByAccount(peerUserName,peerPassword);
+		Student peer = uniDataBase.findStudentByAccount(peerUserName,peerPassword);
 		//verify student1 has userIndexNumber as registered course
 		StudentRecords studRec=studentLoggedIn.getstudentRecords();
 		ArrayList<ClassIndex> coursesReg = studRec.getCoursesRegistered();
@@ -324,7 +325,7 @@ public class StudentStars extends STARS { //student page
 			return;
 		}
 		//call to swop index
-		swopClassIndex(studentLoggedIn, peer, classIndex1,classIndex2);
+		uniDataBase.swopClassIndex(studentLoggedIn, peer, classIndex1,classIndex2);
 		System.out.println("Swop successful.");
 	}
 
