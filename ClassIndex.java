@@ -11,11 +11,10 @@ public class ClassIndex {
 	private ArrayList<Student> studentList;
 	
 	
-	public ClassIndex(String courseName, String courseCode, int indexNum, int classSize, int classVacancy, ArrayList<Lesson> lessonsList, ArrayList<Student> waitList, ArrayList<Student> studentList) {
+	public ClassIndex(String courseName, String courseCode, int indexNum, int classVacancy, ArrayList<Lesson> lessonsList, ArrayList<Student> waitList, ArrayList<Student> studentList) {
 		this.courseName = courseName;
 		this.courseCode = courseCode;
 		this.indexNum = indexNum;
-		this.classSize = classSize;
 		this.classVacancy = classVacancy;
 		this.lessonsList = lessonsList;
 		this.waitList = waitList;
