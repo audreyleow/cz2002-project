@@ -7,15 +7,13 @@ public class User implements Serializable{
 	private String name;
 	private String gender;
 	private String nationality;
-	private boolean accessLevel;
 	
-	public User(String userName, String pwd, String name, String gender, String nationality, boolean accesslevel) {
+	public User(String userName, String pwd, String name, String gender, String nationality) {
 		this.userName = userName;
 		this.pwd = pwd;
 		this.name = name;
 		this.gender = gender;
 		this.nationality = nationality;
-		this.accessLevel = accessLevel;
 	}
 
 	public String getUserName() {
@@ -57,14 +55,5 @@ public class User implements Serializable{
 	public void setNationality(String nationality) {
 		this.nationality = nationality;
 	}
-
-	public boolean getAccessLevel() {
-		return accessLevel;
-	}
-
-	public void setAccessLevel(boolean accessLevel) {
-		this.accessLevel = accessLevel;
-	}
-
 	
 }
