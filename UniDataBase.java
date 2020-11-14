@@ -279,7 +279,7 @@ public class UniDataBase {
 		return false;
 	}
 
-	public static boolean verifyCLassIndex(int indexNum) {
+	public static boolean verifyClassIndex(int indexNum) {
 		for (int i=0; i<courses.size(); i++) {
 			ArrayList<ClassIndex> indexNumList = courses.get(i).getIndexNumList();
 			for (int j=0; j<indexNumList.size(); j++) {
