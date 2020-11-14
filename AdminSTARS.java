@@ -1132,6 +1132,17 @@ public class AdminStars extends STARS{
 		
 	}
 	
+	public Lesson createLessonIndex(String lessonType, String lessonVenue, String lessonDay, int [] lessonTiming, String lessonWeek) {
+		return Lesson(lessonType,lessonVenue,lessonDay,lessonTiming,lessonWeek);
+	}
+	
+	public ClassIndex createClassIndex(String courseName, String courseCode, int indexNum, int classVacancy, ArrayList <Lesson> lessonsList) {
+		ArrayList <Student> studentsList = new ArrayList <Student>();
+		ArrayList <Student> waitList = new ArrayList <Student>();
+		return ClassIndex(courseName,courseCode,indexNum,classVacancy,lessonsList,studentsList,waitList);
+	}
+		
+	
 	public void createCourse2(String newCourseCode, String newCourseName, String newSchool, ArrayList <ClassIndex>tempIndexNumList , int newAcadUnits) {
 		//verify course code
 		if (UniDataBase.verifyCourse(newCourseCode)==true) {
