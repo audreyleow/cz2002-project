@@ -15,10 +15,10 @@ public class STARS {
 	
 	public static void checkVacancies(int indexNumber) {
 		//verification
-		if (verifyClassIndex(indexNumber)==false) {
+		if (UniDataBase.verifyClassIndex(indexNumber)==false) {
 			System.out.println("Course index "+indexNumber+" does not exist");
 		}
-		ClassIndex classIndex = findClassIndex(indexNumber);
+		ClassIndex classIndex = UniDataBase.findClassIndex(indexNumber);
 		int classVacancy= classIndex.getClassVacancy();
 		System.out.println("Course index "+indexNumber+" has "+classVacancy+" slot(s) left");
 	}
