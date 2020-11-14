@@ -4,7 +4,6 @@ public class ClassIndex {
 	private String courseName;
 	private String courseCode;
 	private int indexNum;
-	private int classSize;
 	private int classVacancy;
 	private ArrayList<Lesson> lessonsList; 
 	private ArrayList<Student> waitList;
@@ -35,9 +34,6 @@ public class ClassIndex {
 	public int getIndexNum() {
 		return indexNum;
 	}
-	public int getClassSize() {
-		return classSize;
-	}
 	public int getClassVacancy() {
 		return classVacancy;
 	}
@@ -55,9 +51,6 @@ public class ClassIndex {
 	}
 	public void setIndexNum(int indexNum) {
 		this.indexNum = indexNum;
-	}
-	public void setClassSize(int classSize) {
-		this.classSize = classSize;
 	}
 	public void setClassVacancy(int classVacancy) {
 		this.classVacancy = classVacancy;
