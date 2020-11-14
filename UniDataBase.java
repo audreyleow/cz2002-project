@@ -173,85 +173,11 @@ public class UniDataBase {
 	}
 	
 	public static void setStartAccessDate(int startMonth, int startDate, int startHour, int startMinute){
-		switch(startMonth) {
-		case 1:
-			startAccessDate = LocalDateTime.of(2020, Month.JANUARY, startDate, startHour, startMinute, 0);
-			break;
-		case 2:
-			startAccessDate = LocalDateTime.of(2020, Month.FEBRUARY, startDate, startHour, startMinute, 0);
-			break;
-		case 3:
-			startAccessDate = LocalDateTime.of(2020, Month.MARCH, startDate, startHour, startMinute, 0);
-			break;
-		case 4:
-			startAccessDate = LocalDateTime.of(2020, Month.APRIL, startDate, startHour, startMinute, 0);
-			break;
-		case 5:
-			startAccessDate = LocalDateTime.of(2020, Month.MAY, startDate, startHour, startMinute, 0);
-			break;
-		case 6:
-			startAccessDate = LocalDateTime.of(2020, Month.JUNE, startDate, startHour, startMinute, 0);
-			break;
-		case 7:
-			startAccessDate = LocalDateTime.of(2020, Month.JULY, startDate, startHour, startMinute, 0);
-			break;
-		case 8:
-			startAccessDate = LocalDateTime.of(2020, Month.AUGUST, startDate, startHour, startMinute, 0);
-			break;
-		case 9:
-			startAccessDate = LocalDateTime.of(2020, Month.SEPTEMBER, startDate, startHour, startMinute, 0);
-			break;
-		case 10:
-			startAccessDate = LocalDateTime.of(2020, Month.OCTOBER, startDate, startHour, startMinute, 0);
-			break;
-		case 11:
-			startAccessDate = LocalDateTime.of(2020, Month.NOVEMBER, startDate, startHour, startMinute, 0);
-			break;
-		case 12:
-			startAccessDate = LocalDateTime.of(2020, Month.DECEMBER, startDate, startHour, startMinute, 0);
-			break;
-		}
+		startAccessDate = LocalDateTime.of(2020, startMonth, startDate, startHour, startMinute, 0);
 	}
 	
 	public static void setEndAccessDate(int endMonth, int endDate, int endHour, int endMinute) {
-		switch(endMonth) {
-		case 1:
-			endAccessDate = LocalDateTime.of(2020, Month.JANUARY, endDate, endHour, endMinute, 0);
-			break;
-		case 2:
-			endAccessDate = LocalDateTime.of(2020, Month.FEBRUARY, endDate, endHour, endMinute, 0);
-			break;
-		case 3:
-			endAccessDate = LocalDateTime.of(2020, Month.MARCH, endDate, endHour, endMinute, 0);
-			break;
-		case 4:
-			endAccessDate = LocalDateTime.of(2020, Month.APRIL, endDate, endHour, endMinute, 0);
-			break;
-		case 5:
-			endAccessDate = LocalDateTime.of(2020, Month.MAY, endDate, endHour, endMinute, 0);
-			break;
-		case 6:
-			endAccessDate = LocalDateTime.of(2020, Month.JUNE, endDate, endHour, endMinute, 0);
-			break;
-		case 7:
-			endAccessDate = LocalDateTime.of(2020, Month.JULY, endDate, endHour, endMinute, 0);
-			break;
-		case 8:
-			endAccessDate = LocalDateTime.of(2020, Month.AUGUST, endDate, endHour, endMinute, 0);
-			break;
-		case 9:
-			endAccessDate = LocalDateTime.of(2020, Month.SEPTEMBER, endDate, endHour, endMinute, 0);
-			break;
-		case 10:
-			endAccessDate = LocalDateTime.of(2020, Month.OCTOBER, endDate, endHour, endMinute, 0);
-			break;
-		case 11:
-			endAccessDate = LocalDateTime.of(2020, Month.NOVEMBER, endDate, endHour, endMinute, 0);
-			break;
-		case 12:
-			endAccessDate = LocalDateTime.of(2020, Month.DECEMBER, endDate, endHour, endMinute, 0);
-			break;
-		}
+		endAccessDate = LocalDateTime.of(2020, endMonth, endDate, endHour, endMinute, 0);
 	}
 	
 	public static LocalDateTime getStartAccessDate() {
