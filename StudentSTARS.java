@@ -154,6 +154,14 @@ public class StudentStars extends STARS { //student page
 			System.out.println("There is a timetable clash with course index "+ addIndexNumber );
 			return;
 		}
+		//verify AcadUnitsRegistered
+		int currentAUReg=studReg.getAcadUnitsRegistered():
+		Course addCourse=uniDataBase.findCourseByCode(addIndexNumber);
+		int addAU=addCourse.getAcadUnits();
+		if(currentAUReg+addAU>21){
+			System.out.println("You cannot exceed 21 AUs.");
+			return;
+		}
 		//register student into course
 		uniDataBase.addCourseStudent(studentLoggedIn, classIndex);
 		if(classIndex.getClassVacancy()==0){
