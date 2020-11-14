@@ -154,7 +154,10 @@ public class StudentSTARS extends STARS {
 			}
 			//verify AcadUnitsRegistered
 			int currentAUReg=studRec.getAcadUnitsRegistered();
-			int addAU= classIndex.getAcadUnits();
+			String courseCode = classIndex.getCourseCode();
+			Course addCourse = findCourseByCode(courseCode);
+			int addAU= addCourse.getAcadUnits();
+
 			if(currentAUReg+addAU>21){
 				System.out.println("You cannot exceed 21 AUs.");
 				return;
