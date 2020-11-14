@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class StudentSTARS extends STARS {
@@ -148,12 +149,12 @@ public class StudentSTARS extends STARS {
 			}
 			//verify timetable clash
 			ClassIndex addClassIndex = UniDataBase.findClassIndex(addIndexNumber);
-			if(UniDataBase.verifyTimetableClash(studentLoggedIn,addClassIndex) == true){
+			if(UniDataBase.verifyTimetableClash(studentLoggedIn,addIndexNumber) == true){
 				System.out.println("There is a timetable clash with course index "+ addIndexNumber );
 				return;
 			}
 			//verify AcadUnitsRegistered
-			int currentAUReg=studReg.getAcadUnitsRegistered():
+			int currentAUReg=studRec.getAcadUnitsRegistered();
 			Course addCourse=UniDataBase.findCourseByCode(addIndexNumber);
 			int addAU=addCourse.getAcadUnits();
 			if(currentAUReg+addAU>21){
@@ -181,7 +182,7 @@ public class StudentSTARS extends STARS {
 			ArrayList<ClassIndex> coursesReg = studRec.getCoursesRegistered();
 			int coursesRegSize = coursesReg.size();
 			ClassIndex classIndex=UniDataBase.findClassIndex(dropIndexNumber);
-			for(int i;i<coursesRegSize;i++) {
+			for(int i= 0;i<coursesRegSize;i++) {
 				if(coursesReg.get(i).getIndexNum()==dropIndexNumber){
 				UniDataBase.removeCourseStudent(studentLoggedIn,classIndex);
 				System.out.println("Course index "+ dropIndexNumber +" has been dropped");
@@ -197,20 +198,21 @@ public class StudentSTARS extends STARS {
 			StudentRecords studRec=studentLoggedIn.getStudentRecords();
 			ArrayList<ClassIndex> coursesReg = studRec.getCoursesRegistered();
 			int coursesRegSize = coursesReg.size();
-			String courseCode,courseName,indexNum;
+			String courseCode,courseName;
+			int indexNum;
 			ArrayList<Lesson> lessonList;
 			int lessonListSize;
 			String lessonType,classVenue,classDay,classWeek;
 			int[] classTiming;
-			for(int i;i<coursesRegSize;i++) {
+			for(int i=0;i<coursesRegSize;i++) {
 				courseCode = coursesReg.get(i).getCourseCode(); 
 				courseName = coursesReg.get(i).getCourseName();
 				indexNum = coursesReg.get(i).getIndexNum();
 				//print course info
 				//...
-				lessonList = coursesReg.get(i).getlessonList();
+				lessonList = coursesReg.get(i).getLessonsList();
 				lessonListSize = lessonList.size();
-				for(int j;j<lessonListSize;j++) {
+				for(int j=0;j<lessonListSize;j++) {
 					lessonType = lessonList.get(j).getLessonType();
 					classVenue = lessonList.get(j).getClassVenue();
 					classDay = lessonList.get(j).getClassDay();
@@ -235,10 +237,10 @@ public class StudentSTARS extends STARS {
 				return;
 			}
 			//verify indexes belong to same course
-			Course course1,course2;
-			course1=UniDataBase.findCourseByCode(oldIndexNumber);
-			course2=UniDataBase.findCourseByCode(newIndexNumber);
-			if(course1.getCourseCode()!=course2.getCourseCode()){
+			ClassIndex ClassIndex1, ClassIndex2;
+			ClassIndex1=UniDataBase.findClassIndex(oldIndexNumber);
+			ClassIndex2=UniDataBase.findClassIndex(newIndexNumber);
+			if(ClassIndex1.getCourseCode()!=ClassIndex2.getCourseCode()){
 				System.out.println("Course index "+ oldIndexNumber +" and course index "+ newIndexNumber +" do not belong to the same course.");
 				return;
 			}
