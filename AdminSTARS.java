@@ -1,9 +1,12 @@
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Scanner;
 import java.sql.Time;
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.Date;
-import java.util.Scanner;
+
 
 public class AdminStars extends STARS{
 	
@@ -412,7 +415,7 @@ public class AdminStars extends STARS{
 							}
 						}while(commonLectureClassIndexVacancy <= 0);
 						System.out.println("New Course Lecture Class Vacancy Input: "+commonLectureClassIndexVacancy);
-						// createCourse(newCourseCode, newCourseName, newSchool, commonLectureIndexNum, commonLectureClassIndexVacancy,newCourseLectureType, newCommonLectureVenue, newCommonLectureDay, newCommonLectureWeek, newCommonLectureTiming, newAcadUnits); 
+						createCourse(newCourseCode, newCourseName, newSchool, commonLectureIndexNum, commonLectureClassIndexVacancy,newCourseLectureType, newCommonLectureVenue, newCommonLectureDay, newCommonLectureWeek, newCommonLectureTiming, newAcadUnits); 
 					}
 					else if(lessonFormat == 2) {		// Lecture & Tutorial
 						do {
@@ -569,10 +572,10 @@ public class AdminStars extends STARS{
 									tempTutorialTiming[1] = tempClassEndTime;
 								}
 							}while(((tempClassStartTime>tempClassEndTime) && (tempClassEndTime!=0)) || (tempClassStartTime==tempClassEndTime));
-							//tempLesson = createLessonIndex(tempLessonType, tempClassVenue, tempClassDay, tempTutorialTiming, tempClassWeek)
-							//tempLessonsList.add(tempLesson);  	// Adds specific tutorial Lesson to temp lessonsList of each ClassIndex
-							//tempClassIndex = createClassIndex(newCourseName, newCourseCode, tempIndexNum, tempClassVacancy, tempLessonsList);
-							//tempIndexNumList.add(tempClassIndex);	 // Adds specific ClassIndex(containing a common lecture Lesson & specific tutorial Lesson under a specific index num) to temp indexNumList for each ClassIndex
+							tempLesson = createLessonIndex(tempLessonType, tempClassVenue, tempClassDay, tempTutorialTiming, tempClassWeek)
+							tempLessonsList.add(tempLesson);  	// Adds specific tutorial Lesson to temp lessonsList of each ClassIndex
+							tempClassIndex = createClassIndex(newCourseName, newCourseCode, tempIndexNum, tempClassVacancy, tempLessonsList);
+							tempIndexNumList.add(tempClassIndex);	 // Adds specific ClassIndex(containing a common lecture Lesson & specific tutorial Lesson under a specific index num) to temp indexNumList for each ClassIndex
 						}
 						//createCourse2(newCourseCode, newCourseName, newSchool, tempIndexNumList ,newAcadUnits); 
 					}
@@ -584,7 +587,7 @@ public class AdminStars extends STARS{
 								System.out.println("Please input a positive number.");
 							}
 						}while(indexNumQuantity<1);
-						//Lesson tempLectureLesson = createLessonIndex(newCourseLectureType, newCommonLectureVenue, newCommonLectureDay, newCommonLectureTiming, newCommonLectureWeek);
+						Lesson tempLectureLesson = createLessonIndex(newCourseLectureType, newCommonLectureVenue, newCommonLectureDay, newCommonLectureTiming, newCommonLectureWeek);
 						ArrayList<ClassIndex> tempIndexNumList = new ArrayList<ClassIndex>();
 						for(int i = 0; i < indexNumQuantity; i++) {
 							int tempIndexNum, tempClassVacancy,tempTutDayNo,tempTutWeekNo, tempTutStartTime, tempTutEndTime, tempLabDayNo,tempLabWeekNo, tempLabStartTime, tempLabEndTime;
@@ -997,16 +1000,6 @@ public class AdminStars extends STARS{
 		}while(inputChoice!=11);
 	}
 	
-	public void  editStudAccess(Date startDate,Date endDate) {
-		//verify startdate<=endDate
-		//update access period
-	}
-	
-	public void  editStudAccess(Time duration) {
-		//verify  duration <=24hrs (some max duration)
-		//update access duration
-	}
-	
 	public void addStudent(String name, String matricNo, String gender, String nationality, String userName, String pwd ,String email){
 		//verifications
 		if (UniDataBase.verifyExistedStudent(matricNo,userName)==true) {
@@ -1017,15 +1010,15 @@ public class AdminStars extends STARS{
 		//create student
 		StudentRecords studentRecords = new StudentRecords();
 		Student newStudent = new Student(userName, pwd, name , gender , nationality , false, matricNo,
-			email, studentRecords);
+				email, studentRecords);
 		//send parameters to UniDataBase
 		UniDataBase.addToStudents(newStudent);
-		System.out.println("Student added.")
+		System.out.println("Student added.");
 		//list all students
-		System.out.println("Displaying all students.")
+		System.out.println("Displaying all students.");
 		UniDataBase.displayAllStudents();
-	}	
-
+	}
+	
 	public void  updateCourseCode(String currentCourseCode, String updatedCourseCode) {
 		//verifications
 		if (UniDataBase.verifyCourse(currentCourseCode)==false) {
@@ -1038,20 +1031,21 @@ public class AdminStars extends STARS{
 		}
 		//send parameters to UniDataBase
 		UniDataBase.updateCourseCode(currentCourseCode,updatedCourseCode);
-		System.out.println("Course code updated.")
+		System.out.println("Course code updated.");
 	}
 	
 	public void updateCourseSchool(String courseCode, String updatedSchool) {
 		//verifications
 		if (UniDataBase.verifyCourse(courseCode)==false) {
-		System.out.println("Course code "+courseCode+" does not exist");
-		return;
+			System.out.println("Course code "+courseCode+" does not exist");
+			return;
 		}
 		//send parameters to UniDataBase
 		UniDataBase.updateCourseSchool(courseCode, updatedSchool);
-		System.out.println("School of course updated.")
-	}
+		System.out.println("School of course updated.");
 
+	}
+	
 	public void updateCourseIndexNumber(int currentIndexNumber, int updatedIndexNumber) {
 		//verifications
 		if (UniDataBase.verifyClassIndex(currentIndexNumber)==false) {
@@ -1066,9 +1060,10 @@ public class AdminStars extends STARS{
 		String courseCode= classIndex.getCourseCode();
 		//send parameters to UniDataBase
 		UniDataBase.updateCourseIndexNum(courseCode,currentIndexNumber,updatedIndexNumber);
-		System.out.println("Index number of course updated.")
+		System.out.println("Index number of course updated.");
 	}
 
+	
 	public void updateIndexNumberVacancy(int indexNumber,int updatedVacancyNumber){
 		//verification
 		if (UniDataBase.verifyClassIndex(indexNumber)==false) {
@@ -1079,9 +1074,9 @@ public class AdminStars extends STARS{
 		String courseCode= classIndex.getCourseCode();
 		//send parameters to UniDataBase
 		UniDataBase.updateCourseVacancy(courseCode,indexNumber,updatedVacancyNumber);
-		System.out.println("Vacancy of course index updated.")
+		System.out.println("Vacancy of course index updated.");
 	}
-
+	
 	public void createCourse(String courseCode,String courseName,String school,
 			int indexNum, int classVacancy,
 			String lessonType,String classVenue,String classDay,int[] classTiming,String classWeek,int acadUnits) {
@@ -1094,7 +1089,7 @@ public class AdminStars extends STARS{
 			System.out.println("Course index "+indexNum+" already exists");
 			return;
 		}
-		if (UniDataBase.verifyLessonClash(classVenue,classDay,classTime)==true) {
+		if (UniDataBase.verifyLessonClash(classVenue,classDay,classTiming)==true) {
 			System.out.println("There is a clash with an existing lesson at "+ classVenue +" on "+classDay+" from "
 					+ classTiming[0] + " to " + classTiming[1]);
 			return;
@@ -1105,7 +1100,7 @@ public class AdminStars extends STARS{
 		ArrayList <Student> studentsList = new ArrayList <Student>();
 		ArrayList <Student> waitList = new ArrayList <Student>();
 		//create lesson,adding it to lessonsList
-		lessonsList.add(new Lesson(lessonType,classVenue,classDay,classTime,classWeek));
+		lessonsList.add(new Lesson(lessonType,classVenue,classDay,classTiming,classWeek));
 		//create class index, adding it to indexNumList
 		indexNumList.add(new ClassIndex(courseName,courseCode,indexNum,classVacancy,lessonsList,studentsList,waitList));
 		//create course
@@ -1117,16 +1112,16 @@ public class AdminStars extends STARS{
 		System.out.println("Displaying all courses");
 		UniDataBase.displayAllCourses();
 	}
-
+	
 	public void printStudListByIndex(int indexNum) {
 		//Verify existence of such a course index
 		if (UniDataBase.verifyClassIndex(indexNum)==true){  
-		ClassIndex classIndex =UniDataBase.findClassIndex(indexNum);
-		UniDataBase.printStudList(classIndex);	
+			ClassIndex classIndex =UniDataBase.findClassIndex(indexNum);
+			UniDataBase.printStudList(classIndex);	
 		}
 		else System.out.println("Course index not found.");
 	}
-	
+		
 	public void printStudListByCourse(String courseCode) {	
 		//Verify existence of such a course
 		if (UniDataBase.verifyCourse(courseCode)==true){
@@ -1134,9 +1129,9 @@ public class AdminStars extends STARS{
 			UniDataBase.printStudList(course);	
 		}
 		else System.out.println("Course not found.");
-	
+		
 	}
-
+	
 	public void createCourse2(String newCourseCode, String newCourseName, String newSchool, ArrayList <ClassIndex>tempIndexNumList , int newAcadUnits) {
 		//verify course code
 		if (UniDataBase.verifyCourse(newCourseCode)==true) {
@@ -1174,7 +1169,6 @@ public class AdminStars extends STARS{
 		UniDataBase.addToCourses(newCourse);
 		System.out.println("New course added");
 		//display all courses after addition
-		UniDataBase.displayAllCourses();		
-	}		
-	
-}
+		UniDataBase.displayAllCourses();
+		
+	}	
