@@ -17,7 +17,6 @@ public class STARS {
 		//verification
 		if (verifyClassIndex(indexNumber)==false) {
 			System.out.println("Course index "+indexNumber+" does not exist");
-			break;
 		}
 		ClassIndex classIndex = findClassIndex(indexNumber);
 		int classVacancy= classIndex.getClassVacancy();
