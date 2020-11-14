@@ -1,15 +1,22 @@
+package cz2002;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+//import java.util.Scanner;
 
 public class HashPassword {
 
-	public static String generateHash(String data) throws NoSuchAlgorithmException{
+	public static String generateHash(String data){
+		try {
 		MessageDigest digest = MessageDigest.getInstance("SHA-256");
 		digest.reset();
 		byte[] hash = digest.digest(data.getBytes());
 		return bytesToStringHex(hash);
+		} catch (NoSuchAlgorithmException e) {
+			System.out.println(e.getMessage());
+			return null;
+		}
 	}
-  
 	private final static char[] hexArray = "0123456789ABCDEF".toCharArray();
 	
 	public static String bytesToStringHex(byte[] bytes) {
