@@ -458,7 +458,7 @@ public class UniDataBase {
 		}
 	}
 	
-	public static boolean verifyLessonClash(String classVenue, Day classDay, int[] classTime) {
+	public static boolean verifyLessonClash(String classVenue, String classDay, int[] classTime) {
 		for (int i=0; i<courses.size(); i++) {
 			for (int j=0; j<courses.get(i).getIndexNumList().size(); j++) {
 				for (int k=0; k<courses.get(i).getIndexNumList().get(j).getLessonsList().size(); k++) {
