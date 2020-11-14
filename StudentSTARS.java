@@ -1,9 +1,8 @@
-import java.util.*;
-public class StudentStars extends STARS { //student page
+import java.util.Scanner;
+
+public class StudentSTARS extends STARS {
 	
-	Scanner scan = new Scanner(System.in);
-  
-	public static void run (Student studentLoggedIn)
+		public static void run (Student studentLoggedIn)
 		{
 			System.out.println("================ STARS Menu ================\r\n" + 
 					   "|1. Add Course                             |\r\n" + 
@@ -29,7 +28,7 @@ public class StudentStars extends STARS { //student page
 								System.out.println("Please insert a positive integer");
 							}
 						}while(indexNumberTemp <= 0);
-							if (verifyClassIndex(indexNumberTemp) == false) {
+							if (UniDataBase.verifyClassIndex(indexNumberTemp) == false) {
 								System.out.println("This index number does not exist.");
 							}
 							else {
@@ -46,7 +45,7 @@ public class StudentStars extends STARS { //student page
 								System.out.println("Please insert a positive integer");
 							}
 						}while(indexNumberTemp2 <= 0);
-							if (verifyClassIndex(indexNumberTemp2) == false) {
+							if (UniDataBase.verifyClassIndex(indexNumberTemp2) == false) {
 								System.out.println("This index number does not exist.");
 							}
 							else {
@@ -88,7 +87,7 @@ public class StudentStars extends STARS { //student page
 						break;
 					case 6: // Swap Index Number with Another Student
 						int indexNumberTemp6,peerIndexNumberTemp;
-						String peerUserName, peerPassword, peerHashedPassword;
+						String peerUserName, peerPassword,peerHashedPassword;
 						do {
 							System.out.print("Input your index number you wish to change:");
 							indexNumberTemp6 = scan.nextInt();
@@ -107,12 +106,12 @@ public class StudentStars extends STARS { //student page
 						peerPassword = peerPassword.replaceAll("\\s+","");					// Remove any whitespace in String
 						peerHashedPassword = HashPassword.generateHash(peerPassword);
 						do {
-							System.out.print("Input your index number you wish to change:");
-							indexNumberTemp6 = scan.nextInt();
-							if(indexNumberTemp6<=0) {
+							System.out.print("Input your peer's index number you wish to change to:");
+							peerIndexNumberTemp = scan.nextInt();
+							if(peerIndexNumberTemp<=0) {
 								System.out.println("Please insert a positive value");
 							}
-						}while(indexNumberTemp6<=0);
+						}while(peerIndexNumberTemp<=0);
 						//swopIndex(indexNumberTemp6, peerUserName, peerHashedPassword, peerIndexNumberTemp);
 						break;
 					case 7: // Exit
@@ -125,216 +124,215 @@ public class StudentStars extends STARS { //student page
 			}while(inputChoice != 7);
 			
 		}
-	
-	public void addCourse(Student studentLoggedIn,int addIndexNumber) {
-		//verification
-		if (uniDataBase.verifyClassIndex(addIndexNumber)==false) {
-			System.out.println("Course index "+ addIndexNumber +" does not exist");
-			return;
-		}
-		//check if the course index has been registered by the student
-		StudentRecords studRec=studentLoggedIn.getstudentRecords();
-		ArrayList<ClassIndex> coursesReg = studRec.getCoursesRegistered();
-		int coursesRegSize = coursesReg.size();
-		for(int i;i<coursesRegSize;i++) {
-			if(coursesReg.get(i).getIndexNum()==addIndexNumber);{
-			System.out.println("Course index "+ addIndexNumber +" has already been added");
-			return;
-			}	
-		}
-		//check if student is already in the waitlist
-		ClassIndex classIndex=findClassIndex(addIndexNumber);
-		if(classIndex.getWaitList().contains(studentLoggedIn)){
-			System.out.println("You are already in the waitlist for course index "+ addIndexNumber );
-			return;
-		}
-		//verify timetable clash
-		ClassIndex addClassIndex = uniDataBase.findClassIndex(addIndexNumber);
-		if(uniDataBase.verifyTimeTableClash(studentLoggedIn,addClassIndex) == true){
-			System.out.println("There is a timetable clash with course index "+ addIndexNumber );
-			return;
-		}
-		//verify AcadUnitsRegistered
-		int currentAUReg=studReg.getAcadUnitsRegistered():
-		Course addCourse=uniDataBase.findCourseByCode(addIndexNumber);
-		int addAU=addCourse.getAcadUnits();
-		if(currentAUReg+addAU>21){
-			System.out.println("You cannot exceed 21 AUs.");
-			return;
-		}
-		//register student into course
-		uniDataBase.addCourseStudent(studentLoggedIn, classIndex);
-		if(classIndex.getClassVacancy()==0){
-			System.out.println("There are no vacanies at the moment. You have been added into the waitlist for course index "+ addIndexNumber );
-		}
-		else{
-			System.out.println("Your course has been added!");
-		}
-	}
-	
-	public void dropCourse(Student studentLoggedIn,int dropIndexNumber) {
-		//verification
-		if (uniDataBase.verifyClassIndex(addIndexNumber)==false) {
-			System.out.println("Course index "+ dropIndexNumber +" does not exist");
-			return;
-		}
-		//check if the course index has been registered by the student
-		StudentRecords studRec=studentLoggedIn.getstudentRecords();
-		ArrayList<ClassIndex> coursesReg = studRec.getCoursesRegistered();
-		int coursesRegSize = coursesReg.size();
-		ClassIndex classIndex=uniDataBase.findClassIndex(dropIndexNumber);
-		for(int i;i<coursesRegSize;i++) {
-			if(coursesReg.get(i).getIndexNum()==dropIndexNumber){
-			uniDataBase.removeCourseStudent(studentLoggedIn,classIndex);
-			System.out.println("Course index "+ dropIndexNumber +" has been dropped");
-			return;
+		public void addCourse(Student studentLoggedIn,int addIndexNumber) {
+			//verification
+			if (UniDataBase.verifyClassIndex(addIndexNumber)==false) {
+				System.out.println("Course index "+ addIndexNumber +" does not exist");
+				return;
+			}
+			//check if the course index has been registered by the student
+			StudentRecords studRec=studentLoggedIn.getStudentRecords();
+			ArrayList<ClassIndex> coursesReg = studRec.getCoursesRegistered();
+			int coursesRegSize = coursesReg.size();
+			for(int i;i<coursesRegSize;i++) {
+				if(coursesReg.get(i).getIndexNum()==addIndexNumber);{
+				System.out.println("Course index "+ addIndexNumber +" has already been added");
+				return;
+				}	
+			}
+			//check if student is already in the waitlist
+			ClassIndex classIndex=UniDataBase.findClassIndex(addIndexNumber);
+			if(classIndex.getWaitList().contains(studentLoggedIn)){
+				System.out.println("You are already in the waitlist for course index "+ addIndexNumber );
+				return;
+			}
+			//verify timetable clash
+			ClassIndex addClassIndex = UniDataBase.findClassIndex(addIndexNumber);
+			if(UniDataBase.verifyTimetableClash(studentLoggedIn,addClassIndex) == true){
+				System.out.println("There is a timetable clash with course index "+ addIndexNumber );
+				return;
+			}
+			//verify AcadUnitsRegistered
+			int currentAUReg=studReg.getAcadUnitsRegistered():
+			Course addCourse=UniDataBase.findCourseByCode(addIndexNumber);
+			int addAU=addCourse.getAcadUnits();
+			if(currentAUReg+addAU>21){
+				System.out.println("You cannot exceed 21 AUs.");
+				return;
+			}
+			//register student into course
+			UniDataBase.addCourseStudent(studentLoggedIn, classIndex);
+			if(classIndex.getClassVacancy()==0){
+				System.out.println("There are no vacanies at the moment. You have been added into the waitlist for course index "+ addIndexNumber );
+			}
+			else{
+				System.out.println("Your course has been added!");
 			}
 		}
-		//possible to drop course while in waitlist?
-		System.out.println("You are not registered to course index "+ dropIndexNumber);
-	}
-	
-	public void printCourses(Student studentLoggedIn) {
-		System.out.println("Printing courses registered...");
-		StudentRecords studRec=studentLoggedIn.getstudentRecords();
-		ArrayList<ClassIndex> coursesReg = studRec.getCoursesRegistered();
-		int coursesRegSize = coursesReg.size();
-		String courseCode,courseName,indexNum;
-		ArrayList<Lesson> lessonList;
-		int lessonListSize;
-		String lessonType,classVenue,classDay,classWeek;
-		int[] classTiming;
-		for(int i;i<coursesRegSize;i++) {
-			courseCode = coursesReg.get(i).getCourseCode(); 
-			courseName = coursesReg.get(i).getCourseName();
-			indexNum = coursesReg.get(i).getIndexNum();
-			//print course info
-			//...
-			lessonList = coursesReg.get(i).getlessonList();
-			lessonListSize = lessonList.size();
-			for(int j;j<lessonListSize;j++) {
-				lessonType = lessonList.get(j).getLessonType();
-				classVenue = lessonList.get(j).getClassVenue();
-				classDay = lessonList.get(j).getClassDay();
-				classTiming = lessonList.get(j).getClassTiming();
-				classWeek = lessonList.get(j).getClassWeek();
-				//print class index info
+		
+		public void dropCourse(Student studentLoggedIn,int dropIndexNumber) {
+			//verification
+			if (UniDataBase.verifyClassIndex(dropIndexNumber)==false) {
+				System.out.println("Course index "+ dropIndexNumber +" does not exist");
+				return;
+			}
+			//check if the course index has been registered by the student
+			StudentRecords studRec=studentLoggedIn.getStudentRecords();
+			ArrayList<ClassIndex> coursesReg = studRec.getCoursesRegistered();
+			int coursesRegSize = coursesReg.size();
+			ClassIndex classIndex=UniDataBase.findClassIndex(dropIndexNumber);
+			for(int i;i<coursesRegSize;i++) {
+				if(coursesReg.get(i).getIndexNum()==dropIndexNumber){
+				UniDataBase.removeCourseStudent(studentLoggedIn,classIndex);
+				System.out.println("Course index "+ dropIndexNumber +" has been dropped");
+				return;
+				}
+			}
+			//possible to drop course while in waitlist?
+			System.out.println("You are not registered to course index "+ dropIndexNumber);
+		}
+		
+		public void printCourses(Student studentLoggedIn) {
+			System.out.println("Printing courses registered...");
+			StudentRecords studRec=studentLoggedIn.getStudentRecords();
+			ArrayList<ClassIndex> coursesReg = studRec.getCoursesRegistered();
+			int coursesRegSize = coursesReg.size();
+			String courseCode,courseName,indexNum;
+			ArrayList<Lesson> lessonList;
+			int lessonListSize;
+			String lessonType,classVenue,classDay,classWeek;
+			int[] classTiming;
+			for(int i;i<coursesRegSize;i++) {
+				courseCode = coursesReg.get(i).getCourseCode(); 
+				courseName = coursesReg.get(i).getCourseName();
+				indexNum = coursesReg.get(i).getIndexNum();
+				//print course info
 				//...
+				lessonList = coursesReg.get(i).getlessonList();
+				lessonListSize = lessonList.size();
+				for(int j;j<lessonListSize;j++) {
+					lessonType = lessonList.get(j).getLessonType();
+					classVenue = lessonList.get(j).getClassVenue();
+					classDay = lessonList.get(j).getClassDay();
+					classTiming = lessonList.get(j).getClassTiming();
+					classWeek = lessonList.get(j).getClassWeek();
+					//print class index info
+					//...
+				}
+				
 			}
 			
 		}
 		
-	}
-	
-	public void changeIndex(Student studentLoggedIn,int oldIndexNumber, int newIndexNumber) {
-		//verify indexes exist
-		if (uniDataBase.verifyClassIndex(oldIndexNumber)==false) {
-			System.out.println("Course index "+ oldIndexNumber +" does not exist");
-			return;
+		public void changeIndex(Student studentLoggedIn,int oldIndexNumber, int newIndexNumber) {
+			//verify indexes exist
+			if (UniDataBase.verifyClassIndex(oldIndexNumber)==false) {
+				System.out.println("Course index "+ oldIndexNumber +" does not exist");
+				return;
+			}
+			if (UniDataBase.verifyClassIndex(newIndexNumber)==false) {
+				System.out.println("Course index "+ newIndexNumber +" does not exist");
+				return;
+			}
+			//verify indexes belong to same course
+			Course course1,course2;
+			course1=UniDataBase.findCourseByCode(oldIndexNumber);
+			course2=UniDataBase.findCourseByCode(newIndexNumber);
+			if(course1.getCourseCode()!=course2.getCourseCode()){
+				System.out.println("Course index "+ oldIndexNumber +" and course index "+ newIndexNumber +" do not belong to the same course.");
+				return;
+			}
+			//verify indexes are different
+			if(oldIndexNumber == newIndexNumber) {
+					System.out.println("Invalid input, you cannot put the same indexes.");
+					return;
+			}
+			//verify student has oldindexnumber as registered course
+			StudentRecords studRec=studentLoggedIn.getStudentRecords();
+			ArrayList<ClassIndex> coursesReg = studRec.getCoursesRegistered();
+			int coursesRegSize = coursesReg.size();
+			boolean hasIndex=false;
+			for(int i=0;i<coursesRegSize;i++) {
+				if(coursesReg.get(i).getIndexNum()== oldIndexNumber){
+				hasIndex =true;
+				}
+			}
+			if (hasIndex==false) {
+				System.out.println("Invalid input, you are not registered to course index " +oldIndexNumber);
+				return;
+			}
+			//check vacancies for newIndexNumber,change if vacancy > 0
+			ClassIndex currentClassIndex = UniDataBase.findClassIndex(oldIndexNumber);
+			ClassIndex newClassIndex = UniDataBase.findClassIndex(newIndexNumber);
+			if (currentClassIndex.getClassVacancy()>0) {
+				UniDataBase.changeClassIndex(studentLoggedIn,currentClassIndex,newClassIndex);
+				System.out.println("Course index changed from  "+ oldIndexNumber +" to "+ newIndexNumber);
+				}
+			System.out.println("There are no vacanies at the moment for course index " + newIndexNumber);
+			
 		}
-		if (uniDataBase.verifyClassIndex(newIndexNumber)==false) {
-			System.out.println("Course index "+ newIndexNumber +" does not exist");
-			return;
-		}
-		//verify indexes belong to same course
-		Course course1,course2;
-		course1=uniDataBase.findCourseByCode(oldIndexNumber);
-		course2=uniDataBase.findCourseByCode(newIndexNumber);
-		if(course1.getCourseCode()!=course2.getCourseCode()){
-			System.out.println("Course index "+ oldIndexNumber +" and course index "+ newIndexNumber +" do not belong to the same course.");
-			return;
-		}
-		//verify indexes are different
-		if(oldIndexNumber == newIndexNumber) {
+		
+		public void swopIndex(Student studentLoggedIn,int userIndexNumber, String peerUserName, String peerPassword, int peerIndexNumber ){
+			//verify indexes exist
+			if (UniDataBase.verifyClassIndex(userIndexNumber)==false) {
+				System.out.println("Course index "+ userIndexNumber +" does not exist");
+				return;
+			}
+			if (UniDataBase.verifyClassIndex(peerIndexNumber)==false) {
+				System.out.println("Course index "+ peerIndexNumber +" does not exist");
+				return;
+			}
+			//verify indexes belong to same course
+			ClassIndex classIndex1,classIndex2;
+			classIndex1=UniDataBase.findClassIndex(userIndexNumber);
+			classIndex2=UniDataBase.findClassIndex(peerIndexNumber);
+			if(classIndex1.getCourseCode()!=classIndex2.getCourseCode()){
+				System.out.println("Course index "+ userIndexNumber +" and course index "+ peerIndexNumber +" do not belong to the same course.");
+				return;
+			}
+			//verify indexes are different
+			if(userIndexNumber == peerIndexNumber) {
 				System.out.println("Invalid input, you cannot put the same indexes.");
 				return;
-		}
-		//verify student has oldindexnumber as registered course
-		StudentRecords studRec=studentLoggedIn.getstudentRecords();
-		ArrayList<ClassIndex> coursesReg = studRec.getCoursesRegistered();
-		int coursesRegSize = coursesReg.size();
-		boolean hasIndex=false;
-		for(int i=0;i<coursesRegSize;i++) {
-			if(coursesReg.get(i).getIndexNum()== oldIndexNumber){
-			hasIndex =true;
 			}
-		}
-		if (hasIndex==false) {
-			System.out.println("Invalid input, you are not registered to course index " +oldIndexNumber);
-			return;
-		}
-		//check vacancies for newIndexNumber,change if vacancy > 0
-		ClassIndex currentClassIndex = uniDataBase.findClassIndex(oldIndexNumber);
-		ClassIndex newClassIndex = uniDataBase.findClassIndex(newIndexNumber);
-		if (currentClassIndex.getClassVacancy()>0) {
-			uniDataBase.changeClassIndex(studentLoggedIn,currentClassIndex,newClassIndex);
-			System.out.println("Course index changed from  "+ oldIndexNumber +" to "+ newIndexNumber);
+			//verify peer's account
+			if(UniDataBase.verifyStudentAccount(peerUserName,peerPassword)==false) {
+				System.out.println("Invalid account username/password.");
+				return;
 			}
-		System.out.println("There are no vacanies at the moment for course index " + newIndexNumber);
-		
-	}
-	
-	public void swopIndex(Student studentLoggedIn,int userIndexNumber, String peerUserName, String peerPassword, int peerIndexNumber ){
-		//verify indexes exist
-		if (uniDataBase.verifyClassIndex(userIndexNumber)==false) {
-			System.out.println("Course index "+ userIndexNumber +" does not exist");
-			return;
-		}
-		if (uniDataBase.verifyClassIndex(peerIndexNumber)==false) {
-			System.out.println("Course index "+ peerIndexNumber +" does not exist");
-			return;
-		}
-		//verify indexes belong to same course
-		ClassIndex classIndex1,classIndex2;
-		classIndex1=uniDataBase.findClassIndex(userIndexNumber);
-		classIndex2=uniDataBase.findClassIndex(peerIndexNumber);
-		if(classIndex1.getCourseCode()!=classIndex2.getCourseCode()){
-			System.out.println("Course index "+ userIndexNumber +" and course index "+ peerIndexNumber +" do not belong to the same course.");
-			return;
-		}
-		//verify indexes are different
-		if(userIndexNumber == peerIndexNumber) {
-			System.out.println("Invalid input, you cannot put the same indexes.");
-			return;
-		}
-		//verify peer's account
-		if(uniDataBase.verifyStudentAccount(peerUserName,peerPassword)==false) {
-			System.out.println("Invalid account username/password.");
-			return;
-		}
-		//fetch student2 after verification of account
-		Student peer = uniDataBase.findStudentByAccount(peerUserName,peerPassword);
-		//verify student1 has userIndexNumber as registered course
-		StudentRecords studRec=studentLoggedIn.getstudentRecords();
-		ArrayList<ClassIndex> coursesReg = studRec.getCoursesRegistered();
-		int coursesRegSize = coursesReg.size();
-		boolean hasIndex=false;
-		for(int i=0;i<coursesRegSize;i++) {
-			if(coursesReg.get(i).getIndexNum()== userIndexNumber){
-			hasIndex =true;
+			//fetch student2 after verification of account
+			Student peer = UniDataBase.findStudentByAccount(peerUserName,peerPassword);
+			//verify student1 has userIndexNumber as registered course
+			StudentRecords studRec=studentLoggedIn.getStudentRecords();
+			ArrayList<ClassIndex> coursesReg = studRec.getCoursesRegistered();
+			int coursesRegSize = coursesReg.size();
+			boolean hasIndex=false;
+			for(int i=0;i<coursesRegSize;i++) {
+				if(coursesReg.get(i).getIndexNum()== userIndexNumber){
+				hasIndex =true;
+				}
 			}
-		}
-		if (hasIndex==false) {
-			System.out.println("Invalid input, you are not registered to course index " +userIndexNumber);
-			return;
-		}
-		//verify student2 has peerIndexNumber as registered course
-		StudentRecords studRec2=peer.getstudentRecords();
-		ArrayList<ClassIndex> coursesReg2 = studRec2.getCoursesRegistered();
-		int coursesRegSize2 = coursesReg2.size();
-		hasIndex=false;
-		for(int i=0;i<coursesRegSize2;i++) {
-			if(coursesReg.get(i).getIndexNum()== peerIndexNumber){
-			hasIndex =true;
+			if (hasIndex==false) {
+				System.out.println("Invalid input, you are not registered to course index " +userIndexNumber);
+				return;
 			}
+			//verify student2 has peerIndexNumber as registered course
+			StudentRecords studRec2=peer.getStudentRecords();
+			ArrayList<ClassIndex> coursesReg2 = studRec2.getCoursesRegistered();
+			int coursesRegSize2 = coursesReg2.size();
+			hasIndex=false;
+			for(int i=0;i<coursesRegSize2;i++) {
+				if(coursesReg.get(i).getIndexNum()== peerIndexNumber){
+				hasIndex =true;
+				}
+			}
+			if (hasIndex==false) {
+				System.out.println("Invalid input, your peer is not registered to course index " +peerIndexNumber);
+				return;
+			}
+			//call to swop index
+			UniDataBase.swopClassIndex(studentLoggedIn, peer, classIndex1,classIndex2);
+			System.out.println("Swop successful.");
 		}
-		if (hasIndex==false) {
-			System.out.println("Invalid input, your peer is not registered to course index " +peerIndexNumber);
-			return;
-		}
-		//call to swop index
-		uniDataBase.swopClassIndex(studentLoggedIn, peer, classIndex1,classIndex2);
-		System.out.println("Swop successful.");
-	}
 
 }
