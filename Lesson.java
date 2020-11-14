@@ -1,34 +1,13 @@
-
-import java.util.ArrayList;
+package cz2002;
 
 public class Lesson {
-	private LessonType lessonType;
+	private String lessonType;
 	private String classVenue;
-	private ArrayList<Day> classDay;
-	private ArrayList<int[]> classTiming;
-	private ArrayList<Week> classWeek;
+	private String classDay;
+	private int [] classTiming;
+	private String classWeek;
 	
-	enum LessonType {
-		LECTURE,
-		TUTORIAL,
-		LABORATORY;
-	}
-	enum Day {
-		MONDAY,
-		TUESDAY,
-		WEDNESDAY,
-		THURSDAY,
-		FRIDAY,
-		SATURDAY,
-		SUNDAY;
-	}
-	enum Week {
-		EVERY, //every week
-		ODD,
-		EVEN;
-	}
-	
-	public Lesson(LessonType lessonType, String classVenue, ArrayList<Day> classDay, ArrayList<int[]> classTiming, ArrayList<Week> classWeek) {
+	public Lesson(String lessonType, String classVenue, String classDay, int[] classTiming, String classWeek) {
 		this.lessonType = lessonType;
 		this.classVenue = classVenue;
 		this.classDay = classDay;
@@ -37,7 +16,7 @@ public class Lesson {
 		
 	}
 	
-	public LessonType getLessonType() {
+	public String getLessonType() {
 		return lessonType;
 	}
 	
@@ -45,20 +24,20 @@ public class Lesson {
 		return classVenue;
 	}
 	
-	public ArrayList<Day> getClassDay(){
+	public String getClassDay(){
 		return classDay;
 	}
 	
-	public ArrayList<int[]> getClassTiming(){
+	public int[] getClassTiming(){
 		return classTiming;
 	}
 	
-	public ArrayList<week> getClassWeek(){
+	public String getClassWeek(){
 		return classWeek;
 	}
 	
 	
-	public void setLessonType(LessonType lessonType) {
+	public void setLessonType(String lessonType) {
 		this.lessonType = lessonType;
 	}
 	
@@ -66,15 +45,15 @@ public class Lesson {
 		this.classVenue = classVenue;
 	}
 	
-	public void setClassDay(ArrayList<Day> classDay) {
+	public void setClassDay(String classDay) {
 		this.classDay = classDay;
 	}
 	
-	public void setClassTime(ArrayList<int[]> classTiming) {
+	public void setClassTime(int [] classTiming) {
 		this.classTiming = classTiming;
 	}
 	
-	public void setClassWeek(ArrayList<Week> classWeek) {
+	public void setClassWeek(String classWeek) {
 		this.classWeek = classWeek;
 	}
 
