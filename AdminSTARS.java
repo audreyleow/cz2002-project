@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class AdminStars extends STARS{
+public class AdminSTARS extends STARS{
 	
 	public static void run() 
 	{
