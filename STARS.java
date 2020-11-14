@@ -13,7 +13,7 @@ public class STARS {
 	
 	private long studentAccessDuration;
 	
-	public void checkVacancies(int indexNumber) {
+	public static void checkVacancies(int indexNumber) {
 		//verification
 		if (verifyClassIndex(indexNumber)==false) {
 			System.out.println("Course index "+indexNumber+" does not exist");
@@ -23,7 +23,7 @@ public class STARS {
 		System.out.println("Course index "+indexNumber+" has "+classVacancy+" slot(s) left");
 	}
 	
-	public void showErrorMessage() {
+	public static void showErrorMessage() {
 		System.out.println("Error! Please input again!");
 	}
 }
