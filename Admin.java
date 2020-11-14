@@ -2,8 +2,8 @@
 public class Admin extends User{
 	private String staffID;
 
-	public Admin(String userName, String pwd, String name, String gender, String nationality, boolean accesslevel, String staffID) {
-		super(userName, pwd, name, gender, nationality, accesslevel);
+	public Admin(String userName, String pwd, String name, String gender, String nationality, String staffID) {
+		super(userName, pwd, name, gender, nationality);
 		this.staffID = staffID;
 	}
 	
