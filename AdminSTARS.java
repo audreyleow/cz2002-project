@@ -1009,7 +1009,7 @@ public class AdminStars extends STARS{
 	
 	public void addStudent(String name, String matricNo, String gender, String nationality, String userName, String pwd ,String email){
 		//verifications
-		if (uniDataBase.verifyExistedStudent(matricNo,userName)==true) {
+		if (UniDataBase.verifyExistedStudent(matricNo,userName)==true) {
 			System.out.println("Student with matric number "+ matricNo +" or student with username " +
 		userName+ " already exists");
 			return;
@@ -1017,86 +1017,84 @@ public class AdminStars extends STARS{
 		//create student
 		StudentRecords studentRecords = new StudentRecords();
 		Student newStudent = new Student(userName, pwd, name , gender , nationality , false, matricNo,
-				email, studentRecords);
-		//send parameters to unidatabase
-		uniDataBase.addToStudents(newStudent);
+			email, studentRecords);
+		//send parameters to UniDataBase
+		UniDataBase.addToStudents(newStudent);
 		System.out.println("Student added.")
 		//list all students
 		System.out.println("Displaying all students.")
-		uniDataBase.displayAllStudents();
-	}
-	
+		UniDataBase.displayAllStudents();
+	}	
+
 	public void  updateCourseCode(String currentCourseCode, String updatedCourseCode) {
 		//verifications
-		if (uniDataBase.verifyCourse(currentCourseCode)==false) {
+		if (UniDataBase.verifyCourse(currentCourseCode)==false) {
 			System.out.println("Course code "+ currentCourseCode+" does not exist");
 			return;
 		}
-		if (uniDataBase.verifyCourse(updatedCourseCode)==true) {
+		if (UniDataBase.verifyCourse(updatedCourseCode)==true) {
 			System.out.println("Course code "+updatedCourseCode+" already exists");
 			return;
 		}
-		//send parameters to unidatabase
-		uniDataBase.updateCourseCode(currentCourseCode,updatedCourseCode);
+		//send parameters to UniDataBase
+		UniDataBase.updateCourseCode(currentCourseCode,updatedCourseCode);
 		System.out.println("Course code updated.")
 	}
 	
 	public void updateCourseSchool(String courseCode, String updatedSchool) {
 		//verifications
-		if (uniDataBase.verifyCourse(courseCode)==false) {
-			System.out.println("Course code "+courseCode+" does not exist");
-			return;
+		if (UniDataBase.verifyCourse(courseCode)==false) {
+		System.out.println("Course code "+courseCode+" does not exist");
+		return;
 		}
-		//send parameters to unidatabase
-		uniDataBase.updateCourseSchool(courseCode, updatedSchool);
+		//send parameters to UniDataBase
+		UniDataBase.updateCourseSchool(courseCode, updatedSchool);
 		System.out.println("School of course updated.")
-
 	}
-	
+
 	public void updateCourseIndexNumber(int currentIndexNumber, int updatedIndexNumber) {
 		//verifications
-		if (uniDataBase.verifyClassIndex(currentIndexNumber)==false) {
+		if (UniDataBase.verifyClassIndex(currentIndexNumber)==false) {
 			System.out.println("Course index "+ currentIndexNumber +" does not exist");
 			return;
 		}
-		if (uniDataBase.verifyClassIndex(updatedIndexNumber)==true) {
+		if (UniDataBase.verifyClassIndex(updatedIndexNumber)==true) {
 			System.out.println("Course index "+updatedIndexNumber+" already exists");
 			return;
 		}
-		ClassIndex classIndex = uniDataBase.findClassIndex(currentIndexNumber);
+		ClassIndex classIndex = UniDataBase.findClassIndex(currentIndexNumber);
 		String courseCode= classIndex.getCourseCode();
-		//send parameters to unidatabase
-		uniDataBase.updateCourseIndexNum(courseCode,currentIndexNumber,updatedIndexNumber);
+		//send parameters to UniDataBase
+		UniDataBase.updateCourseIndexNum(courseCode,currentIndexNumber,updatedIndexNumber);
 		System.out.println("Index number of course updated.")
 	}
 
-	
 	public void updateIndexNumberVacancy(int indexNumber,int updatedVacancyNumber){
 		//verification
-		if (uniDataBase.verifyClassIndex(indexNumber)==false) {
+		if (UniDataBase.verifyClassIndex(indexNumber)==false) {
 			System.out.println("Course index "+indexNumber+" does not exist");
 			return;
 		}
-		ClassIndex classIndex = uniDataBase.findClassIndex(indexNumber);
+		ClassIndex classIndex = UniDataBase.findClassIndex(indexNumber);
 		String courseCode= classIndex.getCourseCode();
-		//send parameters to unidatabase
-		uniDataBase.updateCourseVacancy(courseCode,indexNumber,updatedVacancyNumber);
+		//send parameters to UniDataBase
+		UniDataBase.updateCourseVacancy(courseCode,indexNumber,updatedVacancyNumber);
 		System.out.println("Vacancy of course index updated.")
 	}
-	
+
 	public void createCourse(String courseCode,String courseName,String school,
 			int indexNum, int classVacancy,
 			String lessonType,String classVenue,String classDay,int[] classTiming,String classWeek,int acadUnits) {
 		//verifications
-		if (uniDataBase.verifyCourse(courseCode)==true) {
+		if (UniDataBase.verifyCourse(courseCode)==true) {
 			System.out.println("Course code "+courseCode+" already exists");
 			return;
 		}
-		if (uniDataBase.verifyClassIndex(indexNum)==true) {
+		if (UniDataBase.verifyClassIndex(indexNum)==true) {
 			System.out.println("Course index "+indexNum+" already exists");
 			return;
 		}
-		if (uniDataBase.verifyLessonClash(classVenue,classDay,classTime)==true) {
+		if (UniDataBase.verifyLessonClash(classVenue,classDay,classTime)==true) {
 			System.out.println("There is a clash with an existing lesson at "+ classVenue +" on "+classDay+" from "
 					+ classTiming[0] + " to " + classTiming[1]);
 			return;
@@ -1112,36 +1110,36 @@ public class AdminStars extends STARS{
 		indexNumList.add(new ClassIndex(courseName,courseCode,indexNum,classVacancy,lessonsList,studentsList,waitList));
 		//create course
 		Course newCourse=new Course(courseCode,courseName,school,indexNumList,acadUnits);
-		//send newCourse to unidatabase
-		uniDataBase.addToCourses(newCourse);
+		//send newCourse to UniDataBase
+		UniDataBase.addToCourses(newCourse);
 		System.out.println("New course added");
 		//display all courses after addition
 		System.out.println("Displaying all courses");
-		uniDataBase.displayAllCourses();
+		UniDataBase.displayAllCourses();
 	}
-	
+
 	public void printStudListByIndex(int indexNum) {
 		//Verify existence of such a course index
-		if (uniDataBase.verifyClassIndex(indexNum)==true){  
-			ClassIndex classIndex =uniDataBase.findClassIndex(indexNum);
-			uniDataBase.printStudList(classIndex);	
+		if (UniDataBase.verifyClassIndex(indexNum)==true){  
+		ClassIndex classIndex =UniDataBase.findClassIndex(indexNum);
+		UniDataBase.printStudList(classIndex);	
 		}
 		else System.out.println("Course index not found.");
 	}
-		
+	
 	public void printStudListByCourse(String courseCode) {	
 		//Verify existence of such a course
-		if (uniDataBase.verifyCourse(courseCode)==true){
-			Course course = uniDataBase.findCourseByCode(courseCode);
-			uniDataBase.printStudList(course);	
+		if (UniDataBase.verifyCourse(courseCode)==true){
+			Course course = UniDataBase.findCourseByCode(courseCode);
+			UniDataBase.printStudList(course);	
 		}
 		else System.out.println("Course not found.");
-		
-	}
 	
+	}
+
 	public void createCourse2(String newCourseCode, String newCourseName, String newSchool, ArrayList <ClassIndex>tempIndexNumList , int newAcadUnits) {
 		//verify course code
-		if (uniDataBase.verifyCourse(newCourseCode)==true) {
+		if (UniDataBase.verifyCourse(newCourseCode)==true) {
 			System.out.println("Course code "+newCourseCode+" already exists");
 			return;
 		}
@@ -1153,7 +1151,7 @@ public class AdminStars extends STARS{
 		ArrayList<Lesson> lessonsList;
 		for (int i=0;i<tempIndexNumListSize;i++){
 			indexNum = tempIndexNumList.get(i).getIndexNum();
-			if (uniDataBase.verifyClassIndex(indexNum)==true) {
+			if (UniDataBase.verifyClassIndex(indexNum)==true) {
 				System.out.println("Course index "+indexNum+" already exists");
 				return;
 			}
@@ -1163,7 +1161,7 @@ public class AdminStars extends STARS{
 				classVenue = lessonsList.get(j).getClassVenue();
 				classDay = lessonsList.get(j).getClassDay();
 				classTime = lessonsList.get(j).getClassTiming();
-				if (uniDataBase.verifyLessonClash(classVenue,classDay,classTime)==true) {
+				if (UniDataBase.verifyLessonClash(classVenue,classDay,classTime)==true) {
 					System.out.println("There is a clash with an existing lesson at "+ classVenue +" on "+classDay+" from "
 							+ classTime[0] + " to " + classTime[1]);
 					return;
@@ -1172,12 +1170,11 @@ public class AdminStars extends STARS{
 		}
 		//create course
 		Course newCourse=new Course( newCourseCode,newCourseName,newSchool,tempIndexNumList,newAcadUnits);
-		//send newCourse to unidatabase
-		uniDataBase.addToCourses(newCourse);
+		//send newCourse to UniDataBase
+		UniDataBase.addToCourses(newCourse);
 		System.out.println("New course added");
 		//display all courses after addition
-		uniDataBase.displayAllCourses();
-		
-	}	
+		UniDataBase.displayAllCourses();		
+	}		
 	
 }
