@@ -1001,8 +1001,7 @@ public class AdminSTARS extends STARS{
 		}
 		//create student
 		StudentRecords studentRecords = new StudentRecords();
-		Student newStudent = new Student(userName, pwd, name , gender , nationality , false, matricNo,
-				email, studentRecords);
+		Student newStudent = new Student(userName, pwd, name , gender , nationality , matricNo, email, studentRecords);
 		//send parameters to UniDataBase
 		UniDataBase.addToStudents(newStudent);
 		System.out.println("Student added.");
