@@ -148,17 +148,13 @@ public class StudentSTARS extends STARS {
 				return;
 			}
 			//verify timetable clash
-			ClassIndex addClassIndex = UniDataBase.findClassIndex(addIndexNumber);
 			if(UniDataBase.verifyTimetableClash(studentLoggedIn,addIndexNumber) == true){
 				System.out.println("There is a timetable clash with course index "+ addIndexNumber );
 				return;
 			}
 			//verify AcadUnitsRegistered
 			int currentAUReg=studRec.getAcadUnitsRegistered();
-			ClassIndex addClassIndex=UniDataBase.findClassIndex(addIndexNumber);
-			String addCourseCode = addClassIndex.getCourseCode();
-			Course addCourse=UniDataBase.findCourseByCode(addCourseCode);
-			int addAU= addCourse.getAcadUnits();
+			int addAU= classIndex.getAcadUnits();
 			if(currentAUReg+addAU>21){
 				System.out.println("You cannot exceed 21 AUs.");
 				return;
