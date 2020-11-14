@@ -34,7 +34,7 @@ public class MySTARSApp {
     			}
     		}
     		else if(UniDataBase.verifyAdminAccount(userNameLogIn, hashedPasswordInput) == true) { // ADMIN USER
-    			AdminStars.run();
+    			AdminSTARS.run();
     		}
     		else {
     			System.out.println("Incorrect username or password!");
