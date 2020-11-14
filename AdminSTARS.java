@@ -131,26 +131,26 @@ public class AdminStars extends STARS{
 					System.out.println("The ending access time is "+endDate+"--"+endMonth+"--2020 "+endHour+":"+endMinute+":00");
 					if(endMonth>startMonth) {				// LATER MONTH
 						System.out.println("You are updating the student access period.");
-						setStartAccessDate(startMonth, startDate, startHour, startMinute);
-						setEndAccessDate(endMonth, endDate, endHour, endMinute);
+						UniDataBase.setStartAccessDate(startMonth, startDate, startHour, startMinute);
+						UniDataBase.setEndAccessDate(endMonth, endDate, endHour, endMinute);
 					}
 					else if (endMonth==startMonth) {
 						if(endDate>startDate) {				// SAME MONTH, LATER DAY
 							System.out.println("You are updating the student access period.");
-							setStartAccessDate(startMonth, startDate, startHour, startMinute);
-							setEndAccessDate(endMonth, endDate, endHour, endMinute);
+							UniDataBase.setStartAccessDate(startMonth, startDate, startHour, startMinute);
+							UniDataBase.setEndAccessDate(endMonth, endDate, endHour, endMinute);
 						}
 						else if(endDate == startDate){
 							if(endHour>startHour) {			// SAME MONTH & DATE, LATER HOUR
 								System.out.println("You are updating the student access period.");
-								setStartAccessDate(startMonth, startDate, startHour, startMinute);
-								setEndAccessDate(endMonth, endDate, endHour, endMinute);
+								UniDataBase.setStartAccessDate(startMonth, startDate, startHour, startMinute);
+								UniDataBase.setEndAccessDate(endMonth, endDate, endHour, endMinute);
 							}
 							else if(endHour == startHour) {
 								if(endMinute>startMinute) {	// SAME MONTH, DATE & HOUR, LATER MINUTE
 									System.out.println("You are updating the student access period.");
-									setStartAccessDate(startMonth, startDate, startHour, startMinute);
-									setEndAccessDate(endMonth, endDate, endHour, endMinute);
+									UniDataBase.setStartAccessDate(startMonth, startDate, startHour, startMinute);
+									UniDataBase.setEndAccessDate(endMonth, endDate, endHour, endMinute);
 								}
 								else {						// SAME MONTH, DATE & HOUR, EARLIER/SAME MINUTE
 									System.out.println("The ending access time must be later than the starting access time. Update failed.");
@@ -422,7 +422,7 @@ public class AdminStars extends STARS{
 								System.out.println("Please input a positive number.");
 							}
 						}while(indexNumQuantity<1);
-						//Lesson tempLectureLesson = createLessonIndex(newCourseLectureType, newCommonLectureVenue, newCommonLectureDay, newCommonLectureTiming, newCommonLectureWeek);
+						Lesson tempLectureLesson = createLessonIndex(newCourseLectureType, newCommonLectureVenue, newCommonLectureDay, newCommonLectureTiming, newCommonLectureWeek);
 						ArrayList<ClassIndex> tempIndexNumList = new ArrayList<ClassIndex>();
 						for(int i = 0; i < indexNumQuantity; i++) {
 							int tempIndexNum, tempClassVacancy,tempClassDayNo,tempClassWeekNo, tempClassStartTime, tempClassEndTime;
