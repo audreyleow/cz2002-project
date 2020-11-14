@@ -155,8 +155,8 @@ public class StudentSTARS extends STARS {
 			}
 			//verify AcadUnitsRegistered
 			int currentAUReg=studRec.getAcadUnitsRegistered();
-			Course addCourse=UniDataBase.findCourseByCode(addIndexNumber);
-			int addAU=addCourse.getAcadUnits();
+			ClassIndex addCourse=UniDataBase.findClassIndex(addIndexNumber);
+			int addAU= addCourse.getAcadUnits();
 			if(currentAUReg+addAU>21){
 				System.out.println("You cannot exceed 21 AUs.");
 				return;
@@ -204,23 +204,41 @@ public class StudentSTARS extends STARS {
 			int lessonListSize;
 			String lessonType,classVenue,classDay,classWeek;
 			int[] classTiming;
+			System.out.println("Courses registered.. :");
 			for(int i=0;i<coursesRegSize;i++) {
 				courseCode = coursesReg.get(i).getCourseCode(); 
 				courseName = coursesReg.get(i).getCourseName();
 				indexNum = coursesReg.get(i).getIndexNum();
-				//print course info
-				//...
-				lessonList = coursesReg.get(i).getLessonsList();
-				lessonListSize = lessonList.size();
-				for(int j=0;j<lessonListSize;j++) {
-					lessonType = lessonList.get(j).getLessonType();
-					classVenue = lessonList.get(j).getClassVenue();
-					classDay = lessonList.get(j).getClassDay();
-					classTiming = lessonList.get(j).getClassTiming();
-					classWeek = lessonList.get(j).getClassWeek();
-					//print class index info
+				//print courses registered
+				System.out.println((i+1)+ ":/t" + courseCode + "/t" + courseName + "/t" + indexNum);
+				
+			
+				// this not req
+				//lessonList = coursesReg.get(i).getLessonsList();
+				//lessonListSize = lessonList.size();
+				//for(int j=0;j<lessonListSize;j++) {
+				//	lessonType = lessonList.get(j).getLessonType();
+				//	classVenue = lessonList.get(j).getClassVenue();
+				//	classDay = lessonList.get(j).getClassDay();
+				//	classTiming = lessonList.get(j).getClassTiming();
+				//	classWeek = lessonList.get(j).getClassWeek();
+				//print class index info
 					//...
 				}
+				
+		// print courses in waitlist
+			ArrayList<ClassIndex> waitListCourses = studRec.getStudentWaitList();
+			int waitListCoursesSize = waitListCourses.size();
+			String wlcourseCode, wlcourseName;
+			int wlindexNum;
+			
+			System.out.println("Courses on waitlist... :");
+			for (int p = 0; p< waitListCoursesSize ; p++) {
+				wlcourseCode = waitListCourses.get(p).getCourseCode();
+				wlcourseName = waitListCourses.get(p).getCourseName();
+				wlindexNum = waitListCourses.get(p).getIndexNum();
+				System.out.println( (p+1) + ":/t" + wlcourseCode + "/t" + wlcourseName + "/t" + wlindexNum);
+				
 				
 			}
 			
