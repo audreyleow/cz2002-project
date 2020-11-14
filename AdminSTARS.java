@@ -1,12 +1,5 @@
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.sql.Time;
-import java.sql.*;
-import java.text.SimpleDateFormat;
-import java.util.*;
-import java.util.Date;
-
 
 public class AdminStars extends STARS{
 	
@@ -184,7 +177,6 @@ public class AdminStars extends STARS{
 					newMatricNo = newMatricNo.trim();						// Remove any whitespace at both ends of String
 					newMatricNo = newMatricNo.replaceAll("\\s+","");		// Remove any whitespace in String 
 					System.out.println("New Matriculation Number Input: "+newMatricNo);
-					// ---------------------------------------Gender---------------------------------
 					System.out.println("======= Gender =========\r\n" + 
 							   "|1. Male   |2. Female  |\r\n" + 
 							   "========================\r\n");
@@ -415,7 +407,7 @@ public class AdminStars extends STARS{
 							}
 						}while(commonLectureClassIndexVacancy <= 0);
 						System.out.println("New Course Lecture Class Vacancy Input: "+commonLectureClassIndexVacancy);
-						createCourse(newCourseCode, newCourseName, newSchool, commonLectureIndexNum, commonLectureClassIndexVacancy,newCourseLectureType, newCommonLectureVenue, newCommonLectureDay, newCommonLectureWeek, newCommonLectureTiming, newAcadUnits); 
+						createCourse(newCourseCode, newCourseName, newSchool, commonLectureIndexNum, commonLectureClassIndexVacancy,newCourseLectureType, newCommonLectureVenue, newCommonLectureDay,newCommonLectureTiming, newCommonLectureWeek , newAcadUnits); 
 					}
 					else if(lessonFormat == 2) {		// Lecture & Tutorial
 						do {
@@ -572,12 +564,12 @@ public class AdminStars extends STARS{
 									tempTutorialTiming[1] = tempClassEndTime;
 								}
 							}while(((tempClassStartTime>tempClassEndTime) && (tempClassEndTime!=0)) || (tempClassStartTime==tempClassEndTime));
-							tempLesson = createLessonIndex(tempLessonType, tempClassVenue, tempClassDay, tempTutorialTiming, tempClassWeek)
+							tempLesson = createLessonIndex(tempLessonType, tempClassVenue, tempClassDay, tempTutorialTiming, tempClassWeek);
 							tempLessonsList.add(tempLesson);  	// Adds specific tutorial Lesson to temp lessonsList of each ClassIndex
 							tempClassIndex = createClassIndex(newCourseName, newCourseCode, tempIndexNum, tempClassVacancy, tempLessonsList);
 							tempIndexNumList.add(tempClassIndex);	 // Adds specific ClassIndex(containing a common lecture Lesson & specific tutorial Lesson under a specific index num) to temp indexNumList for each ClassIndex
 						}
-						//createCourse2(newCourseCode, newCourseName, newSchool, tempIndexNumList ,newAcadUnits); 
+						createCourse2(newCourseCode, newCourseName, newSchool, tempIndexNumList ,newAcadUnits); 
 					}
 					else if(lessonFormat == 3) {		// Lecture, Tutorial & Lab
 						do {
@@ -736,7 +728,7 @@ public class AdminStars extends STARS{
 									tempTutTiming[1] = tempTutEndTime;
 								}
 							}while(((tempTutStartTime>tempTutEndTime) && (tempTutEndTime!=0)) || (tempTutStartTime==tempTutEndTime));
-							//tempTutLesson = createLessonIndex(tempTutLessonType, tempTutVenue, tempTutDay, tempTutTiming, tempTutWeek)
+							tempTutLesson = createLessonIndex(tempTutLessonType, tempTutVenue, tempTutDay, tempTutTiming, tempTutWeek);
 							tempLessonsList.add(tempTutLesson);  	// Adds specific tutorial Lesson to temp lessonsList of each ClassIndex
 							System.out.print("Input lab class venue of new course:");
 							scan.nextLine();  // Consume newline left-over
@@ -859,13 +851,13 @@ public class AdminStars extends STARS{
 									tempLabTiming[1] = tempLabEndTime;
 								}
 							}while(((tempLabStartTime>tempLabEndTime) && (tempLabEndTime!=0)) || (tempLabStartTime==tempLabEndTime));
-							//tempLabLesson = createLessonIndex(tempLabLessonType, tempLabVenue, tempLabDay, tempLabTiming, tempLabWeek)
+							tempLabLesson = createLessonIndex(tempLabLessonType, tempLabVenue, tempLabDay, tempLabTiming, tempLabWeek);
 							tempLessonsList.add(tempLabLesson);  	// Adds specific lab Lesson to temp lessonsList of each ClassIndex
 							
-							//tempClassIndex = createClassIndex(newCourseName, newCourseCode, tempIndexNum, tempClassVacancy, tempLessonsList);
+							tempClassIndex = createClassIndex(newCourseName, newCourseCode, tempIndexNum, tempClassVacancy, tempLessonsList);
 							tempIndexNumList.add(tempClassIndex);	 // Adds specific ClassIndex(containing a common lecture Lesson, specific tutorial Lesson & specific lab Lesson under a specific index num) to temp indexNumList for each ClassIndex
 						}
-						//createCourse2(newCourseCode, newCourseName, newSchool, tempIndexNumList ,newAcadUnits); 
+						createCourse2(newCourseCode, newCourseName, newSchool, tempIndexNumList ,newAcadUnits); 
 					}		
 					break;
 				case 4: // Update Course Code
@@ -881,7 +873,7 @@ public class AdminStars extends STARS{
 					updatedCourseCode = updatedCourseCode.trim();							// Remove any whitespace at both ends of String
 					updatedCourseCode = updatedCourseCode.replaceAll("\\s+","");			// Remove any whitespace in String 
 					System.out.println("Course "+currentCourseCode+" is being updated to Course "+updatedCourseCode+".");
-					// updateCourseCode(currentCourseCode,updatedCourseCode);
+					updateCourseCode(currentCourseCode,updatedCourseCode);
 					break;
 				case 5: // Update Course School
 					String courseCode, updatedSchool;
@@ -914,7 +906,7 @@ public class AdminStars extends STARS{
 					}while(updatedSchoolNo<1 || updatedSchoolNo>17);
 					updatedSchool = listOfSchools2[updatedSchoolNo-1];
 					System.out.println("School of Course "+courseCode+" is being updated to "+updatedSchool+".");
-					// updateCourseSchool(courseCode,updatedSchool);
+					updateCourseSchool(courseCode,updatedSchool);
 					break;
 				case 6: // Update Course Index Number
 					int currentIndexNumber, updatedIndexNumber;
@@ -934,7 +926,7 @@ public class AdminStars extends STARS{
 						}
 					}while(updatedIndexNumber<=0);
 					System.out.println("Index Number of Course "+currentIndexNumber+" is being updated to "+updatedIndexNumber+".");
-					// updateCourseIndexNumber(currentIndexNumber,updatedIndexNumber);
+					updateCourseIndexNumber(currentIndexNumber,updatedIndexNumber);
 					break;
 				case 7: // Update Index Number Vacancy
 					int indexNumber, updatedVacancyNumber;
@@ -954,7 +946,7 @@ public class AdminStars extends STARS{
 						}
 					}while(updatedVacancyNumber<0);
 					System.out.println("Vacancy of Index Number "+indexNumber+" is being updated to "+updatedVacancyNumber+".");
-					// updateCourseIndexNumber(currentIndexNumber,updatedIndexNumber);
+					updateIndexNumberVacancy(indexNumber,updatedVacancyNumber);
 					break;
 				case 8: // Check Class Vacancies
 					int indexNumberTemp1;
@@ -966,7 +958,7 @@ public class AdminStars extends STARS{
 						}
 					}while(indexNumberTemp1<=0);
 					System.out.println("Checking the Class Vacancies of Index Number "+indexNumberTemp1+"...");
-					// checkVacancies(indexNumberTemp1); 
+					checkVacancies(indexNumberTemp1); 
 					break;
 				case 9: // Print Student List by Index Number
 					int indexNumberTemp2;
@@ -978,7 +970,7 @@ public class AdminStars extends STARS{
 						}
 					}while(indexNumberTemp2<=0);
 					System.out.println("Printing the Student List by Index Number "+indexNumberTemp2+"...");
-					// printStudListByIndex(indexNumberTemp2); 
+					printStudListByIndex(indexNumberTemp2); 
 					break;
 				case 10: // Print Student List by Course
 					String courseCodeTemp;
@@ -988,10 +980,10 @@ public class AdminStars extends STARS{
 					courseCodeTemp = courseCodeTemp.trim();									// Remove any whitespace at both ends of String
 					courseCodeTemp = courseCodeTemp.replaceAll("\\s+","");					// Remove any whitespace in String 
 					System.out.println("Printing the Student List by Course "+courseCodeTemp+"...");
-					// printStudListByCourse(courseCodeTemp);
+					printStudListByCourse(courseCodeTemp);
 					break;
 				case 11: // Exit
-					// Call method to (re)write files
+					UniDataBase.saveAllFiles();
 					System.out.println("You have logged out.");
 					break;
 				default:
@@ -1000,7 +992,7 @@ public class AdminStars extends STARS{
 		}while(inputChoice!=11);
 	}
 	
-	public void addStudent(String name, String matricNo, String gender, String nationality, String userName, String pwd ,String email){
+	public static void addStudent(String name, String matricNo, String gender, String nationality, String userName, String pwd ,String email){
 		//verifications
 		if (UniDataBase.verifyExistedStudent(matricNo,userName)==true) {
 			System.out.println("Student with matric number "+ matricNo +" or student with username " +
@@ -1019,7 +1011,7 @@ public class AdminStars extends STARS{
 		UniDataBase.displayAllStudents();
 	}
 	
-	public void  updateCourseCode(String currentCourseCode, String updatedCourseCode) {
+	public static void updateCourseCode(String currentCourseCode, String updatedCourseCode) {
 		//verifications
 		if (UniDataBase.verifyCourse(currentCourseCode)==false) {
 			System.out.println("Course code "+ currentCourseCode+" does not exist");
@@ -1034,7 +1026,7 @@ public class AdminStars extends STARS{
 		System.out.println("Course code updated.");
 	}
 	
-	public void updateCourseSchool(String courseCode, String updatedSchool) {
+	public static void updateCourseSchool(String courseCode, String updatedSchool) {
 		//verifications
 		if (UniDataBase.verifyCourse(courseCode)==false) {
 			System.out.println("Course code "+courseCode+" does not exist");
@@ -1046,7 +1038,7 @@ public class AdminStars extends STARS{
 
 	}
 	
-	public void updateCourseIndexNumber(int currentIndexNumber, int updatedIndexNumber) {
+	public static void updateCourseIndexNumber(int currentIndexNumber, int updatedIndexNumber) {
 		//verifications
 		if (UniDataBase.verifyClassIndex(currentIndexNumber)==false) {
 			System.out.println("Course index "+ currentIndexNumber +" does not exist");
@@ -1064,7 +1056,7 @@ public class AdminStars extends STARS{
 	}
 
 	
-	public void updateIndexNumberVacancy(int indexNumber,int updatedVacancyNumber){
+	public static void updateIndexNumberVacancy(int indexNumber,int updatedVacancyNumber){
 		//verification
 		if (UniDataBase.verifyClassIndex(indexNumber)==false) {
 			System.out.println("Course index "+indexNumber+" does not exist");
@@ -1077,7 +1069,7 @@ public class AdminStars extends STARS{
 		System.out.println("Vacancy of course index updated.");
 	}
 	
-	public void createCourse(String courseCode,String courseName,String school,
+	public static void createCourse(String courseCode,String courseName,String school,
 			int indexNum, int classVacancy,
 			String lessonType,String classVenue,String classDay,int[] classTiming,String classWeek,int acadUnits) {
 		//verifications
@@ -1104,7 +1096,7 @@ public class AdminStars extends STARS{
 		//create class index, adding it to indexNumList
 		indexNumList.add(new ClassIndex(courseName,courseCode,indexNum,classVacancy,lessonsList,studentsList,waitList));
 		//create course
-		Course newCourse=new Course(courseCode,courseName,school,indexNumList,acadUnits);
+		Course newCourse=new Course(courseCode,courseName,school,acadUnits,indexNumList);
 		//send newCourse to UniDataBase
 		UniDataBase.addToCourses(newCourse);
 		System.out.println("New course added");
@@ -1113,7 +1105,7 @@ public class AdminStars extends STARS{
 		UniDataBase.displayAllCourses();
 	}
 	
-	public void printStudListByIndex(int indexNum) {
+	public static void printStudListByIndex(int indexNum) {
 		//Verify existence of such a course index
 		if (UniDataBase.verifyClassIndex(indexNum)==true){  
 			ClassIndex classIndex =UniDataBase.findClassIndex(indexNum);
@@ -1122,7 +1114,7 @@ public class AdminStars extends STARS{
 		else System.out.println("Course index not found.");
 	}
 		
-	public void printStudListByCourse(String courseCode) {	
+	public static void printStudListByCourse(String courseCode) {	
 		//Verify existence of such a course
 		if (UniDataBase.verifyCourse(courseCode)==true){
 			Course course = UniDataBase.findCourseByCode(courseCode);
@@ -1132,18 +1124,18 @@ public class AdminStars extends STARS{
 		
 	}
 	
-	public Lesson createLessonIndex(String lessonType, String lessonVenue, String lessonDay, int [] lessonTiming, String lessonWeek) {
-		return Lesson(lessonType,lessonVenue,lessonDay,lessonTiming,lessonWeek);
+	public static Lesson createLessonIndex(String lessonType, String lessonVenue, String lessonDay, int [] lessonTiming, String lessonWeek) {
+		return new Lesson(lessonType,lessonVenue,lessonDay,lessonTiming,lessonWeek);
 	}
 	
-	public ClassIndex createClassIndex(String courseName, String courseCode, int indexNum, int classVacancy, ArrayList <Lesson> lessonsList) {
+	public static ClassIndex createClassIndex(String courseName, String courseCode, int indexNum, int classVacancy, ArrayList <Lesson> lessonsList) {
 		ArrayList <Student> studentsList = new ArrayList <Student>();
 		ArrayList <Student> waitList = new ArrayList <Student>();
-		return ClassIndex(courseName,courseCode,indexNum,classVacancy,lessonsList,studentsList,waitList);
+		return new ClassIndex(courseName,courseCode,indexNum,classVacancy,lessonsList,waitList,studentsList);
 	}
 		
 	
-	public void createCourse2(String newCourseCode, String newCourseName, String newSchool, ArrayList <ClassIndex>tempIndexNumList , int newAcadUnits) {
+	public static void createCourse2(String newCourseCode, String newCourseName, String newSchool, ArrayList <ClassIndex>tempIndexNumList , int newAcadUnits) {
 		//verify course code
 		if (UniDataBase.verifyCourse(newCourseCode)==true) {
 			System.out.println("Course code "+newCourseCode+" already exists");
@@ -1175,7 +1167,7 @@ public class AdminStars extends STARS{
 			}
 		}
 		//create course
-		Course newCourse=new Course( newCourseCode,newCourseName,newSchool,tempIndexNumList,newAcadUnits);
+		Course newCourse=new Course( newCourseCode,newCourseName,newSchool, newAcadUnits,tempIndexNumList);
 		//send newCourse to UniDataBase
 		UniDataBase.addToCourses(newCourse);
 		System.out.println("New course added");
@@ -1183,4 +1175,5 @@ public class AdminStars extends STARS{
 		UniDataBase.displayAllCourses();
 		
 	}	
+		
 }
