@@ -1175,5 +1175,5 @@ public class AdminStars extends STARS{
 		UniDataBase.displayAllCourses();
 		
 	}	
-		
+	
 }
