@@ -33,7 +33,7 @@ public class StudentSTARS extends STARS {
 								System.out.println("This index number does not exist.");
 							}
 							else {
-								//addCourse(indexNumberTemp);
+								addCourse(studentLoggedIn,indexNumberTemp);
 								System.out.println("Your course has been added!");
 							}	
 						break;
@@ -50,12 +50,12 @@ public class StudentSTARS extends STARS {
 								System.out.println("This index number does not exist.");
 							}
 							else {
-								//dropCourse(indexNumberTemp2);
+								dropCourse(studentLoggedIn,indexNumberTemp2);
 								System.out.println("Your course has been dropped!");
 							}	
 						break;
 					case 3: // Check Courses Registered
-						//printCourses(studentLoggedIn);
+						printCourses(studentLoggedIn);
 						break;
 					case 4: // Check Vacancies Available
 						int indexNumberTemp3;
@@ -66,7 +66,7 @@ public class StudentSTARS extends STARS {
 								System.out.println("Please insert a positive value");
 							}
 						}while(indexNumberTemp3<=0);
-						//checkVacancies(indexNumberTemp3);
+						checkVacancies(indexNumberTemp3);
 						break;
 					case 5: // Change Index Number of Course
 						int indexNumberTemp4,indexNumberTemp5;
@@ -84,7 +84,7 @@ public class StudentSTARS extends STARS {
 								System.out.println("Please insert a positive integer");
 							}
 						}while(indexNumberTemp5 <= 0);
-						//changeIndex(indexNumberTemp4, indexNumberTemp5);
+						changeIndex(studentLoggedIn,indexNumberTemp4, indexNumberTemp5);
 						break;
 					case 6: // Swap Index Number with Another Student
 						int indexNumberTemp6,peerIndexNumberTemp;
@@ -113,10 +113,10 @@ public class StudentSTARS extends STARS {
 								System.out.println("Please insert a positive value");
 							}
 						}while(peerIndexNumberTemp<=0);
-						//swopIndex(indexNumberTemp6, peerUserName, peerHashedPassword, peerIndexNumberTemp);
+						swopIndex(studentLoggedIn,indexNumberTemp6, peerUserName, peerHashedPassword, peerIndexNumberTemp);
 						break;
 					case 7: // Exit
-						// Call method to (re)write files
+						UniDataBase.saveAllFiles();
 						System.out.println("You have logged out.");
 						break;
 					default:
@@ -125,7 +125,7 @@ public class StudentSTARS extends STARS {
 			}while(inputChoice != 7);
 			
 		}
-		public void addCourse(Student studentLoggedIn,int addIndexNumber) {
+		public static void addCourse(Student studentLoggedIn,int addIndexNumber) {
 			//verification
 			if (UniDataBase.verifyClassIndex(addIndexNumber)==false) {
 				System.out.println("Course index "+ addIndexNumber +" does not exist");
@@ -157,7 +157,7 @@ public class StudentSTARS extends STARS {
 			int currentAUReg=studRec.getAcadUnitsRegistered();
 			ClassIndex addClassIndex=UniDataBase.findClassIndex(addIndexNumber);
 			String addCourseCode = addClassIndex.getCourseCode();
-			Course addCourse=findCourseByCode(addCourseCode);
+			Course addCourse=UniDataBase.findCourseByCode(addCourseCode);
 			int addAU= addCourse.getAcadUnits();
 			if(currentAUReg+addAU>21){
 				System.out.println("You cannot exceed 21 AUs.");
@@ -173,7 +173,7 @@ public class StudentSTARS extends STARS {
 			}
 		}
 		
-		public void dropCourse(Student studentLoggedIn,int dropIndexNumber) {
+		public static void dropCourse(Student studentLoggedIn,int dropIndexNumber) {
 			//verification
 			if (UniDataBase.verifyClassIndex(dropIndexNumber)==false) {
 				System.out.println("Course index "+ dropIndexNumber +" does not exist");
@@ -195,7 +195,7 @@ public class StudentSTARS extends STARS {
 			System.out.println("You are not registered to course index "+ dropIndexNumber);
 		}
 		
-		public void printCourses(Student studentLoggedIn) {
+		public static void printCourses(Student studentLoggedIn) {
 			System.out.println("Printing courses registered...");
 			StudentRecords studRec=studentLoggedIn.getStudentRecords();
 			ArrayList<ClassIndex> coursesReg = studRec.getCoursesRegistered();
@@ -246,7 +246,7 @@ public class StudentSTARS extends STARS {
 			
 		}
 		
-		public void changeIndex(Student studentLoggedIn,int oldIndexNumber, int newIndexNumber) {
+		public static void changeIndex(Student studentLoggedIn,int oldIndexNumber, int newIndexNumber) {
 			//verify indexes exist
 			if (UniDataBase.verifyClassIndex(oldIndexNumber)==false) {
 				System.out.println("Course index "+ oldIndexNumber +" does not exist");
@@ -294,7 +294,7 @@ public class StudentSTARS extends STARS {
 			
 		}
 		
-		public void swopIndex(Student studentLoggedIn,int userIndexNumber, String peerUserName, String peerPassword, int peerIndexNumber ){
+		public static void swopIndex(Student studentLoggedIn,int userIndexNumber, String peerUserName, String peerPassword, int peerIndexNumber ){
 			//verify indexes exist
 			if (UniDataBase.verifyClassIndex(userIndexNumber)==false) {
 				System.out.println("Course index "+ userIndexNumber +" does not exist");
@@ -358,3 +358,4 @@ public class StudentSTARS extends STARS {
 		}
 
 }
+
