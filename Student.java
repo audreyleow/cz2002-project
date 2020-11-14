@@ -5,8 +5,8 @@ public class Student extends User{
 	private String email;
 	private StudentRecords studentRecords;
 	
-	public Student(String userName, String pwd, String name, String gender, String nationality, boolean accesslevel, String matricNo, String email, StudentRecords studentRecords) {
-		super(userName, pwd, name, gender, nationality, accesslevel);
+	public Student(String userName, String pwd, String name, String gender, String nationality, String matricNo, String email, StudentRecords studentRecords) {
+		super(userName, pwd, name, gender, nationality);
 		this.matricNo = matricNo;
 		this.email = email;
 		this.studentRecords = studentRecords;
