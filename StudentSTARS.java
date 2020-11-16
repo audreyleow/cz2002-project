@@ -130,18 +130,19 @@ public class StudentSTARS extends STARS {
 				System.out.println("Course index "+ addIndexNumber +" does not exist");
 				return;
 			}
-			//check if the course index has been registered by the student
+			//check if the course has been registered by the student
+			ClassIndex classIndex=UniDataBase.findClassIndex(addIndexNumber);
 			StudentRecords studRec=studentLoggedIn.getStudentRecords();
 			ArrayList<ClassIndex> coursesReg = studRec.getCoursesRegistered();
 			int coursesRegSize = coursesReg.size();
+			String addCourseCode = classIndex.getCourseCode();
 			for(int i=0;i<coursesRegSize;i++) {
-				if(coursesReg.get(i).getIndexNum()==addIndexNumber){
-				System.out.println("Course index "+ addIndexNumber +" has already been added");
+				if(coursesReg.get(i).getCourseCode().equals(addCourseCode)){
+				System.out.println("Course code "+ addCourseCode +" has already been added");
 				return;
 				}	
 			}
 			//check if student is already in the waitlist
-			ClassIndex classIndex=UniDataBase.findClassIndex(addIndexNumber);
 			if(classIndex.getWaitList().contains(studentLoggedIn)){
 				System.out.println("You are already in the waitlist for course index "+ addIndexNumber );
 				return;
