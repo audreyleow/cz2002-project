@@ -173,7 +173,21 @@ public class UniDataBase {
 		}
 	}
 	
-	public static void saveSettingsFile() {}
+		public static void saveSettingsFile() {
+		//for access period
+		try {
+			FileOutputStream foSettings = new FileOutputStream(settingsFile);
+			ObjectOutputStream outputSettings = new ObjectOutputStream(foSettings);
+			
+			outputSettings.writeObject(startAccessDate);
+			outputSettings.writeObject(endAccessDate);
+			
+			outputSettings.close();
+			foSettings.close();
+		}catch (IOException e) { //  IOException is for when file cannot be opened/closed
+			System.out.println(e.getMessage());
+		}
+	}
 	
 	public static boolean verifyStudentAccount(String userName, String pwd) {
 		for (int i=0; i<students.size(); i++) {
