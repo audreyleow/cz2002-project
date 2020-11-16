@@ -357,6 +357,8 @@ public class UniDataBase {
 	
 	public static void printStudList(Course course) {
 		int indexNumListSize = course.getIndexNumList().size();
+		System.out.println(String.format("%-7s%-20s%-30s","Gender","Nationality","Name"));
+		System.out.println("-------------------------------");
 		for (int i=0; i<indexNumListSize; i++) {
 			ClassIndex classIndex = course.getIndexNumList().get(i);
 			ArrayList<Student> studentList = classIndex.getStudentList();
@@ -368,6 +370,8 @@ public class UniDataBase {
 	
 	public static void printStudList(ClassIndex classIndex) {
 		ArrayList<Student> studentList = classIndex.getStudentList();
+		System.out.println(String.format("%-7s%-20s%-30s","Gender","Nationality","Name"));
+		System.out.println("-------------------------------");
 		for (int i=0; i<studentList.size(); i++) {
 			System.out.println(String.format("%-7s%-20s%-30s" , studentList.get(i).getGender(),studentList.get(i).getNationality(),studentList.get(i).getName()));
 		}
@@ -419,14 +423,18 @@ public class UniDataBase {
 	}
 	
 	public static void displayAllCourses() {
+		System.out.println(String.format("%-11s%-30s","Course Code","Course Name"));
+		System.out.println("---------------------");
 		for (int i=0; i<courses.size(); i++) {
 			System.out.println(String.format("%-7s%-30s",courses.get(i).getCourseCode(), courses.get(i).getCourseName()));
 		}
 	}
 	
 	public static void displayAllStudents() {
+		System.out.println(String.format("%-10s%-7s%-20s%-30s","Matric No.","Gender","Nationality","Name"));
+		System.out.println("-----------------------------------------");	
 		for (int i=0; i<students.size(); i++) {
-			System.out.println(String.format("%-30s%-10s%-20s%-6s" , students.get(i).getName(), students.get(i).getMatricNo(), students.get(i).getNationality(), students.get(i).getGender()));
+			System.out.println(String.format("%-10s%-7s%-20s%-30s" , students.get(i).getMatricNo(),students.get(i).getGender(), students.get(i).getNationality(),students.get(i).getName()));
 		}
 	}
 	
