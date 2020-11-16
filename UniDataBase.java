@@ -15,19 +15,6 @@ public class UniDataBase {
 	static LocalDateTime startAccessDate;
 	static LocalDateTime endAccessDate; 
 	
-	/*
-	public UniDataBase() {
-		coursesFile = new File("courses.txt");
-		studentsFile = new File("students.txt");
-		adminsFile = new File("admins.txt");
-		courses = new ArrayList<Course>();
-		students = new ArrayList<Student>();
-		admins = new ArrayList<Admin>();
-		tempCoursesIndex = -1;
-		tempClassIndex = -1;
-	}
-	*/
-	
 	public static void loadAllFiles() {
 		//reading files in on start-up
 		// How to deserialize the file back into the arraylist - must close after reading data from file! (file to class)
@@ -277,19 +264,19 @@ public class UniDataBase {
 	
 	public static void updateCourseVacancy(String courseCode, int indexNum, int newVacantNum) {
 		Course course = findCourseByCode(courseCode);
-		for (int i=0; i<course.getIndexNumList().size(); i++) {
-			ClassIndex classIndex = course.getIndexNumList().get(i);
-			classIndex.setClassVacancy(newVacantNum);
-			while (classIndex.getWaitList().isEmpty() == false && classIndex.getStudentList().size() != classIndex.getClassVacancy()) {
-					Student student = classIndex.getWaitList().remove(0);
-					StudentRecords studentRecords = student.getStudentRecords();
-					classIndex.getStudentList().add(student);
-					studentRecords.addCourseRegistered(classIndex);
-					studentRecords.setAcadUnitsRegistered(studentRecords.getAcadUnitsRegistered() + course.getAcadUnits());
-					
-					//send email thingy here
-				}
-		}
+		ClassIndex classIndex = findClassIndex(indexNum);
+		classIndex.setClassVacancy(newVacantNum-classIndex.getStudentList().size());
+		while (classIndex.getWaitList().isEmpty() == false && classIndex.getClassVacancy() != 0) {
+				Student student = classIndex.getWaitList().remove(0);
+				StudentRecords studentRecords = student.getStudentRecords();
+				classIndex.getStudentList().add(student);
+				classIndex.setClassVacancy(classIndex.getClassVacancy()-1);
+				studentRecords.addCourseRegistered(classIndex);
+				studentRecords.setAcadUnitsRegistered(studentRecords.getAcadUnitsRegistered() + course.getAcadUnits());
+				
+				//Notifying waiting student through email.
+				sendEmail.courseRegistered(student.getEmail(), course.getCourseCode(), course.getCourseName(), classIndex.getIndexNum());
+			}
 	}
 
 	public static void addToStudents(Student newStudent) {
@@ -301,11 +288,12 @@ public class UniDataBase {
 		//classIndex is not filled yet
 		String courseCode = classIndex.getCourseCode();
 		Course course = findCourseByCode(courseCode);
-		if (classIndex.getStudentList().size() != classIndex.getClassVacancy()) {
+		if (classIndex.getClassVacancy() != 0) {
 			student.getStudentRecords().addCourseRegistered(classIndex);
 			int tempAcadUnitsRegistered = student.getStudentRecords().getAcadUnitsRegistered(); 
 			student.getStudentRecords().setAcadUnitsRegistered(tempAcadUnitsRegistered + course.getAcadUnits());
 			classIndex.getStudentList().add(student);
+			classIndex.setClassVacancy(classIndex.getClassVacancy()-1);
 		}
 		
 		//classIndex is filled currently --> add to waiting list
@@ -323,6 +311,7 @@ public class UniDataBase {
 			int tempAcadUnitsRegistered = student.getStudentRecords().getAcadUnitsRegistered();
 			student.getStudentRecords().setAcadUnitsRegistered(tempAcadUnitsRegistered - course.getAcadUnits());
 			classIndex.getStudentList().remove(student);
+			classIndex.setClassVacancy(classIndex.getClassVacancy()+1);
 			
 			//add students from waiting list if there is people waiting to get the class index
 			if (classIndex.getWaitList().isEmpty() == false) {
@@ -332,9 +321,11 @@ public class UniDataBase {
 				tempAcadUnitsRegistered = studentWaiting.getStudentRecords().getAcadUnitsRegistered();
 				studentWaiting.getStudentRecords().setAcadUnitsRegistered(tempAcadUnitsRegistered + course.getAcadUnits());
 				classIndex.getStudentList().add(studentWaiting);
+				classIndex.setClassVacancy(classIndex.getClassVacancy()-1);
 				classIndex.getWaitList().remove(student);
 				
-				/////need the sending email application here
+				//Notifying waiting student through email.
+				sendEmail.courseRegistered(studentWaiting.getEmail(), course.getCourseCode(), course.getCourseName(), classIndex.getIndexNum());
 			}
 		}
 		
