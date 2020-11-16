@@ -29,13 +29,7 @@ public class StudentSTARS extends STARS {
 								System.out.println("Please insert a positive integer");
 							}
 						}while(indexNumberTemp <= 0);
-							if (UniDataBase.verifyClassIndex(indexNumberTemp) == false) {
-								System.out.println("This index number does not exist.");
-							}
-							else {
-								addCourse(studentLoggedIn,indexNumberTemp);
-								System.out.println("Your course has been added!");
-							}	
+						addCourse(studentLoggedIn,indexNumberTemp);
 						break;
 					case 2: // Drop Course
 						int indexNumberTemp2;
@@ -46,13 +40,7 @@ public class StudentSTARS extends STARS {
 								System.out.println("Please insert a positive integer");
 							}
 						}while(indexNumberTemp2 <= 0);
-							if (UniDataBase.verifyClassIndex(indexNumberTemp2) == false) {
-								System.out.println("This index number does not exist.");
-							}
-							else {
-								dropCourse(studentLoggedIn,indexNumberTemp2);
-								System.out.println("Your course has been dropped!");
-							}	
+						dropCourse(studentLoggedIn,indexNumberTemp2);
 						break;
 					case 3: // Check Courses Registered
 						printCourses(studentLoggedIn);
@@ -211,7 +199,7 @@ public class StudentSTARS extends STARS {
 				courseName = coursesReg.get(i).getCourseName();
 				indexNum = coursesReg.get(i).getIndexNum();
 				//print courses registered
-				System.out.println((i+1)+ ":/t" + courseCode + "/t" + courseName + "/t" + indexNum);
+				System.out.println((i+1)+ ":\t" + courseCode + "\t" + courseName + "\t" + indexNum);
 				
 			
 				// this not req
@@ -343,7 +331,7 @@ public class StudentSTARS extends STARS {
 			int coursesRegSize2 = coursesReg2.size();
 			hasIndex=false;
 			for(int i=0;i<coursesRegSize2;i++) {
-				if(coursesReg.get(i).getIndexNum()== peerIndexNumber){
+				if(coursesReg2.get(i).getIndexNum()== peerIndexNumber){
 				hasIndex =true;
 				}
 			}
