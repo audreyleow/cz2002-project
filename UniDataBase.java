@@ -456,7 +456,8 @@ public class UniDataBase {
 					Lesson lesson = courses.get(i).getIndexNumList().get(j).getLessonsList().get(k);
 					if (lesson.getClassVenue().equals(classVenue)) {
 						if (lesson.getClassDay().equals(classDay)) {
-							if (lesson.getClassTiming()[0] > classTime[0] && lesson.getClassTiming()[0] < classTime[1])
+							if (((lesson.getClassTiming()[0] >= classTime[0] && lesson.getClassTiming()[0] < classTime[1])
+  								|| (lesson.getClassTiming()[1] > classTime[0] && lesson.getClassTiming()[1] <= classTime[1])))
 								return true;
 						}
 					}
