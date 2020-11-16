@@ -163,6 +163,7 @@ public class AdminSTARS extends STARS{
 					else {									// EARLIER MONTH
 						System.out.println("The ending access time must be later than the starting access time. Update failed.");
 					}
+					editStudAccess(startMonth, startDate, startHour, startMinute, endMonth, endDate, endHour, endMinute);
 					break;
 				case 2: // Add A Student
 					String newName, newMatricNo, newGender, newNationality,newUserName, newPassword, newEmail;
