@@ -7,17 +7,31 @@ public class UniDataBase {
 	static File coursesFile;
 	static File studentsFile;
 	static File adminsFile;
+	static File settingsFile
 	static ArrayList<Course> courses;
 	static ArrayList<Student> students;
 	static ArrayList<Admin> admins;
-	static int tempCoursesIndex;
-	static int tempClassIndex;
 	static LocalDateTime startAccessDate;
 	static LocalDateTime endAccessDate; 
 	
 	public static void loadAllFiles() {
+		loadCoursesFile();
+		loadStudentsFile();
+		loadAdminsFile();
+		loadSettingsFile();
+	}
+	public static void saveAllFiles() {
+		saveCoursesFile();
+		saveStudentsFile();
+		saveAdminsFile();
+		saveSettingsFile();
+	}
 		//reading files in on start-up
 		// How to deserialize the file back into the arraylist - must close after reading data from file! (file to class)
+	
+	public static void loadCoursesFile() {
+		coursesFile = new File("courses.txt");
+		courses = new ArrayList<Course>();
 		// FOR READING COURSESFILE INTO ARRAYLIST<COURSE>
 		FileInputStream fiCourses = null;
 		ObjectInputStream inputCourses = null;
@@ -28,7 +42,6 @@ public class UniDataBase {
 				Course s = (Course)inputCourses.readObject();  // ClassNotFoundException in case class does not exist
 				courses.add(s);
 			}
-
 		} catch (ClassNotFoundException|IOException ex) {
 			try {
 				inputCourses.close();
@@ -37,7 +50,11 @@ public class UniDataBase {
 				System.out.println(e.getMessage());
 			}
 		}
-
+	}
+	
+	public static void loadStudentsFile() {
+		studentsFile = new File("students.txt");
+		students = new ArrayList<Student>();
 		// FOR READING STUDENTSFILE INTO ARRAYLIST<STUDENT>
 		FileInputStream fiStudents = null;
 		ObjectInputStream inputStudents = null;
@@ -48,7 +65,6 @@ public class UniDataBase {
 				Student s = (Student)inputStudents.readObject();  // ClassNotFoundException in case class does not exist for.readOject()
 				students.add(s);
 			}
-
 		} catch (ClassNotFoundException|IOException ex) {	
 			//  IOException is the parent of FileNotFoundException - so you don't need both
 			// 	IOException is a bigger net BUT it is the smallest net that catches both IOException and FileNotFoundException
@@ -60,7 +76,11 @@ public class UniDataBase {
 				System.out.println(e.getMessage());
 			}
 		}
-		
+	}
+	
+	public static void loadAdminsFile() {
+		adminsFile = new File("admins.txt");
+		admins=new ArrayList<Admin>();
 		// FOR READING ADMINSFILE INTO ARRAYLIST<ADMIN>
 		FileInputStream fiAdmins = null;
 		ObjectInputStream inputAdmins = null;
@@ -71,7 +91,6 @@ public class UniDataBase {
 				Admin s = (Admin)inputAdmins.readObject();  // ClassNotFoundException in case class does not exist
 				admins.add(s);
 			}
-
 		} catch (ClassNotFoundException|IOException ex) {
 			try {
 				inputAdmins.close();
@@ -81,14 +100,36 @@ public class UniDataBase {
 			}
 		}
 	}
-		
+	
+	public static void loadSettingsFile() {
+		settingsFile=new File("settings.txt");
+		// For access period
+		FileInputStream fiSettings = null;
+		ObjectInputStream inputSettings = null;
+		try{
+			fiSettings = new FileInputStream(settingsFile);
+			inputSettings = new ObjectInputStream(fiSettings);
+			startAccessDate = (LocalDateTime)inputSettings.readObject();
+			endAccessDate =(LocalDateTime)inputSettings.readObject();
+			// ClassNotFoundException in case class does not exist
+		} catch (ClassNotFoundException|IOException ex) {
+			try {
+				inputSettings.close();
+				fiSettings.close();
+			} catch (IOException e) {  //  IOException is for when file cannot be opened/closed
+				System.out.println(e.getMessage());
+			}
+		}
+	}
+			
 		// Top half has ClassNotFoundException AND IOException because class AND file may not exist
 		// --------------------------------------------------------------------------------------------------------------
 		// Bottom half only has IOException because class definitely has to exist for you to even store it - file may not exist
 	
-	public static void saveAllFiles() {
+	//public static void saveAllFiles() {
 		// How to serialize the arraylist to file  - must close streams after adding data to file! (Class to file)
 		// FOR SERIALIZING THE ARRAYLIST<COURSE> INTO COURSESFILE
+	public static void saveCoursesFile() {
 		try {
 			FileOutputStream foCourses = new FileOutputStream(coursesFile);
 			ObjectOutputStream outputCourses = new ObjectOutputStream(foCourses);
@@ -100,7 +141,9 @@ public class UniDataBase {
 		}catch (IOException e) {  //  IOException is for when file cannot be opened/closed
 			System.out.println(e.getMessage());
 		}
-		
+	}
+	
+	public static void saveStudentsFile() {
 		// FOR SERIALIZING THE ARRAYLIST<STUDENT> INTO STUDENTSFILE
 		try {
 			FileOutputStream foStudents = new FileOutputStream(studentsFile);
@@ -113,7 +156,9 @@ public class UniDataBase {
 		}catch (IOException e) { //  IOException is for when file cannot be opened/closed
 			System.out.println(e.getMessage());
 		}
-		
+	}
+	
+	public static void saveAdminsFile() {
 		// FOR SERIALIZING THE ARRAYLIST<ADMIN> INTO ADMINSFILE
 		try {
 			FileOutputStream foAdmins = new FileOutputStream(adminsFile);
@@ -126,13 +171,9 @@ public class UniDataBase {
 		}catch (IOException e) { //  IOException is for when file cannot be opened/closed
 			System.out.println(e.getMessage());
 		}
-		
-		
-		// printing out an arraylist iteratively
-		for (Course s : courses) {
-			System.out.println(s);
-		}
 	}
+	
+	public static void saveSettingsFile() {
 	
 	public static boolean verifyStudentAccount(String userName, String pwd) {
 		for (int i=0; i<students.size(); i++) {
