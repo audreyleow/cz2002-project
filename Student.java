@@ -1,5 +1,5 @@
-
-public class Student extends User{
+import java.io.Serializable;
+public class Student extends User implements Serializable{
 	
 	private String matricNo;
 	private String email;
