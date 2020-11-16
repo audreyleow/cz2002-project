@@ -7,6 +7,7 @@ public class MySTARSApp {
 		String userNameLogIn, passwordLogIn;
 		int logInOption = 1;
 		Scanner scan = new Scanner(System.in);
+		UniDataBase.loadAllFiles();
         do{
         	System.out.println("Please input your username:");
     		userNameLogIn = scan.nextLine();
