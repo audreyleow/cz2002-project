@@ -135,7 +135,7 @@ public class StudentSTARS extends STARS {
 			ArrayList<ClassIndex> coursesReg = studRec.getCoursesRegistered();
 			int coursesRegSize = coursesReg.size();
 			for(int i=0;i<coursesRegSize;i++) {
-				if(coursesReg.get(i).getIndexNum()==addIndexNumber);{
+				if(coursesReg.get(i).getIndexNum()==addIndexNumber){
 				System.out.println("Course index "+ addIndexNumber +" has already been added");
 				return;
 				}	
