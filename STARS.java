@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class STARS {
 	
 	public static void checkVacancies(int indexNumber) {
