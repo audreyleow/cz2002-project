@@ -426,7 +426,7 @@ public class UniDataBase {
 		System.out.println(String.format("%-11s%-30s","Course Code","Course Name"));
 		System.out.println("---------------------");
 		for (int i=0; i<courses.size(); i++) {
-			System.out.println(String.format("%-7s%-30s",courses.get(i).getCourseCode(), courses.get(i).getCourseName()));
+			System.out.println(String.format("%-11s%-30s",courses.get(i).getCourseCode(), courses.get(i).getCourseName()));
 		}
 	}
 	
