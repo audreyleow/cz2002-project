@@ -990,7 +990,7 @@ public class AdminSTARS extends STARS{
 		}while(inputChoice!=11);
 	}
 	
-	public static void editStudAccess(startMonth, startDate, startHour, startMinute, endMonth, endDate, endHour, endMinute){
+	public static void editStudAccess(int startMonth, int startDate, int startHour, int startMinute, int endMonth, int endDate, int endHour, int endMinute){
 		UniDataBase.setStartAccessDate(startMonth, startDate, startHour, startMinute);
 		UniDataBase.setEndAccessDate(endMonth, endDate, endHour, endMinute);
 		
