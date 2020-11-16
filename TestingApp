@@ -24,7 +24,7 @@ public class TestingApp { //JJ: the app i used for loading preexisting files int
 		String pwd6 = HashPassword.generateHash("testUser6");
 		String pwd7 = HashPassword.generateHash("testUser7");
 		student1=new Student("aleow003",pwd1,"Audrey Leow","Female","Saudi Arabian","U1840771F","aleow003@e.ntu.edu.sg",studRec1);
-		student2=new Student("sohw0039",pwd2,"Wai Leong","Male","Malaysian",U1840476C","sohw0039@e.ntu.edu.sg",studRec2);
+		student2=new Student("sohw0039",pwd2,"Wai Leong","Male","Malaysian","U1840476C","sohw0039@e.ntu.edu.sg",studRec2);
 		student3=new Student("lims0269",pwd3,"Si Yi","Female","South African","U1921006J","lims0269@e.ntu.edu.sg",studRec3);
 		student0=new Student("jtan411",pwd0,"Jia Jun","Male","New Zealander","U1840011F","jtan411@e.ntu.edu.sg",studRec0);
 		student4=new Student("user404",pwd4,"Alex","Female","Canadian","U4444444F","user404@e.ntu.edu.sg",studRec4);
