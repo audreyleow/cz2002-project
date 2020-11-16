@@ -5,7 +5,10 @@ public class AdminSTARS extends STARS{
 	
 	public static void run() 
 	{
-		System.out.println("============== STARS Menu ==============\r\n" + 
+		int inputChoice;
+		Scanner scan = new Scanner(System.in);
+		do {
+			System.out.println("============== STARS Menu ==============\r\n" + 
 				   "|1. Edit Student Access Period         |\r\n" + 
 				   "|2. Add A Student                      |\r\n" + 
 				   "|3. Add A Course                       |\r\n" +
@@ -18,9 +21,6 @@ public class AdminSTARS extends STARS{
 				   "|10.Print Student List by Course       |\r\n" + 
 				   "|11.Log Out                            |\r\n" + 
 				   "========================================\r\n");
-		int inputChoice;
-		Scanner scan = new Scanner(System.in);
-		do {
 			System.out.print ("What do you wish to do? Input choices from 1-11: ");
 			inputChoice = scan.nextInt();
 			switch(inputChoice) {
