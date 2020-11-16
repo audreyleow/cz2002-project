@@ -360,17 +360,16 @@ public class UniDataBase {
 		for (int i=0; i<indexNumListSize; i++) {
 			ClassIndex classIndex = course.getIndexNumList().get(i);
 			ArrayList<Student> studentList = classIndex.getStudentList();
-			for (i=0; i<studentList.size(); i++) {
-				System.out.println(studentList.get(i).getName() + "\t" + studentList.get(i).getNationality() + "\t" + studentList.get(i).getGender());
+			for (int j=0; j<studentList.size(); j++) {
+				System.out.println(String.format("%-7s%-20s%-30s" , studentList.get(j).getGender(),studentList.get(j).getNationality(),studentList.get(j).getName()));
 			}
-		}
-		
+		}	
 	}
 	
 	public static void printStudList(ClassIndex classIndex) {
 		ArrayList<Student> studentList = classIndex.getStudentList();
 		for (int i=0; i<studentList.size(); i++) {
-			System.out.println(studentList.get(i).getName() + "\t" + studentList.get(i).getNationality() + "\t" + studentList.get(i).getGender());
+			System.out.println(String.format("%-7s%-20s%-30s" , studentList.get(i).getGender(),studentList.get(i).getNationality(),studentList.get(i).getName()));
 		}
 	}
 	
