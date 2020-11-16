@@ -240,7 +240,7 @@ public class StudentSTARS extends STARS {
 			ClassIndex ClassIndex1, ClassIndex2;
 			ClassIndex1=UniDataBase.findClassIndex(oldIndexNumber);
 			ClassIndex2=UniDataBase.findClassIndex(newIndexNumber);
-			if(ClassIndex1.getCourseCode()!=ClassIndex2.getCourseCode()){
+			if(!(ClassIndex1.getCourseCode().equals(ClassIndex2.getCourseCode()))){
 				System.out.println("Course index "+ oldIndexNumber +" and course index "+ newIndexNumber +" do not belong to the same course.");
 				return;
 			}
@@ -289,7 +289,7 @@ public class StudentSTARS extends STARS {
 			ClassIndex classIndex1,classIndex2;
 			classIndex1=UniDataBase.findClassIndex(userIndexNumber);
 			classIndex2=UniDataBase.findClassIndex(peerIndexNumber);
-			if(classIndex1.getCourseCode()!=classIndex2.getCourseCode()){
+			if(!(classIndex1.getCourseCode().equals(classIndex2.getCourseCode()))){
 				System.out.println("Course index "+ userIndexNumber +" and course index "+ peerIndexNumber +" do not belong to the same course.");
 				return;
 			}
