@@ -430,13 +430,13 @@ public class UniDataBase {
 	
 	public static void displayAllCourses() {
 		for (int i=0; i<courses.size(); i++) {
-			System.out.println(courses.get(i).getCourseCode() + "\t" + courses.get(i).getCourseName());
+			System.out.println(String.format("%-7s%-30s",courses.get(i).getCourseCode(), courses.get(i).getCourseName()));
 		}
 	}
 	
 	public static void displayAllStudents() {
 		for (int i=0; i<students.size(); i++) {
-			System.out.println(students.get(i).getName() + "\t" + students.get(i).getMatricNo() + "\t" + students.get(i).getNationality() + "\t" + students.get(i).getGender());
+			System.out.println(String.format("%-30s%-10s%-20s%-6s" , students.get(i).getName(), students.get(i).getMatricNo(), students.get(i).getNationality(), students.get(i).getGender()));
 		}
 	}
 	
