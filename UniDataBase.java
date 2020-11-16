@@ -1,7 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
-import java.time.Month;
 
 public class UniDataBase {
 	
@@ -150,8 +149,8 @@ public class UniDataBase {
 	
 	public static boolean verifyStudentAccount(String userName, String pwd) {
 		for (int i=0; i<students.size(); i++) {
-			if (students.get(i).getUserName() == userName) {
-				if (students.get(i).getPwd()==pwd)
+			if (students.get(i).getUserName().equals(userName)) {
+				if (students.get(i).getPwd().equals(pwd))
 					return true;
 				else
 					return false;
@@ -162,8 +161,8 @@ public class UniDataBase {
 	
 	public static boolean verifyAdminAccount(String userName, String pwd) {
 		for (int i=0; i<admins.size(); i++) {
-			if (admins.get(i).getUserName() == userName) {
-				if (admins.get(i).getPwd()==pwd)
+			if (admins.get(i).getUserName().equals(userName)) {
+				if (admins.get(i).getPwd().equals(pwd))
 					return true;
 				else
 					return false;
@@ -191,7 +190,7 @@ public class UniDataBase {
 	
 	public static boolean verifyExistedStudent(String matricNo, String userName) {
 		for (int i=0; i<students.size(); i++) {
-			if (students.get(i).getMatricNo() == matricNo || students.get(i).getUserName() == userName)
+			if (students.get(i).getMatricNo().equals(matricNo) || students.get(i).getUserName().equals(userName))
 				return true;
 		}
 		return false;
@@ -199,7 +198,7 @@ public class UniDataBase {
 	
 	public static boolean verifyCourse(String code) {
 		for (int i =0; i<courses.size(); i++) {
-			if (courses.get(i).getCourseCode() == code)
+			if (courses.get(i).getCourseCode().equals(code))
 				return true;
 		}
 		return false;
@@ -219,8 +218,8 @@ public class UniDataBase {
 	public static Student findStudentByAccount(String userName, String pwd) {
 		int i;
 		for (i=0; i<students.size(); i++) {
-			if (students.get(i).getUserName() == userName) {
-				if (students.get(i).getPwd()==pwd)
+			if (students.get(i).getUserName().equals(userName)) {
+				if (students.get(i).getPwd().equals(pwd))
 					break;
 			}
 		}
@@ -229,7 +228,7 @@ public class UniDataBase {
 	
 	public static Course findCourseByCode(String code) {
 		for (int i =0; i<courses.size(); i++) {
-			if (courses.get(i).getCourseCode() == code)
+			if (courses.get(i).getCourseCode().equals(code))
 				return courses.get(i);
 		}
 		return null;
@@ -353,7 +352,7 @@ public class UniDataBase {
 	}
 	
 	public static void swopClassIndex(Student student1, Student student2, ClassIndex classIndex1, ClassIndex classIndex2) {
-		if (classIndex1.getCourseCode() == classIndex2.getCourseCode()) {
+		if (classIndex1.getCourseCode().equals(classIndex2.getCourseCode())) {
 			classIndex1.getStudentList().remove(student1);
 			classIndex2.getStudentList().remove(student2);
 			classIndex1.getStudentList().add(student2);
@@ -389,8 +388,8 @@ public class UniDataBase {
 			for (int j=0; j<courses.get(i).getIndexNumList().size(); j++) {
 				for (int k=0; k<courses.get(i).getIndexNumList().get(j).getLessonsList().size(); k++) {
 					Lesson lesson = courses.get(i).getIndexNumList().get(j).getLessonsList().get(k);
-					if (lesson.getClassVenue() == classVenue) {
-						if (lesson.getClassDay() == classDay) {
+					if (lesson.getClassVenue().equals(classVenue)) {
+						if (lesson.getClassDay().equals(classDay)) {
 							if (lesson.getClassTiming()[0] > classTime[0] && lesson.getClassTiming()[0] < classTime[1])
 								return true;
 						}
@@ -442,4 +441,5 @@ public class UniDataBase {
 	}
 	
 	
+
 }
