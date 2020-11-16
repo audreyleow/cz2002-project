@@ -1,5 +1,5 @@
-
-public class Admin extends User{
+import java.io.Serializable;
+public class Admin extends User implements Serializable{
 	private String staffID;
 
 	public Admin(String userName, String pwd, String name, String gender, String nationality, String staffID) {
