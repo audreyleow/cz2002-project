@@ -1,6 +1,6 @@
 import java.util.ArrayList;
-
-public class ClassIndex {
+import java.io.Serializable;
+public class ClassIndex implements Serializable{
 	private String courseName;
 	private String courseCode;
 	private int indexNum;
