@@ -173,7 +173,7 @@ public class UniDataBase {
 		}
 	}
 	
-	public static void saveSettingsFile() {
+	public static void saveSettingsFile() {}
 	
 	public static boolean verifyStudentAccount(String userName, String pwd) {
 		for (int i=0; i<students.size(); i++) {
