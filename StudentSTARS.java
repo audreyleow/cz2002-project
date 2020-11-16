@@ -200,48 +200,26 @@ public class StudentSTARS extends STARS {
 			int coursesRegSize = coursesReg.size();
 			String courseCode,courseName;
 			int indexNum;
-			ArrayList<Lesson> lessonList;
-			int lessonListSize;
-			String lessonType,classVenue,classDay,classWeek;
-			int[] classTiming;
-			System.out.println("Courses registered.. :");
+			System.out.println("Courses registered... :");
 			for(int i=0;i<coursesRegSize;i++) {
 				courseCode = coursesReg.get(i).getCourseCode(); 
 				courseName = coursesReg.get(i).getCourseName();
 				indexNum = coursesReg.get(i).getIndexNum();
 				//print courses registered
-				System.out.println((i+1)+ ":\t" + courseCode + "\t" + courseName + "\t" + indexNum);
-				
-			
-				// this not req
-				//lessonList = coursesReg.get(i).getLessonsList();
-				//lessonListSize = lessonList.size();
-				//for(int j=0;j<lessonListSize;j++) {
-				//	lessonType = lessonList.get(j).getLessonType();
-				//	classVenue = lessonList.get(j).getClassVenue();
-				//	classDay = lessonList.get(j).getClassDay();
-				//	classTiming = lessonList.get(j).getClassTiming();
-				//	classWeek = lessonList.get(j).getClassWeek();
-				//print class index info
-					//...
+				System.out.println((i+1)+ ":"+String.format("%-7s%-6s-30s%", courseCode,indexNum,courseName));
 				}
-				
 		// print courses in waitlist
 			ArrayList<ClassIndex> waitListCourses = studRec.getStudentWaitList();
 			int waitListCoursesSize = waitListCourses.size();
 			String wlcourseCode, wlcourseName;
 			int wlindexNum;
-			
 			System.out.println("Courses on waitlist... :");
 			for (int p = 0; p< waitListCoursesSize ; p++) {
 				wlcourseCode = waitListCourses.get(p).getCourseCode();
 				wlcourseName = waitListCourses.get(p).getCourseName();
 				wlindexNum = waitListCourses.get(p).getIndexNum();
-				System.out.println( (p+1) + ":/t" + wlcourseCode + "/t" + wlcourseName + "/t" + wlindexNum);
-				
-				
+				System.out.println((p+1)+ ":"+String.format("%-7s%%-6s-30s", wlcourseCode,wlindexNum,wlcourseName));
 			}
-			
 		}
 		
 		public static void changeIndex(Student studentLoggedIn,int oldIndexNumber, int newIndexNumber) {
