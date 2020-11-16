@@ -29,7 +29,12 @@ public class StudentSTARS extends STARS {
 								System.out.println("Please insert a positive integer");
 							}
 						}while(indexNumberTemp <= 0);
-						addCourse(studentLoggedIn,indexNumberTemp);
+							if (UniDataBase.verifyClassIndex(indexNumberTemp) == false) {
+								System.out.println("This index number does not exist.");
+							}
+							else {
+								addCourse(studentLoggedIn,indexNumberTemp);
+							}	
 						break;
 					case 2: // Drop Course
 						int indexNumberTemp2;
@@ -40,7 +45,12 @@ public class StudentSTARS extends STARS {
 								System.out.println("Please insert a positive integer");
 							}
 						}while(indexNumberTemp2 <= 0);
-						dropCourse(studentLoggedIn,indexNumberTemp2);
+							if (UniDataBase.verifyClassIndex(indexNumberTemp2) == false) {
+								System.out.println("This index number does not exist.");
+							}
+							else {
+								dropCourse(studentLoggedIn,indexNumberTemp2);
+							}	
 						break;
 					case 3: // Check Courses Registered
 						printCourses(studentLoggedIn);
@@ -112,7 +122,8 @@ public class StudentSTARS extends STARS {
 				}
 			}while(inputChoice != 7);
 			
-		}
+		}	
+	
 		public static void addCourse(Student studentLoggedIn,int addIndexNumber) {
 			//verification
 			if (UniDataBase.verifyClassIndex(addIndexNumber)==false) {
