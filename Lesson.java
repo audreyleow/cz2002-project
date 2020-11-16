@@ -1,4 +1,3 @@
-package cz2002;
 import java.io.Serializable;
 public class Lesson implements Serializable {
 	private String lessonType;
