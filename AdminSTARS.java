@@ -211,6 +211,7 @@ public class AdminSTARS extends STARS{
 					int indexNumQuantity, commonLectureDayNo, commonLectureWeekNo, commonLectureStartTime, commonLectureEndTime, lessonFormat, commonLectureIndexNum, commonLectureClassIndexVacancy;
 					String newCommonLectureVenue, newCommonLectureDay ,newCommonLectureWeek;
 					scan.nextLine();  // Consume newline left-over
+					System.out.print("Input course code of new course:");
 					newCourseCode = scan.nextLine();
 					newCourseCode = newCourseCode.trim();								// Remove any whitespace at both ends of String
 					newCourseCode = newCourseCode.replaceAll("\\s+","");				// Remove any whitespace in String 
