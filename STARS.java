@@ -17,6 +17,7 @@ public class STARS {
 		//verification
 		if (UniDataBase.verifyClassIndex(indexNumber)==false) {
 			System.out.println("Course index "+indexNumber+" does not exist");
+			return;
 		}
 		ClassIndex classIndex = UniDataBase.findClassIndex(indexNumber);
 		int classVacancy= classIndex.getClassVacancy();
