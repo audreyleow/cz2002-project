@@ -203,7 +203,7 @@ public class AdminSTARS extends STARS{
 					System.out.println("New Username Input: "+newUserName);
 					newEmail = newUserName+"@e.ntu.edu.sg";
 					newPassword = HashPassword.generateHash(newMatricNo);
-					// addStudent(newName, newMatricNo, newGender, newNationality, newUserName, newPassword, newEmail);
+					addStudent(newName, newMatricNo, newGender, newNationality, newUserName, newPassword, newEmail);
 					break;
 				case 3: // Add A Course  
 					String newCourseCode, newCourseName, newSchool, newClassVenue, newClassDay, newClassWeek;
