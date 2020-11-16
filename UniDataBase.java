@@ -336,10 +336,27 @@ public class UniDataBase {
 	}
 	
 	public static void changeClassIndex(Student student, ClassIndex currentClassIndex, ClassIndex newClassIndex) {
+		Course course = findCourseByCode(currentClassIndex.getCourseCode());
 		newClassIndex.getStudentList().add(student);
+		newClassIndex.setClassVacancy(newClassIndex.getClassVacancy()-1);
 		currentClassIndex.getStudentList().remove(student);
+		currentClassIndex.setClassVacancy(currentClassIndex.getClassVacancy()+1);
 		student.getStudentRecords().getCoursesRegistered().add(newClassIndex);
 		student.getStudentRecords().getCoursesRegistered().remove(currentClassIndex);
+		
+		if (currentClassIndex.getWaitList().isEmpty() == false) {
+			Student studentWaiting = currentClassIndex.getWaitList().get(0);
+			studentWaiting.getStudentRecords().getStudentWaitList().remove(currentClassIndex);
+			studentWaiting.getStudentRecords().getCoursesRegistered().add(currentClassIndex);
+			int tempAcadUnitsRegistered = studentWaiting.getStudentRecords().getAcadUnitsRegistered();
+			studentWaiting.getStudentRecords().setAcadUnitsRegistered(tempAcadUnitsRegistered + course.getAcadUnits());
+			currentClassIndex.getStudentList().add(studentWaiting);
+			currentClassIndex.setClassVacancy(currentClassIndex.getClassVacancy()-1);
+			currentClassIndex.getWaitList().remove(student);
+			
+			//Notifying waiting student through email.
+			SendEmail.courseRegistered(studentWaiting.getEmail(), course.getCourseCode(), course.getCourseName(), currentClassIndex.getIndexNum());
+		}
 	}
 	
 	public static void swopClassIndex(Student student1, Student student2, ClassIndex classIndex1, ClassIndex classIndex2) {
