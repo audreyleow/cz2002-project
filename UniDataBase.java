@@ -7,7 +7,7 @@ public class UniDataBase {
 	static File coursesFile;
 	static File studentsFile;
 	static File adminsFile;
-	static File settingsFile
+	static File settingsFile;
 	static ArrayList<Course> courses;
 	static ArrayList<Student> students;
 	static ArrayList<Admin> admins;
