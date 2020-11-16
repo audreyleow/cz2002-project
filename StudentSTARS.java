@@ -164,6 +164,7 @@ public class StudentSTARS extends STARS {
 			}
 			//register student into course
 			if(classIndex.getClassVacancy()==0){
+				UniDataBase.addCourseStudent(studentLoggedIn, classIndex);
 				System.out.println("There are no vacanies at the moment. You have been added into the waitlist for course index "+ addIndexNumber );
 			}
 			else{
