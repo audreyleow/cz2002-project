@@ -1,6 +1,6 @@
 import java.util.ArrayList;
-
-public class StudentRecords {
+import java.io.Serializable;
+public class StudentRecords implements Serializable{
 
 	private int acadUnitsRegistered;
 	private ArrayList<ClassIndex> coursesRegistered;
