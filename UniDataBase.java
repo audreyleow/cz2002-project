@@ -275,7 +275,7 @@ public class UniDataBase {
 				studentRecords.setAcadUnitsRegistered(studentRecords.getAcadUnitsRegistered() + course.getAcadUnits());
 				
 				//Notifying waiting student through email.
-				sendEmail.courseRegistered(student.getEmail(), course.getCourseCode(), course.getCourseName(), classIndex.getIndexNum());
+				SendEmail.courseRegistered(student.getEmail(), course.getCourseCode(), course.getCourseName(), classIndex.getIndexNum());
 			}
 	}
 
@@ -325,7 +325,7 @@ public class UniDataBase {
 				classIndex.getWaitList().remove(student);
 				
 				//Notifying waiting student through email.
-				sendEmail.courseRegistered(studentWaiting.getEmail(), course.getCourseCode(), course.getCourseName(), classIndex.getIndexNum());
+				SendEmail.courseRegistered(studentWaiting.getEmail(), course.getCourseCode(), course.getCourseName(), classIndex.getIndexNum());
 			}
 		}
 		
