@@ -127,26 +127,22 @@ public class AdminSTARS extends STARS{
 					System.out.println("The ending access time is "+endDate+"--"+endMonth+"--2020 "+endHour+":"+endMinute+":00");
 					if(endMonth>startMonth) {				// LATER MONTH
 						System.out.println("You are updating the student access period.");
-						UniDataBase.setStartAccessDate(startMonth, startDate, startHour, startMinute);
-						UniDataBase.setEndAccessDate(endMonth, endDate, endHour, endMinute);
+						editStudAccess(startMonth, startDate, startHour, startMinute, endMonth, endDate, endHour, endMinute);
 					}
 					else if (endMonth==startMonth) {
 						if(endDate>startDate) {				// SAME MONTH, LATER DAY
 							System.out.println("You are updating the student access period.");
-							UniDataBase.setStartAccessDate(startMonth, startDate, startHour, startMinute);
-							UniDataBase.setEndAccessDate(endMonth, endDate, endHour, endMinute);
+							editStudAccess(startMonth, startDate, startHour, startMinute, endMonth, endDate, endHour, endMinute);
 						}
 						else if(endDate == startDate){
 							if(endHour>startHour) {			// SAME MONTH & DATE, LATER HOUR
 								System.out.println("You are updating the student access period.");
-								UniDataBase.setStartAccessDate(startMonth, startDate, startHour, startMinute);
-								UniDataBase.setEndAccessDate(endMonth, endDate, endHour, endMinute);
+								editStudAccess(startMonth, startDate, startHour, startMinute, endMonth, endDate, endHour, endMinute);
 							}
 							else if(endHour == startHour) {
 								if(endMinute>startMinute) {	// SAME MONTH, DATE & HOUR, LATER MINUTE
 									System.out.println("You are updating the student access period.");
-									UniDataBase.setStartAccessDate(startMonth, startDate, startHour, startMinute);
-									UniDataBase.setEndAccessDate(endMonth, endDate, endHour, endMinute);
+									editStudAccess(startMonth, startDate, startHour, startMinute, endMonth, endDate, endHour, endMinute);
 								}
 								else {						// SAME MONTH, DATE & HOUR, EARLIER/SAME MINUTE
 									System.out.println("The ending access time must be later than the starting access time. Update failed.");
@@ -991,6 +987,12 @@ public class AdminSTARS extends STARS{
 					System.out.println("Please insert a positive integer from 1-11");
 			}
 		}while(inputChoice!=11);
+	}
+	
+	public static void editStudAccess(startMonth, startDate, startHour, startMinute, endMonth, endDate, endHour, endMinute){
+		UniDataBase.setStartAccessDate(startMonth, startDate, startHour, startMinute);
+		UniDataBase.setEndAccessDate(endMonth, endDate, endHour, endMinute);
+		
 	}
 	
 	public static void addStudent(String name, String matricNo, String gender, String nationality, String userName, String pwd ,String email){
