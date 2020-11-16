@@ -206,7 +206,9 @@ public class StudentSTARS extends STARS {
 				courseName = coursesReg.get(i).getCourseName();
 				indexNum = coursesReg.get(i).getIndexNum();
 				//print courses registered
-				System.out.println((i+1)+ ":"+String.format("%-7s%-6s-30s%", courseCode,indexNum,courseName));
+				System.out.println(String.format("%-11s%-10s%-30s","Course Code","Index No.","Course Name")); 
+				System.out.println("-------------------------------");
+				System.out.println((i+1)+ ":"+String.format("%-11s%-10s%-30s", courseCode, indexNum, courseName));
 				}
 		// print courses in waitlist
 			ArrayList<ClassIndex> waitListCourses = studRec.getStudentWaitList();
@@ -218,7 +220,9 @@ public class StudentSTARS extends STARS {
 				wlcourseCode = waitListCourses.get(p).getCourseCode();
 				wlcourseName = waitListCourses.get(p).getCourseName();
 				wlindexNum = waitListCourses.get(p).getIndexNum();
-				System.out.println((p+1)+ ":"+String.format("%-7s%%-6s-30s", wlcourseCode,wlindexNum,wlcourseName));
+				System.out.println(String.format("%-11s%-10s%-30s","Course Code","Index No.","Course Name")); 
+				System.out.println("-------------------------------");
+				System.out.println((p+1)+ ":"+String.format("%-11s%-10s%-30s", wlcourseCode, wlindexNum, wlcourseName));
 			}
 		}
 		
