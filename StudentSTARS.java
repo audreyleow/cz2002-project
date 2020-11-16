@@ -267,7 +267,7 @@ public class StudentSTARS extends STARS {
 			//check vacancies for newIndexNumber,change if vacancy > 0
 			ClassIndex currentClassIndex = UniDataBase.findClassIndex(oldIndexNumber);
 			ClassIndex newClassIndex = UniDataBase.findClassIndex(newIndexNumber);
-			if (currentClassIndex.getClassVacancy()>0) {
+			if (newClassIndex.getClassVacancy()>0) {
 				UniDataBase.changeClassIndex(studentLoggedIn,currentClassIndex,newClassIndex);
 				System.out.println("Course index changed from  "+ oldIndexNumber +" to "+ newIndexNumber);
 				return;
