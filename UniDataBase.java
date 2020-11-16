@@ -320,7 +320,7 @@ public class UniDataBase {
 	public static void updateCourseVacancy(String courseCode, int indexNum, int newVacantNum) {
 		Course course = findCourseByCode(courseCode);
 		ClassIndex classIndex = findClassIndex(indexNum);
-		classIndex.setClassVacancy(newVacantNum-classIndex.getStudentList().size());
+		classIndex.setClassVacancy(newVacantNum);
 		while (classIndex.getWaitList().isEmpty() == false && classIndex.getClassVacancy() != 0) {
 				Student student = classIndex.getWaitList().remove(0);
 				StudentRecords studentRecords = student.getStudentRecords();
