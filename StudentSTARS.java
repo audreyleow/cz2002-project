@@ -162,11 +162,11 @@ public class StudentSTARS extends STARS {
 				return;
 			}
 			//register student into course
-			UniDataBase.addCourseStudent(studentLoggedIn, classIndex);
 			if(classIndex.getClassVacancy()==0){
 				System.out.println("There are no vacanies at the moment. You have been added into the waitlist for course index "+ addIndexNumber );
 			}
 			else{
+				UniDataBase.addCourseStudent(studentLoggedIn, classIndex);
 				System.out.println("Your course has been added!");
 			}
 		}
