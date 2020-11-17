@@ -461,8 +461,13 @@ public class UniDataBase {
 					Lesson lesson = courses.get(i).getIndexNumList().get(j).getLessonsList().get(k);
 					if (lesson.getClassVenue().equals(classVenue)) {
 						if (lesson.getClassDay().equals(classDay)) {
-							if (((lesson.getClassTiming()[0] >= classTime[0] && lesson.getClassTiming()[0] <= classTime[1])
-  								|| (lesson.getClassTiming()[1] >= classTime[0] && lesson.getClassTiming()[1] <= classTime[1])))
+							starttime1 = lesson.getClassTiming()[0];
+							starttime2 = classTime[0];
+							endtime1=lesson.getClassTiming()[1];
+							endtime2=classTime[1];
+							if ((starttime1 >= starttime2 && starttime1 < endtime2)
+									||(endtime1 > starttime2 && endtime1 <= endtime2)
+									||(starttime1==starttime2 && endtime1==endtime2) )
 								return true;
 						}
 					}
@@ -481,8 +486,13 @@ public class UniDataBase {
 				lesson1 = coursesRegistered.get(i).getLessonsList().get(j);
 				for (int k=0; k<classIndex.getLessonsList().size(); k++) {
 					lesson2 = classIndex.getLessonsList().get(k);
-					if ((lesson1.getClassTiming()[0] >= lesson2.getClassTiming()[0] && lesson1.getClassTiming()[0] <= lesson2.getClassTiming()[1])
-							||(lesson1.getClassTiming()[1] >= lesson2.getClassTiming()[0] && lesson1.getClassTiming()[1] <= lesson2.getClassTiming()[1]))
+					starttime1 = lesson1.getClassTiming()[0];
+					starttime2 = lesson2.getClassTiming()[0];
+					endtime1=lesson1.getClassTiming()[1];
+					endtime2=lesson2.getClassTiming()[1];
+					if ((starttime1 >= starttime2 && starttime1 < endtime2)
+							||(endtime1 > starttime2 && endtime1 <= endtime2)
+							||(starttime1==starttime2 && endtime1==endtime2) )
 						return true;
 				}
 			}
@@ -493,8 +503,13 @@ public class UniDataBase {
 				lesson1 = studentWaitingList.get(i).getLessonsList().get(j);
 				for (int k=0; k<classIndex.getLessonsList().size(); k++) {
 					lesson2 = classIndex.getLessonsList().get(k);
-					if ((lesson1.getClassTiming()[0] >= lesson2.getClassTiming()[0] && lesson1.getClassTiming()[0] <= lesson2.getClassTiming()[1])
-							||(lesson1.getClassTiming()[1] >= lesson2.getClassTiming()[0] && lesson1.getClassTiming()[1] <= lesson2.getClassTiming()[1]))
+					starttime1 = lesson1.getClassTiming()[0];
+					starttime2 = lesson2.getClassTiming()[0];
+					endtime1=lesson1.getClassTiming()[1];
+					endtime2=lesson2.getClassTiming()[1];
+					if ((starttime1 >= starttime2 && starttime1 < endtime2)
+							||(endtime1 > starttime2 && endtime1 <= endtime2)
+							||(starttime1==starttime2 && endtime1==endtime2) )
 						return true;
 				}
 			}
