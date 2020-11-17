@@ -359,6 +359,11 @@ public class UniDataBase {
 	}
 	
 	public static void removeCourseStudent(Student student, ClassIndex classIndex) {
+		if (student.getStudentRecords().getStudentWaitList().contains(classIndex)) {
+			student.getStudentRecords().getStudentWaitList().remove(classIndex);
+			classIndex.getWaitList().remove(student);
+			return;
+		}		
 		if (student.getStudentRecords().getCoursesRegistered().contains(classIndex)) {
 			String courseCode = classIndex.getCourseCode();
 			Course course = findCourseByCode(courseCode);
