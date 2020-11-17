@@ -521,6 +521,54 @@ public class UniDataBase {
 		return false;
 	}
 	
+	public static boolean verifyTimetableClash(Student student, int newClassIndex,int oldClassIndex) {
+		ClassIndex classIndex = findClassIndex(newClassIndex);
+		Lesson lesson1, lesson2;
+		int starttime1,starttime2,endtime1,endtime2;
+		ArrayList<ClassIndex> coursesRegistered = student.getStudentRecords().getCoursesRegistered();
+		for (int i=0; i<coursesRegistered.size(); i++) {
+			if(coursesRegistered.get(i).getIndexNum()==oldClassIndex) {
+				continue;
+			}
+			for (int j=0; j<coursesRegistered.get(i).getLessonsList().size(); j++) {
+				lesson1 = coursesRegistered.get(i).getLessonsList().get(j);
+				for (int k=0; k<classIndex.getLessonsList().size(); k++) {
+					lesson2 = classIndex.getLessonsList().get(k);
+					if(lesson1.getClassDay().equals(lesson2.getClassDay())) {
+						starttime1 = lesson1.getClassTiming()[0];
+						starttime2 = lesson2.getClassTiming()[0];
+						endtime1=lesson1.getClassTiming()[1];
+						endtime2=lesson2.getClassTiming()[1];
+						if ((starttime1 >= starttime2 && starttime1 < endtime2)
+								||(endtime1 > starttime2 && endtime1 <= endtime2)
+								||(starttime1==starttime2 && endtime1==endtime2) )
+							return true;
+					}
+				}
+			}
+		}
+		ArrayList<ClassIndex> studentWaitingList = student.getStudentRecords().getStudentWaitList();
+		for (int i=0; i<studentWaitingList.size(); i++) {
+			for (int j=0; j<studentWaitingList.get(i).getLessonsList().size(); j++) {
+				lesson1 = studentWaitingList.get(i).getLessonsList().get(j);
+				for (int k=0; k<classIndex.getLessonsList().size(); k++) {
+					lesson2 = classIndex.getLessonsList().get(k);
+					if(lesson1.getClassDay().equals(lesson2.getClassDay())) {
+						starttime1 = lesson1.getClassTiming()[0];
+						starttime2 = lesson2.getClassTiming()[0];
+						endtime1=lesson1.getClassTiming()[1];
+						endtime2=lesson2.getClassTiming()[1];
+						if ((starttime1 >= starttime2 && starttime1 < endtime2)
+								||(endtime1 > starttime2 && endtime1 <= endtime2)
+								||(starttime1==starttime2 && endtime1==endtime2) )
+							return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
 	public static void displayAllCourses() {
 		System.out.println(String.format("%-11s%-30s","Course Code","Course Name"));
 		System.out.println("---------------------");
