@@ -486,14 +486,16 @@ public class UniDataBase {
 				lesson1 = coursesRegistered.get(i).getLessonsList().get(j);
 				for (int k=0; k<classIndex.getLessonsList().size(); k++) {
 					lesson2 = classIndex.getLessonsList().get(k);
-					starttime1 = lesson1.getClassTiming()[0];
-					starttime2 = lesson2.getClassTiming()[0];
-					endtime1=lesson1.getClassTiming()[1];
-					endtime2=lesson2.getClassTiming()[1];
-					if ((starttime1 >= starttime2 && starttime1 < endtime2)
-							||(endtime1 > starttime2 && endtime1 <= endtime2)
-							||(starttime1==starttime2 && endtime1==endtime2) )
-						return true;
+					if(lesson1.getClassDay().equals(lesson2.getClassDay())) {
+						starttime1 = lesson1.getClassTiming()[0];
+						starttime2 = lesson2.getClassTiming()[0];
+						endtime1=lesson1.getClassTiming()[1];
+						endtime2=lesson2.getClassTiming()[1];
+						if ((starttime1 >= starttime2 && starttime1 < endtime2)
+								||(endtime1 > starttime2 && endtime1 <= endtime2)
+								||(starttime1==starttime2 && endtime1==endtime2) )
+							return true;
+					}
 				}
 			}
 		}
@@ -503,14 +505,16 @@ public class UniDataBase {
 				lesson1 = studentWaitingList.get(i).getLessonsList().get(j);
 				for (int k=0; k<classIndex.getLessonsList().size(); k++) {
 					lesson2 = classIndex.getLessonsList().get(k);
-					starttime1 = lesson1.getClassTiming()[0];
-					starttime2 = lesson2.getClassTiming()[0];
-					endtime1=lesson1.getClassTiming()[1];
-					endtime2=lesson2.getClassTiming()[1];
-					if ((starttime1 >= starttime2 && starttime1 < endtime2)
-							||(endtime1 > starttime2 && endtime1 <= endtime2)
-							||(starttime1==starttime2 && endtime1==endtime2) )
-						return true;
+					if(lesson1.getClassDay().equals(lesson2.getClassDay())) {
+						starttime1 = lesson1.getClassTiming()[0];
+						starttime2 = lesson2.getClassTiming()[0];
+						endtime1=lesson1.getClassTiming()[1];
+						endtime2=lesson2.getClassTiming()[1];
+						if ((starttime1 >= starttime2 && starttime1 < endtime2)
+								||(endtime1 > starttime2 && endtime1 <= endtime2)
+								||(starttime1==starttime2 && endtime1==endtime2) )
+							return true;
+					}
 				}
 			}
 		}
