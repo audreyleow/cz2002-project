@@ -273,6 +273,11 @@ public class StudentSTARS extends STARS {
 				System.out.println("Invalid input, you are not registered to course index " +oldIndexNumber);
 				return;
 			}
+			//verify newIndexNumber doesnt clash with courses registered & in waitlist if oldIndexNumber is removed
+			if(UniDataBase.verifyTimetableClash(studentLoggedIn,newIndexNumber,oldIndexNumber) == true){
+				System.out.println("There is a timetable clash with course index "+ newIndexNumber );
+				return;
+				}
 			//check vacancies for newIndexNumber,change if vacancy > 0
 			ClassIndex currentClassIndex = UniDataBase.findClassIndex(oldIndexNumber);
 			ClassIndex newClassIndex = UniDataBase.findClassIndex(newIndexNumber);
@@ -343,6 +348,16 @@ public class StudentSTARS extends STARS {
 				System.out.println("Invalid input, your peer is not registered to course index " +peerIndexNumber);
 				return;
 			}
+			//verify for studentLoggedIn that peerIndexNumber doesnt clash with courses registered & in waitlist if userIndexNumber is removed
+			if(UniDataBase.verifyTimetableClash(studentLoggedIn,peerIndexNumber,userIndexNumber) == true){
+				System.out.println("There is a timetable clash with course index "+ peerIndexNumber +" for you." );
+				return;
+				}
+			//verify for peer that userIndexNumber doesnt clash with courses registered & in waitlist if peerIndexNumber is removed
+			if(UniDataBase.verifyTimetableClash(peer,userIndexNumber,peerIndexNumber) == true){
+				System.out.println("There is a timetable clash with course index "+ userIndexNumber +" for your peer." );
+				return;
+				}
 			//call to swop index
 			UniDataBase.swopClassIndex(studentLoggedIn, peer, classIndex1,classIndex2);
 			System.out.println("Swop successful.");
