@@ -1144,8 +1144,19 @@ public class AdminSTARS extends STARS{
 			System.out.println("Course code "+newCourseCode+" already exists");
 			return;
 		}
-		//verify all index number and verify lesson clash
+		//verify no duplicate index numbers
 		int tempIndexNumListSize=tempIndexNumList.size();
+		for(int i=0;i<tempIndexNumListSize;i++) {
+			for(int j=0;j<tempIndexNumListSize;j++) {
+				if(i<j) {
+					if(tempIndexNumList.get(i).getIndexNum()==tempIndexNumList.get(j).getIndexNum()) {
+						System.out.println("Unable to create course with same course indexes.");
+						return;
+					}
+				}
+			}
+		}
+		//verify all index number and verify lesson clash
 		int indexNum, lessonsListSize;
 		String classVenue,classDay;
 		int[] classTime;
