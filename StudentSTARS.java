@@ -191,7 +191,15 @@ public class StudentSTARS extends STARS {
 				return;
 				}
 			}
-			//possible to drop course while in waitlist?
+			// drop course if its in waitlist
+			ArrayList<ClassIndex> coursesWaitList = studRec.getStudentWaitList();
+			int coursesWaitListSize = coursesWaitList.size();
+			for(int i= 0;i<coursesWaitListSize;i++) {
+				if(coursesWaitList.get(i).getIndexNum()==dropIndexNumber){
+				UniDataBase.removeCourseStudent(studentLoggedIn,classIndex);
+				System.out.println("Course index "+ dropIndexNumber +" has been dropped");
+				return;
+				}
 			System.out.println("You are not registered to course index "+ dropIndexNumber);
 		}
 		
