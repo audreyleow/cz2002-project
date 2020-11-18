@@ -196,10 +196,11 @@ public class StudentSTARS extends STARS {
 			int coursesWaitListSize = coursesWaitList.size();
 			for(int i= 0;i<coursesWaitListSize;i++) {
 				if(coursesWaitList.get(i).getIndexNum()==dropIndexNumber){
-				UniDataBase.removeCourseStudent(studentLoggedIn,classIndex);
-				System.out.println("Course index "+ dropIndexNumber +" has been dropped");
-				return;
+					UniDataBase.removeCourseStudent(studentLoggedIn,classIndex);
+					System.out.println("Course index "+ dropIndexNumber +" has been dropped");
+					return;
 				}
+			}	
 			System.out.println("You are not registered to course index "+ dropIndexNumber);
 		}
 		
