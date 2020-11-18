@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class TestingApp { //JJ: the app i used for loading preexisting files into unidatabase
 	public static void main(String[] args) {
 		
-		Student student1,student2,student3,student0,student4,student5,student6,student7;
-		StudentRecords studRec1,studRec2,studRec3,studRec0,studRec4,studRec5,studRec6,studRec7;
+		Student student1,student2,student3,student0,student4,student5,student6,student7,student8,student9,student10,student11,student12,student13,student14;
+		StudentRecords studRec1,studRec2,studRec3,studRec0,studRec4,studRec5,studRec6,studRec7,studRec8,studRec9,studRec10,studRec11,studRec12,studRec13,studRec14;
 		studRec1=new StudentRecords();
 		studRec2=new StudentRecords();
 		studRec3=new StudentRecords();
@@ -15,6 +15,13 @@ public class TestingApp { //JJ: the app i used for loading preexisting files int
 		studRec5=new StudentRecords();
 		studRec6=new StudentRecords();
 		studRec7=new StudentRecords();
+		studRec8=new StudentRecords();
+		studRec9=new StudentRecords();
+		studRec10=new StudentRecords();
+		studRec11=new StudentRecords();
+		studRec12=new StudentRecords();
+		studRec13=new StudentRecords();
+		studRec14=new StudentRecords();
 		String pwd1 = HashPassword.generateHash("testUser1");
 		String pwd2 = HashPassword.generateHash("testUser2");
 		String pwd3 = HashPassword.generateHash("testUser3");
@@ -23,6 +30,13 @@ public class TestingApp { //JJ: the app i used for loading preexisting files int
 		String pwd5 = HashPassword.generateHash("testUser5");
 		String pwd6 = HashPassword.generateHash("testUser6");
 		String pwd7 = HashPassword.generateHash("testUser7");
+		String pwd8 = HashPassword.generateHash("testUser8");
+		String pwd9 = HashPassword.generateHash("testUser9");
+		String pwd10 = HashPassword.generateHash("testUser10");
+		String pwd11 = HashPassword.generateHash("testUser11");
+		String pwd12 = HashPassword.generateHash("testUser12");
+		String pwd13 = HashPassword.generateHash("testUser13");
+		String pwd14 = HashPassword.generateHash("testUser14");
 		student1=new Student("aleow003",pwd1,"Audrey Leow","Female","Saudi Arabian","U1840771F","aleow003@e.ntu.edu.sg",studRec1);
 		student2=new Student("sohw0039",pwd2,"Wai Leong","Male","Malaysian","U1840476C","sohw0039@e.ntu.edu.sg",studRec2);
 		student3=new Student("lims0269",pwd3,"Si Yi","Female","South African","U1921006J","lims0269@e.ntu.edu.sg",studRec3);
@@ -31,9 +45,16 @@ public class TestingApp { //JJ: the app i used for loading preexisting files int
 		student5=new Student("student5",pwd5,"James","Male","Australian","U5555555Z","student5@e.ntu.edu.sg",studRec5);
 		student6=new Student("parttime6",pwd6,"Taylor","Female","Belgian","U6666666J","parttime6@e.ntu.edu.sg",studRec6);
 		student7=new Student("fulltime7",pwd7,"Jordan","Male","Costa Rican","U7777777F","fulltime7@e.ntu.edu.sg",studRec7);
-				
-		String pwd8 =  HashPassword.generateHash("testAdmin1");
-		Admin admin1 = new Admin("malc234",pwd8,"Malory Chan","Female","Singaporean","s1234567G");
+		student8=new Student("user808",pwd8,"Janine","Female","American","U8888888G","user808@e.ntu.edu.sg",studRec8);
+		student9=new Student("student9",pwd9,"Ali Jim","Male","Indian","U9999999K","student9@e.ntu.edu.sg",studRec9);
+		student10=new Student("parttime10",pwd10,"Kaile","Female","Uzbek","U1010101D","parttime10@e.ntu.edu.sg",studRec10);
+		student11=new Student("fulltime11",pwd11,"Ronald","Male","South African","U111111111F","fulltime11@e.ntu.edu.sg",studRec11);
+		student12=new Student("user12",pwd12,"Kimmie","Female","Thai","U1212121W","user12@e.ntu.edu.sg",studRec12);
+		student13=new Student("student13",pwd13,"Ramon","Male","Cuban","U1313131H","student13@e.ntu.edu.sg",studRec13);
+		student14=new Student("parttime14",pwd14,"Kelsey","Female","Singaporean","U14141414I","parttime14@e.ntu.edu.sg",studRec14);
+						
+		String pwdAdmin =  HashPassword.generateHash("testAdmin1");
+		Admin admin1 = new Admin("malc234",pwdAdmin,"Malory Chan","Female","Singaporean","s1234567G");
 		
 		int[] lessonTiming11 = {930,1030};
 		int[] lessonTiming12 = {830,930};
