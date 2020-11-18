@@ -331,7 +331,7 @@ public class UniDataBase {
 				studentRecords.removeStudentWaitList(classIndex);
 			
 				//Notifying waiting student through email.
-				SendEmail.courseRegistered(student.getEmail(), course.getCourseCode(), course.getCourseName(), classIndex.getIndexNum());
+				//SendEmail.courseRegistered(student.getEmail(), course.getCourseCode(), course.getCourseName(), classIndex.getIndexNum());
 			}
 	}
 
@@ -386,7 +386,7 @@ public class UniDataBase {
 				classIndex.getWaitList().remove(0);
 				
 				//Notifying waiting student through email.
-				SendEmail.courseRegistered(studentWaiting.getEmail(), course.getCourseCode(), course.getCourseName(), classIndex.getIndexNum());
+				//SendEmail.courseRegistered(studentWaiting.getEmail(), course.getCourseCode(), course.getCourseName(), classIndex.getIndexNum());
 			}
 		}
 		
@@ -416,7 +416,7 @@ public class UniDataBase {
 			currentClassIndex.getWaitList().remove(student);
 			
 			//Notifying waiting student through email.
-			SendEmail.courseRegistered(studentWaiting.getEmail(), course.getCourseCode(), course.getCourseName(), currentClassIndex.getIndexNum());
+			//SendEmail.courseRegistered(studentWaiting.getEmail(), course.getCourseCode(), course.getCourseName(), currentClassIndex.getIndexNum());
 		}
 	}
 	
@@ -456,19 +456,20 @@ public class UniDataBase {
 	}
 	
 	public static boolean verifyLessonClash(String classVenue, String classDay, int[] classTime) {
+		int startTime1, startTime2,endTime1,endTime2;
 		for (int i=0; i<courses.size(); i++) {
 			for (int j=0; j<courses.get(i).getIndexNumList().size(); j++) {
 				for (int k=0; k<courses.get(i).getIndexNumList().get(j).getLessonsList().size(); k++) {
 					Lesson lesson = courses.get(i).getIndexNumList().get(j).getLessonsList().get(k);
 					if (lesson.getClassVenue().equals(classVenue)) {
 						if (lesson.getClassDay().equals(classDay)) {
-							starttime1 = lesson.getClassTiming()[0];
-							starttime2 = classTime[0];
-							endtime1=lesson.getClassTiming()[1];
-							endtime2=classTime[1];
-							if ((starttime1 >= starttime2 && starttime1 < endtime2)
-									||(endtime1 > starttime2 && endtime1 <= endtime2)
-									||(starttime1==starttime2 && endtime1==endtime2) )
+							startTime1 = lesson.getClassTiming()[0];
+							startTime2 = classTime[0];
+							endTime1=lesson.getClassTiming()[1];
+							endTime2=classTime[1];
+							if ((startTime1 >= startTime2 && startTime1 < endTime2)
+									||(endTime1 > startTime2 && endTime1 <= endTime2)
+									||(startTime1==startTime2 && endTime1==endTime2) )
 								return true;
 						}
 					}
@@ -479,6 +480,7 @@ public class UniDataBase {
 	}
 	
 	public static boolean verifyTimetableClash(Student student, int newClassIndex) {
+		int startTime1, startTime2,endTime1,endTime2;
 		ClassIndex classIndex = findClassIndex(newClassIndex);
 		Lesson lesson1, lesson2;
 		ArrayList<ClassIndex> coursesRegistered = student.getStudentRecords().getCoursesRegistered();
@@ -488,13 +490,13 @@ public class UniDataBase {
 				for (int k=0; k<classIndex.getLessonsList().size(); k++) {
 					lesson2 = classIndex.getLessonsList().get(k);
 					if(lesson1.getClassDay().equals(lesson2.getClassDay())) {
-						starttime1 = lesson1.getClassTiming()[0];
-						starttime2 = lesson2.getClassTiming()[0];
-						endtime1=lesson1.getClassTiming()[1];
-						endtime2=lesson2.getClassTiming()[1];
-						if ((starttime1 >= starttime2 && starttime1 < endtime2)
-								||(endtime1 > starttime2 && endtime1 <= endtime2)
-								||(starttime1==starttime2 && endtime1==endtime2) )
+						startTime1 = lesson1.getClassTiming()[0];
+						startTime2 = lesson2.getClassTiming()[0];
+						endTime1=lesson1.getClassTiming()[1];
+						endTime2=lesson2.getClassTiming()[1];
+						if ((startTime1 >= startTime2 && startTime1 < endTime2)
+								||(endTime1 > startTime2 && endTime1 <= endTime2)
+								||(startTime1==startTime2 && endTime1==endTime2) )
 							return true;
 					}
 				}
@@ -507,13 +509,13 @@ public class UniDataBase {
 				for (int k=0; k<classIndex.getLessonsList().size(); k++) {
 					lesson2 = classIndex.getLessonsList().get(k);
 					if(lesson1.getClassDay().equals(lesson2.getClassDay())) {
-						starttime1 = lesson1.getClassTiming()[0];
-						starttime2 = lesson2.getClassTiming()[0];
-						endtime1=lesson1.getClassTiming()[1];
-						endtime2=lesson2.getClassTiming()[1];
-						if ((starttime1 >= starttime2 && starttime1 < endtime2)
-								||(endtime1 > starttime2 && endtime1 <= endtime2)
-								||(starttime1==starttime2 && endtime1==endtime2) )
+						startTime1 = lesson1.getClassTiming()[0];
+						startTime2 = lesson2.getClassTiming()[0];
+						endTime1=lesson1.getClassTiming()[1];
+						endTime2=lesson2.getClassTiming()[1];
+						if ((startTime1 >= startTime2 && startTime1 < endTime2)
+								||(endTime1 > startTime2 && endTime1 <= endTime2)
+								||(startTime1==startTime2 && endTime1==endTime2) )
 							return true;
 					}
 				}
