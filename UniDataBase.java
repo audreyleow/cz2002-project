@@ -328,7 +328,8 @@ public class UniDataBase {
 				classIndex.setClassVacancy(classIndex.getClassVacancy()-1);
 				studentRecords.addCourseRegistered(classIndex);
 				studentRecords.setAcadUnitsRegistered(studentRecords.getAcadUnitsRegistered() + course.getAcadUnits());
-				
+				studentRecords.removeStudentWaitList(classIndex);
+			
 				//Notifying waiting student through email.
 				SendEmail.courseRegistered(student.getEmail(), course.getCourseCode(), course.getCourseName(), classIndex.getIndexNum());
 			}
