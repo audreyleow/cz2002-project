@@ -219,7 +219,7 @@ public class AdminSTARS extends STARS{
 					System.out.print("Input course name of new course:");
 					newCourseName = scan.nextLine();
 					newCourseName = newCourseName.trim();								// Remove any whitespace at both ends of String
-					newCourseName = newCourseName.replaceAll("\\s+","");				// Remove any whitespace in String 
+					//newCourseName = newCourseName.replaceAll("\\s+","");				// Remove any whitespace in String 
 					System.out.println("New Course Name Input: "+newCourseName);
 					System.out.println("============= Schools ==============\r\n" + 
 							   "|1. NBS          |10. SSS          |\r\n" + 
