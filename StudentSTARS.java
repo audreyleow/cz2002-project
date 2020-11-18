@@ -204,35 +204,65 @@ public class StudentSTARS extends STARS {
 		}
 		
 		public static void printCourses(Student studentLoggedIn) {
+			//print courses registered
 			System.out.println("Printing courses registered...");
 			StudentRecords studRec=studentLoggedIn.getStudentRecords();
 			ArrayList<ClassIndex> coursesReg = studRec.getCoursesRegistered();
 			int coursesRegSize = coursesReg.size();
-			String courseCode,courseName;
-			int indexNum;
+			String courseCode,lessonType,classDay,classVenue;
+			int indexNum,au,lessonsListSize,starttime,endtime;
+			Course course;
+			Lesson lesson;
 			System.out.println("Courses registered... :");
-			System.out.println(String.format("%-11s%-10s%-30s","Course Code","Index No.","Course Name")); 
-			System.out.println("-------------------------------");
+			System.out.println(String.format("%-13s%-4s%-11s%-6s%-5s%-9s%2s%2s","Course Code","AU","Index No.","Type","Day","Time"," ","Venue")); 
+			System.out.println(String.format("%63s", "-").replace(' ', '-'));
 			for(int i=0;i<coursesRegSize;i++) {
 				courseCode = coursesReg.get(i).getCourseCode(); 
-				courseName = coursesReg.get(i).getCourseName();
 				indexNum = coursesReg.get(i).getIndexNum();
-				//print courses registered
-				System.out.println((i+1)+ ":"+String.format("%-8s%-10s%-30s", courseCode, indexNum, courseName));
+				course=UniDataBase.findCourseByCode(courseCode);
+				au=course.getAcadUnits();
+				lessonsListSize=coursesReg.get(i).getLessonsList().size();
+				for(int j=0;j<lessonsListSize;j++) {
+					lesson=coursesReg.get(i).getLessonsList().get(j);
+					lessonType=lesson.getLessonType();
+					classDay=lesson.getClassDay();
+					classVenue=lesson.getClassVenue();
+					starttime = lesson.getClassTiming()[0];
+					endtime=lesson.getClassTiming()[1];
+					if(j==0) {
+						System.out.println(String.format("%-13s%-4d%-11d%-6s%-5s%04d%-1s%04d%2s%2s", courseCode, au,indexNum,lessonType,classDay,starttime,"-",endtime," ",classVenue));
+					}
+					else {
+						System.out.println(String.format("%-13s%-4s%-11s%-6s%-5s%04d%-1s%04d%2s%2s", " ", " ", " ",lessonType,classDay,starttime,"-",endtime," ",classVenue));
+					}
 				}
-		// print courses in waitlist
+			}
+			// print courses in waitlist
 			ArrayList<ClassIndex> waitListCourses = studRec.getStudentWaitList();
 			int waitListCoursesSize = waitListCourses.size();
-			String wlcourseCode, wlcourseName;
-			int wlindexNum;
 			System.out.println("Courses on waitlist... :");
-			System.out.println(String.format("%-11s%-10s%-30s","Course Code","Index No.","Course Name")); 
-			System.out.println("-------------------------------");
-			for (int p = 0; p< waitListCoursesSize ; p++) {
-				wlcourseCode = waitListCourses.get(p).getCourseCode();
-				wlcourseName = waitListCourses.get(p).getCourseName();
-				wlindexNum = waitListCourses.get(p).getIndexNum();
-				System.out.println((p+1)+ ":"+String.format("%-8s%-10s%-30s", wlcourseCode, wlindexNum, wlcourseName));
+			System.out.println(String.format("%-13s%-4s%-11s%-6s%-5s%-9s%2s%2s","Course Code","AU","Index No.","Type","Day","Time"," ","Venue")); 
+			System.out.println(String.format("%63s", "-").replace(' ', '-'));
+			for(int i=0;i<waitListCoursesSize;i++) {
+				courseCode = waitListCourses.get(i).getCourseCode(); 
+				indexNum = waitListCourses.get(i).getIndexNum();
+				course=UniDataBase.findCourseByCode(courseCode);
+				au=course.getAcadUnits();
+				lessonsListSize=waitListCourses.get(i).getLessonsList().size();
+				for(int j=0;j<lessonsListSize;j++) {
+					lesson=waitListCourses.get(i).getLessonsList().get(j);
+					lessonType=lesson.getLessonType();
+					classDay=lesson.getClassDay();
+					classVenue=lesson.getClassVenue();
+					starttime = lesson.getClassTiming()[0];
+					endtime=lesson.getClassTiming()[1];
+					if(j==0) {
+						System.out.println(String.format("%-13s%-4d%-11d%-6s%-5s%04d%-1s%04d%2s%2s", courseCode, au,indexNum,lessonType,classDay,starttime,"-",endtime," ",classVenue));
+					}
+					else {
+						System.out.println(String.format("%-13s%-4s%-11s%-6s%-5s%04d%-1s%04d%2s%2s", " ", " ", " ",lessonType,classDay,starttime,"-",endtime," ",classVenue));	
+					}
+				}
 			}
 		}
 		
