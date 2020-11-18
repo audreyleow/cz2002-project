@@ -107,7 +107,7 @@ public class TestingApp { //JJ: the app i used for loading preexisting files int
 		lessonsList4.add(lesson41);
 		ArrayList<Student> studentsList4 = new ArrayList<Student>();
 		ArrayList<Student> waitList4 = new ArrayList<Student>();
-		ClassIndex classIndex4 = new ClassIndex("Medieval Literature","HL2001",17222,250,lessonsList1,waitList4,studentsList4);
+		ClassIndex classIndex4 = new ClassIndex("Medieval Literature","HL2001",17222,250,lessonsList4,waitList4,studentsList4);
 		ArrayList<ClassIndex> indexNumList1=new ArrayList<ClassIndex>();
 		indexNumList1.add(classIndex4);
 		Course course1 = new Course("HL2001", "Medieval Literature","SOH", 4, indexNumList1);
@@ -224,13 +224,6 @@ public class TestingApp { //JJ: the app i used for loading preexisting files int
 		students.add(student5);
 		students.add(student6);
 		students.add(student7);
-		students.add(student8);
-		students.add(student9);
-		students.add(student10);
-		students.add(student11);
-		students.add(student12);
-		students.add(student13);
-		students.add(student14);
 		UniDataBase.students=students;
 		
 		ArrayList<Admin> admins = new ArrayList<Admin>();
