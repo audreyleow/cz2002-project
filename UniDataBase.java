@@ -382,7 +382,7 @@ public class UniDataBase {
 				studentWaiting.getStudentRecords().setAcadUnitsRegistered(tempAcadUnitsRegistered + course.getAcadUnits());
 				classIndex.getStudentList().add(studentWaiting);
 				classIndex.setClassVacancy(classIndex.getClassVacancy()-1);
-				classIndex.getWaitList().remove(student);
+				classIndex.getWaitList().remove(0);
 				
 				//Notifying waiting student through email.
 				SendEmail.courseRegistered(studentWaiting.getEmail(), course.getCourseCode(), course.getCourseName(), classIndex.getIndexNum());
