@@ -465,7 +465,7 @@ public class AdminSTARS extends STARS{
 									   "|1. Weekly   |2. Odd Weeks   |3. Even Weeks   |\r\n" + 
 									   "===============================================\r\n");
 							do {
-								System.out.println("Does the lecture occur weekly? If not, does it occur on even or odd weeks?");
+								System.out.println("Does the tutorial occur weekly? If not, does it occur on even or odd weeks?");
 								tempClassWeekNo = scan.nextInt();
 								if(tempClassWeekNo<1 || tempClassWeekNo>3) {
 									System.out.println("Please input a positive integer from 1 to 3.");
