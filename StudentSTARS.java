@@ -5,7 +5,10 @@ public class StudentSTARS extends STARS {
 	
 		public static void run (Student studentLoggedIn)
 		{
-			System.out.println("================ STARS Menu ================\r\n" + 
+			int inputChoice;
+			Scanner scan = new Scanner(System.in);
+			do {
+				System.out.println("================ STARS Menu ================\r\n" + 
 					   "|1. Add Course                             |\r\n" + 
 					   "|2. Drop Course                            |\r\n" + 
 					   "|3. Check Courses Registered               |\r\n" +
@@ -14,9 +17,6 @@ public class StudentSTARS extends STARS {
 					   "|6. Swop Index Number with Another Student |\r\n" + 
 					   "|7. Log Out                                |\r\n" + 
 					   "============================================\r\n");
-			int inputChoice;
-			Scanner scan = new Scanner(System.in);
-			do {
 				System.out.print ("\nWhat do you wish to do?");
 				inputChoice = scan.nextInt();
 				switch(inputChoice) {
