@@ -35,4 +35,15 @@ public class Student extends User implements Serializable{
 	public void setStudentRecords(StudentRecords studentRecords) {
 		this.studentRecords = studentRecords;
 	}
+	@Override
+	public boolean equals(Object other) {
+		 if (other == this) { 
+	            return true; 
+	        } 
+	     if (!(other instanceof Student)) { 
+	            return false; 
+	        }        
+	      Student that = (Student) other;     
+	      return that.matricNo == this.matricNo;
+	}
 }
