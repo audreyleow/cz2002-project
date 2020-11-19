@@ -64,4 +64,15 @@ public class ClassIndex implements Serializable{
 	public void setStudentList(ArrayList<Student> studentList) {
 		this.studentList = studentList;
 	}
+	@Override
+	public boolean equals(Object other) {
+		 if (other == this) { 
+	            return true; 
+	        } 
+	     if (!(other instanceof ClassIndex)) { 
+	            return false; 
+	        }        
+	      ClassIndex that = (ClassIndex) other;     
+	      return that.indexNum == this.indexNum;
+	}
 }
