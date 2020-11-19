@@ -224,6 +224,13 @@ public class TestingApp { //JJ: the app i used for loading preexisting files int
 		students.add(student5);
 		students.add(student6);
 		students.add(student7);
+		students.add(student8);
+		students.add(student9);
+		students.add(student10);
+		students.add(student11);
+		students.add(student12);
+		students.add(student13);
+		students.add(student14);
 		UniDataBase.students=students;
 		
 		ArrayList<Admin> admins = new ArrayList<Admin>();
