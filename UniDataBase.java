@@ -331,7 +331,8 @@ public class UniDataBase {
 				studentRecords.removeStudentWaitList(classIndex);
 			
 				//Notifying waiting student through email.
-				//SendEmail.courseRegistered(student.getEmail(), course.getCourseCode(), course.getCourseName(), classIndex.getIndexNum());
+				NotificationApp notifyApp = new NotificationApp(new Email()); 
+				notifyApp.courseAllocated(student,indexNum);
 			}
 	}
 
@@ -386,7 +387,8 @@ public class UniDataBase {
 				classIndex.getWaitList().remove(0);
 				
 				//Notifying waiting student through email.
-				//SendEmail.courseRegistered(studentWaiting.getEmail(), course.getCourseCode(), course.getCourseName(), classIndex.getIndexNum());
+				NotificationApp notifyApp = new NotificationApp(new Email()); 
+				notifyApp.courseAllocated(studentWaiting,classIndex.getIndexNum());
 			}
 		}
 		
@@ -416,7 +418,8 @@ public class UniDataBase {
 			currentClassIndex.getWaitList().remove(student);
 			
 			//Notifying waiting student through email.
-			//SendEmail.courseRegistered(studentWaiting.getEmail(), course.getCourseCode(), course.getCourseName(), currentClassIndex.getIndexNum());
+			NotificationApp notifyApp = new NotificationApp(new Email()); 
+			notifyApp.courseAllocated(studentWaiting,currentClassIndex.getIndexNum());
 		}
 	}
 	
