@@ -10,7 +10,8 @@ public class STARS {
 		}
 		ClassIndex classIndex = UniDataBase.findClassIndex(indexNumber);
 		int classVacancy= classIndex.getClassVacancy();
-		System.out.println("Course index "+indexNumber+" has "+classVacancy+" slot(s) left");
+		int totalClassSize= classVacancy + classIndex.getStudentList().size();
+		System.out.println("Course index "+indexNumber+" has "+classVacancy+" slot(s) left and maximum class size of "+totalClassSize+".");
 	}
 	
 	public static void showErrorMessage() {
