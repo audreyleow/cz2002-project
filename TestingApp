@@ -140,7 +140,7 @@ public class TestingApp { //JJ: the app i used for loading preexisting files int
 		int[] lessonTiming411 = {1400,1600};
 		int[] lessonTiming412 = {900,1000};
 		Lesson lesson411=new Lesson("LECT", "LFL-LT", "TUE", lessonTiming411, "EVERY");
-		Lesson lesson412=new Lesson("TUT", "TR+7", "WED", lessonTiming412, "EVERY");
+		Lesson lesson412=new Lesson("TUT", "TR+7", "FRI", lessonTiming412, "EVERY");
 		ArrayList<Lesson> lessonsList41= new ArrayList<Lesson>(); 
 		lessonsList41.add(lesson411);
 		lessonsList41.add(lesson412);
