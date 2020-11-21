@@ -48,10 +48,10 @@ public class TestingApp { //JJ: the app i used for loading preexisting files int
 		student8=new Student("user808",pwd8,"Janine","Female","American","U8888888G","user808@e.ntu.edu.sg",studRec8);
 		student9=new Student("student9",pwd9,"Ali Jim","Male","Indian","U9999999K","student9@e.ntu.edu.sg",studRec9);
 		student10=new Student("parttime10",pwd10,"Kaile","Female","Uzbek","U1010101D","parttime10@e.ntu.edu.sg",studRec10);
-		student11=new Student("fulltime11",pwd11,"Ronald","Male","South African","U111111111F","fulltime11@e.ntu.edu.sg",studRec11);
+		student11=new Student("fulltime11",pwd11,"Ronald","Male","South African","U1111111F","fulltime11@e.ntu.edu.sg",studRec11);
 		student12=new Student("user12",pwd12,"Kimmie","Female","Thai","U1212121W","user12@e.ntu.edu.sg",studRec12);
 		student13=new Student("student13",pwd13,"Ramon","Male","Cuban","U1313131H","student13@e.ntu.edu.sg",studRec13);
-		student14=new Student("parttime14",pwd14,"Kelsey","Female","Singaporean","U14141414I","parttime14@e.ntu.edu.sg",studRec14);
+		student14=new Student("parttime14",pwd14,"Kelsey","Female","Singaporean","U1414141I","parttime14@e.ntu.edu.sg",studRec14);
 						
 		String pwdAdmin =  HashPassword.generateHash("testAdmin1");
 		Admin admin1 = new Admin("malc234",pwdAdmin,"Malory Chan","Female","Singaporean","s1234567G");
