@@ -12,7 +12,7 @@ To test the code outside of Eclipse, complete the following steps:
 3. Search "cmd" on your PC (assuming you use windows) command prompt. Terminal for Apple.
 4. Navigate to the innermost folder that contains a java files
 - just type: `cd Downloads\cz2002-project-main (1)\cz2002-project-main`
-- "cd" is the keyword to navigate to different folders on your computer 
+- `cd` is the keyword to navigate to different folders on your computer 
 - use tab key to auto complete after typing first few letters of each folder,\ to move to next innermost folder
 5. Once you are in the innnermost folder, paste this command that will compile all java files:
 `javac *.java`
