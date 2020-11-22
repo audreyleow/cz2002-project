@@ -1,3 +1,5 @@
+import java.io.Console;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -86,7 +88,8 @@ public class StudentSTARS extends STARS {
 						break;
 					case 6: // Swap Index Number with Another Student
 						int indexNumberTemp6,peerIndexNumberTemp;
-						String peerUserName, peerPassword,peerHashedPassword;
+						String peerUserName,peerHashedPassword;
+						String peerPassword = null;
 						do {
 							System.out.print("Input your index number you wish to change:");
 							indexNumberTemp6 = scan.nextInt();
@@ -99,8 +102,19 @@ public class StudentSTARS extends STARS {
 						peerUserName = scan.nextLine();
 						peerUserName = peerUserName.trim();									// Remove any whitespace at both ends of String
 						peerUserName = peerUserName.replaceAll("\\s+","");					// Remove any whitespace in String
-						System.out.print("Input your peer's password:");
-						peerPassword = scan.nextLine();
+						Console cons = System.console();
+			    	    if (cons == null) {
+			    	      // In the Eclipse IDE.
+			    	      try {
+			    	        System.out.println("Running within Eclipse IDE (Password will not be masked)");
+			    	        peerPassword = ConcealPassword.getPasswordWithinEclipse();
+			    	      } catch (IOException e) {
+			    	        System.err.println("Error getting password" + e.getMessage());
+			    	        System.exit(1);
+			    	      }
+			    	    } else {
+			    	    	peerPassword = ConcealPassword.getPasswordMasked(cons);
+			    	    }
 						peerPassword = peerPassword.trim();									// Remove any whitespace at both ends of String
 						peerPassword = peerPassword.replaceAll("\\s+","");					// Remove any whitespace in String
 						peerHashedPassword = HashPassword.generateHash(peerPassword);
@@ -395,4 +409,3 @@ public class StudentSTARS extends STARS {
 		}
 
 }
-
