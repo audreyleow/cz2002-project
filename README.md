@@ -11,13 +11,13 @@ To test the code outside of Eclipse, complete the following steps:
 2. Unzip the zip file (which should be in your pc's Downloads folder)
 3. Search "cmd" on your PC (assuming you use windows) command prompt. Terminal for Apple.
 4. Navigate to the innermost folder that contains a java files
-- just type: cd Downloads\cz2002-project-main (1)\cz2002-project-main
+- just type: `cd Downloads\cz2002-project-main (1)\cz2002-project-main`
 - "cd" is the keyword to navigate to different folders on your computer 
 - use tab key to auto complete after typing first few letters of each folder,\ to move to next innermost folder
 5. Once you are in the innnermost folder, paste this command that will compile all java files:
-javac *.java
+`javac *.java`
 6. Once done, paste this command to start using the program:
-java MySTARSApp 
+`java MySTARSApp` 
 
 ** Note that the text files with pre-filled data have already been uploaded onto github 
 so you DO NOT have to run TestingApp**
