@@ -1,8 +1,6 @@
 import java.util.Scanner;
-import java.io.BufferedReader;
 import java.io.Console;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.time.LocalDateTime;  
 import java.time.format.DateTimeFormatter; 
 	
@@ -20,16 +18,16 @@ public class MySTARSApp {
     		userNameLogIn = userNameLogIn.replaceAll("\\s+","");					// Remove any whitespace in String
     		Console cons = System.console();
     	    if (cons == null) {
-    	      // We are in the Eclipse IDE.
+    	      // In the Eclipse IDE.
     	      try {
     	        System.out.println("Running within Eclipse IDE (Password will not be masked)");
-    	        passwordLogIn = getPasswordWithinEclipse();
+    	        passwordLogIn = ConcealPassword.getPasswordWithinEclipse();
     	      } catch (IOException e) {
     	        System.err.println("Error getting password" + e.getMessage());
     	        System.exit(1);
     	      }
     	    } else {
-    	    	passwordLogIn = getPasswordMasked(cons);
+    	    	passwordLogIn = ConcealPassword.getPasswordMasked(cons);
     	    }
     		passwordLogIn = passwordLogIn.trim();									// Remove any whitespace at both ends of String
     		passwordLogIn = passwordLogIn.replaceAll("\\s+","");					// Remove any whitespace in String
@@ -70,35 +68,5 @@ public class MySTARSApp {
         }while(logInOption == 1);
 	}
 	
-	  // Handles console input when running outside of Eclipse
-	  public static String getPasswordMasked(Console cons) {
-	    char[] pswd;
-	    while (true) {
-	    	System.out.println("Please input your password:");
-	    	pswd = cons.readPassword();
-	      if (pswd != null) {
-	        if (pswd.length > 0) {
-	          return new String(pswd);
-	        } else {
-	          System.out.println("Invalid input\n");
-	        }
-	      }
-	    }
-	  }
-
-	   // Handles console input when running inside of Eclipse;
-	   // @throws IOException if password is zero-length
-	  public static String getPasswordWithinEclipse() throws IOException {
-	    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-	    System.out.println("Please input your password:");
-	    String password = reader.readLine();
-	    if (password != null) {
-	      if (password.length() <= 0) {
-	        System.out.println("Invalid input\n");
-	        throw new IOException("Error reading in password");
-	      }
-	    }
-	    return password;
-	  }
 }
 	 
