@@ -9,6 +9,13 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 public class Email implements Notification{
+	
+	/**
+	 * send notification about courses to student via email 
+	 * @param student The student that will receive the notification
+	 * @param messageSubject The title of the notification that student will receive
+	 * @param messageContent The content of the notification about the courses
+	 */
 	public void sendNotification(Student student,String messageSubject,String messageContent) {
 		final String username = "CZ2002Group5"; 
 		final String password = "testUser0"; 
