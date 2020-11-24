@@ -39,7 +39,7 @@ public class ClassIndex implements Serializable{
 	}
 	
 	/**
-	 * Get the course code for the class index
+	 * Gets the course code for the class index
 	 * @return course code of class index
 	 */
 	public String getCourseCode() {
@@ -47,7 +47,7 @@ public class ClassIndex implements Serializable{
 	}
 	
 	/**
-	 * Set the course code 
+	 * Sets the course code 
 	 * @param courseCode course code 
 	 */
 	public void setCourseCode(String courseCode) {
@@ -55,7 +55,7 @@ public class ClassIndex implements Serializable{
 	}
 	
 	/**
-	 * Get the course name for the class index
+	 * Gets the course name for the class index
 	 * @return name of the course
 	 */
 	public String getCourseName() {
@@ -63,7 +63,7 @@ public class ClassIndex implements Serializable{
 	}
 	
 	/**
-	 * Get the index number 
+	 * Gets the index number 
 	 * @return index number
 	 */
 	public int getIndexNum() {
@@ -71,7 +71,7 @@ public class ClassIndex implements Serializable{
 	}
 	
 	/**
-	 * Get the number of empty slots for the class
+	 * Gets the number of empty slots for the class
 	 * @return number of empty slots 
 	 */
 	public int getClassVacancy() {
@@ -79,7 +79,7 @@ public class ClassIndex implements Serializable{
 	}
 	
 	/**
-	 * Get the list of lessons 
+	 * Gets the list of lessons 
 	 * @return list of lessons
 	 */
 	public ArrayList<Lesson> getLessonsList() {
@@ -87,7 +87,7 @@ public class ClassIndex implements Serializable{
 	}
 	
 	/**
-	 * Get the students on the waiting list
+	 * Gets the students on the waiting list
 	 * @return students on waiting list
 	 */
 	public ArrayList<Student> getWaitList() {
@@ -95,7 +95,7 @@ public class ClassIndex implements Serializable{
 	}
 	
 	/**
-	 * Get the students who are registered 
+	 * Gets the students who are registered 
 	 * @return students who are registered
 	 */
 	public ArrayList<Student> getStudentList() {
@@ -103,7 +103,7 @@ public class ClassIndex implements Serializable{
 	}
 	
 	/**
-	 * Set the course name 
+	 * Sets the course name 
 	 * @param courseName
 	 */
 	public void setCourseName(String courseName) {
@@ -111,7 +111,7 @@ public class ClassIndex implements Serializable{
 	}
 	
 	/**
-	 * Set the index number 
+	 * Sets the index number 
 	 * @param indexNum
 	 */
 	public void setIndexNum(int indexNum) {
@@ -119,7 +119,7 @@ public class ClassIndex implements Serializable{
 	}
 	
 	/**
-	 * Set the class vacancy for the index
+	 * Sets the class vacancy for the index
 	 * @param classVacancy
 	 */
 	public void setClassVacancy(int classVacancy) {
@@ -127,7 +127,7 @@ public class ClassIndex implements Serializable{
 	}
 	
 	/**
-	 * set the lessons for the index
+	 * sets the lessons for the index
 	 * @param lessonsList
 	 */
 	public void setLessonsList(ArrayList<Lesson> lessonsList) {
@@ -135,7 +135,7 @@ public class ClassIndex implements Serializable{
 	}
 	
 	/**
-	 * set the students on waitlist
+	 * sets the students on waitlist
 	 * @param waitList
 	 */
 	public void setWaitList(ArrayList<Student> waitList) {
@@ -143,7 +143,7 @@ public class ClassIndex implements Serializable{
 	}
 	
 	/**
-	 * set the students to register them
+	 * sets the students to register them
 	 * @param studentList
 	 */
 	public void setStudentList(ArrayList<Student> studentList) {
@@ -151,7 +151,7 @@ public class ClassIndex implements Serializable{
 	}
 	
 	/**
-	 * Override class index if both of them are equivalent of each other
+	 * Overrides class index if both of them are equivalent of each other
 	 */
 	@Override
 	public boolean equals(Object other) {
