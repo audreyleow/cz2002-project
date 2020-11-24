@@ -1,25 +1,45 @@
 import java.util.ArrayList;
 import java.io.Serializable;
 public class ClassIndex implements Serializable{
+	
 	/**
 	 * Name of course
-	 * Unique code of course
-	 * index number of course
-	 * number of empty slots of the index number
-	 * list of lessons
-	 * list of student on waiting list when index is fully registered
-	 * list of student that are registered in the index
-	 */
+	 */ 
 	private String courseName;
+	
+	/**
+	 * Unique code of course
+	 */
 	private String courseCode;
+	
+	/**
+	 * index number of course
+	 */
 	private int indexNum;
+	
+	/** 
+	 * number of empty slots of the index number
+	 */
 	private int classVacancy;
+	
+	/** list of lessons
+	 * 
+	 */
 	private ArrayList<Lesson> lessonsList; 
+	
+	/** list of student on waiting list when index is fully registered
+	 * 
+	 */
 	private ArrayList<Student> waitList;
+	
+	 /** list of student that are registered in the index
+	  * 
+	  */
 	private ArrayList<Student> studentList;
 	
 	/**
 	 * Constructor for a Class Index of a course
+	 * 
 	 * @param courseName
 	 * @param courseCode
 	 * @param indexNum
@@ -48,6 +68,7 @@ public class ClassIndex implements Serializable{
 	
 	/**
 	 * Sets the course code 
+	 * 
 	 * @param courseCode course code 
 	 */
 	public void setCourseCode(String courseCode) {
@@ -104,6 +125,7 @@ public class ClassIndex implements Serializable{
 	
 	/**
 	 * Sets the course name 
+	 * 
 	 * @param courseName
 	 */
 	public void setCourseName(String courseName) {
@@ -112,6 +134,7 @@ public class ClassIndex implements Serializable{
 	
 	/**
 	 * Sets the index number 
+	 * 
 	 * @param indexNum
 	 */
 	public void setIndexNum(int indexNum) {
@@ -120,6 +143,7 @@ public class ClassIndex implements Serializable{
 	
 	/**
 	 * Sets the class vacancy for the index
+	 * 
 	 * @param classVacancy
 	 */
 	public void setClassVacancy(int classVacancy) {
@@ -128,6 +152,7 @@ public class ClassIndex implements Serializable{
 	
 	/**
 	 * sets the lessons for the index
+	 * 
 	 * @param lessonsList
 	 */
 	public void setLessonsList(ArrayList<Lesson> lessonsList) {
@@ -136,6 +161,7 @@ public class ClassIndex implements Serializable{
 	
 	/**
 	 * sets the students on waitlist
+	 * 
 	 * @param waitList
 	 */
 	public void setWaitList(ArrayList<Student> waitList) {
@@ -144,6 +170,7 @@ public class ClassIndex implements Serializable{
 	
 	/**
 	 * sets the students to register them
+	 * 
 	 * @param studentList
 	 */
 	public void setStudentList(ArrayList<Student> studentList) {
