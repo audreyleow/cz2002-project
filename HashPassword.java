@@ -1,11 +1,17 @@
-package cz2002;
+
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 //import java.util.Scanner;
 
 public class HashPassword {
-
+	
+	/**
+	 * generate hashing for the password that will be stored in the file
+	 * 
+	 * @param data input 
+	 * @return null
+	 */
 	public static String generateHash(String data){
 		try {
 		MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -19,6 +25,12 @@ public class HashPassword {
 	}
 	private final static char[] hexArray = "0123456789ABCDEF".toCharArray();
 	
+	/**
+	 * converts bytes array to string hex
+	 * 
+	 * @param bytes 
+	 * @return string hex 
+	 */
 	public static String bytesToStringHex(byte[] bytes) {
 		char[] hexChars = new char[bytes.length * 2];
 		for(int j = 0; j < bytes.length; j++) {
