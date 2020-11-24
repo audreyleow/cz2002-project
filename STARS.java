@@ -2,6 +2,10 @@ import java.util.ArrayList;
 
 public class STARS {
 	
+	/**
+	 * Check whether the index number has any vacancy left and the number of vacancy slots available
+	 * @param indexNumber
+	 */
 	public static void checkVacancies(int indexNumber) {
 		//verification
 		if (UniDataBase.verifyClassIndex(indexNumber)==false) {
@@ -14,10 +18,16 @@ public class STARS {
 		System.out.println("Course index "+indexNumber+" has "+classVacancy+" slot(s) left and maximum class size of "+totalClassSize+".");
 	}
 	
+	/**
+	 * prints out error message
+	 */
 	public static void showErrorMessage() {
 		System.out.println("Error! Please input again!");
 	}
 	
+	/**
+	 * prints out all courses including its name, code, number of AU, index number, as well as the lesson type
+	 */
 	public static void showAllCourses() {
 		String courseCode,lessonType,classDay,classVenue;
 		int indexNum,au,lessonsListSize,starttime,endtime;
@@ -56,4 +66,3 @@ public class STARS {
 		}
 	}
 }
-
