@@ -4,31 +4,74 @@ import java.time.LocalDateTime;
 
 public class UniDataBase {
 	
+	/**
+	 *  Course's data file name
+	 */
 	static File coursesFile;
+	
+	/**
+	 *  Student's data file name
+	 */
 	static File studentsFile;
+	
+	/**
+	 *  Admin's data file name
+	 */
 	static File adminsFile;
+	
+	/**
+	 * Settings' data file name
+	 */
 	static File settingsFile;
+	
+	/**
+	 * An array list of all courses in the school
+	 */
 	static ArrayList<Course> courses;
+	
+	/**
+	 * An array list of all students in the school
+	 */
 	static ArrayList<Student> students;
+	
+	/**
+	 * An array List of all admins in the school
+	 */
 	static ArrayList<Admin> admins;
+	
+	/**
+	 * The starting access time from which the student will be able to access StudentSTARS
+	 */
 	static LocalDateTime startAccessDate;
+	
+	/**
+	 * The ending access time from which the student will no longer be able to access StudentSTARS
+	 */
 	static LocalDateTime endAccessDate; 
 	
+	/**
+	 * Load all datas stored in external files into the application
+	 */
 	public static void loadAllFiles() {
 		loadCoursesFile();
 		loadStudentsFile();
 		loadAdminsFile();
 		loadSettingsFile();
 	}
+	
+	/**
+	 * Save all datas in the application currently into the external files
+	 */
 	public static void saveAllFiles() {
 		saveCoursesFile();
 		saveStudentsFile();
 		saveAdminsFile();
 		saveSettingsFile();
 	}
-		//reading files in on start-up
-		// How to deserialize the file back into the arraylist - must close after reading data from file! (file to class)
 	
+	/**
+	 * Load the courses data from courses file stored externally into courses arraylist
+	 */
 	public static void loadCoursesFile() {
 		coursesFile = new File("courses.txt");
 		courses = new ArrayList<Course>();
@@ -52,6 +95,9 @@ public class UniDataBase {
 		}
 	}
 	
+	/**
+	 * Load the students data from students file stored externally into the students arraylist
+	 */
 	public static void loadStudentsFile() {
 		studentsFile = new File("students.txt");
 		students = new ArrayList<Student>();
@@ -78,6 +124,9 @@ public class UniDataBase {
 		}
 	}
 	
+	/**
+	 * Load the admins data from admins file stored externally into the admins arraylist
+	 */
 	public static void loadAdminsFile() {
 		adminsFile = new File("admins.txt");
 		admins=new ArrayList<Admin>();
@@ -101,6 +150,9 @@ public class UniDataBase {
 		}
 	}
 	
+	/**
+	 * Load the settings data from courses file stored externally to get the starting access time and ending access time for the student
+	 */
 	public static void loadSettingsFile() {
 		settingsFile=new File("settings.txt");
 		// For access period
@@ -122,14 +174,11 @@ public class UniDataBase {
 		}
 	}
 			
-		// Top half has ClassNotFoundException AND IOException because class AND file may not exist
-		// --------------------------------------------------------------------------------------------------------------
-		// Bottom half only has IOException because class definitely has to exist for you to even store it - file may not exist
-	
-	//public static void saveAllFiles() {
-		// How to serialize the arraylist to file  - must close streams after adding data to file! (Class to file)
-		// FOR SERIALIZING THE ARRAYLIST<COURSE> INTO COURSESFILE
+	/**
+	 * Save the changes, done to the courses data, into the external file
+	 */
 	public static void saveCoursesFile() {
+		
 		try {
 			FileOutputStream foCourses = new FileOutputStream(coursesFile);
 			ObjectOutputStream outputCourses = new ObjectOutputStream(foCourses);
@@ -143,6 +192,9 @@ public class UniDataBase {
 		}
 	}
 	
+	/**
+	 * Save the changes, done to the students data, into the external file
+	 */
 	public static void saveStudentsFile() {
 		// FOR SERIALIZING THE ARRAYLIST<STUDENT> INTO STUDENTSFILE
 		try {
@@ -158,6 +210,9 @@ public class UniDataBase {
 		}
 	}
 	
+	/**
+	 * Save the changes, done to the admins data, into the external file
+	 */
 	public static void saveAdminsFile() {
 		// FOR SERIALIZING THE ARRAYLIST<ADMIN> INTO ADMINSFILE
 		try {
@@ -173,6 +228,9 @@ public class UniDataBase {
 		}
 	}
 	
+	/**
+	 * Save the changes, done to the settings data, into the external file
+	 */
 		public static void saveSettingsFile() {
 		//for access period
 		try {
@@ -189,6 +247,12 @@ public class UniDataBase {
 		}
 	}
 	
+	/**
+	 * Check whether the student exists in the data and whether the password is correct. 
+	 * @param userName The student's account user name
+	 * @param pwd The student's account password
+	 * @return True if student exists in the data and the password entered is correct.
+	 */
 	public static boolean verifyStudentAccount(String userName, String pwd) {
 		for (int i=0; i<students.size(); i++) {
 			if (students.get(i).getUserName().equals(userName)) {
@@ -201,6 +265,12 @@ public class UniDataBase {
 		return false;
 	}
 	
+	/**
+	 * Check whether the admin exists in the data and whether the password is correct.
+	 * @param userName The admin's account user name
+	 * @param pwd The admin's account password
+	 * @return True if admin exists in the data and the password entered is correct.
+	 */
 	public static boolean verifyAdminAccount(String userName, String pwd) {
 		for (int i=0; i<admins.size(); i++) {
 			if (admins.get(i).getUserName().equals(userName)) {
@@ -213,23 +283,50 @@ public class UniDataBase {
 		return false;
 	}
 	
+	/**
+	 * Change the starting access timing
+	 * @param startMonth Month of starting access time
+	 * @param startDate Day of starting access time
+	 * @param startHour Hour of starting access time
+	 * @param startMinute Minute of starting access time
+	 */
 	public static void setStartAccessDate(int startMonth, int startDate, int startHour, int startMinute){
 		startAccessDate = LocalDateTime.of(2020, startMonth, startDate, startHour, startMinute, 0);
 	}
 	
+	/**
+	 * Change the ending access timing
+	 * @param endMonth Month of ending access time
+	 * @param endDate Day of ending access time
+	 * @param endHour Hour of ending access time
+	 * @param endMinute Minute of ending access time
+	 */
 	public static void setEndAccessDate(int endMonth, int endDate, int endHour, int endMinute) {
 		endAccessDate = LocalDateTime.of(2020, endMonth, endDate, endHour, endMinute, 0);
 	}
 	
+	/**
+	 * Get the starting access timing
+	 * @return The starting access timing
+	 */
 	public static LocalDateTime getStartAccessDate() {
 		return startAccessDate;
 	}
 	
+	/**
+	 * Get the ending access timing
+	 * @return The ending access timing
+	 */
 	public static LocalDateTime getEndAccessDate() {
 		return endAccessDate;
 	}
 
-	
+	/**
+	 * Check whether a student with the given matricNo or userName is already in the system data.
+	 * @param matricNo Matriculation number to be check with
+	 * @param userName User name to be check with
+	 * @return True if a student with the given matriculation number or user name is already in the system data
+	 */
 	public static boolean verifyExistedStudent(String matricNo, String userName) {
 		for (int i=0; i<students.size(); i++) {
 			if (students.get(i).getMatricNo().equals(matricNo) || students.get(i).getUserName().equals(userName))
@@ -238,6 +335,11 @@ public class UniDataBase {
 		return false;
 	}
 	
+	/**
+	 * Check whether a course with the given course code is already in the system data.
+	 * @param code The course code to be check with
+	 * @return True if a course with the given course code is already in the system data.
+	 */
 	public static boolean verifyCourse(String code) {
 		for (int i =0; i<courses.size(); i++) {
 			if (courses.get(i).getCourseCode().equals(code))
@@ -245,7 +347,12 @@ public class UniDataBase {
 		}
 		return false;
 	}
-
+	
+	/**
+	 * Check whether a class index with the given class index number is already in the system data.
+	 * @param indexNum The class index number to be check with
+	 * @return True if a class index with the given class index number is already in the system data.
+	 */
 	public static boolean verifyClassIndex(int indexNum) {
 		for (int i=0; i<courses.size(); i++) {
 			ArrayList<ClassIndex> indexNumList = courses.get(i).getIndexNumList();
@@ -257,6 +364,12 @@ public class UniDataBase {
 		return false;
 	}
 	
+	/**
+	 * Get the Student object from the system data if the user name and password matches correctly.
+	 * @param userName The student's account user name
+	 * @param pwd The student's account password
+	 * @return The student object
+	 */
 	public static Student findStudentByAccount(String userName, String pwd) {
 		int i;
 		for (i=0; i<students.size(); i++) {
@@ -268,6 +381,11 @@ public class UniDataBase {
 		return students.get(i);
 	}
 	
+	/**
+	 * Get the Course object from the system data if the course code exists.
+	 * @param code The course's course code
+	 * @return The course object
+	 */
 	public static Course findCourseByCode(String code) {
 		for (int i =0; i<courses.size(); i++) {
 			if (courses.get(i).getCourseCode().equals(code))
@@ -276,6 +394,11 @@ public class UniDataBase {
 		return null;
 	}
 	
+	/**
+	 * Get the ClassIndex object from the system data if the class index number exists
+	 * @param indexNum The class index's identification number
+	 * @return The ClassIndex object
+	 */
 	public static ClassIndex findClassIndex(int indexNum) {
 		for (int i=0; i<courses.size(); i++) {
 			ArrayList<ClassIndex> indexNumList = courses.get(i).getIndexNumList();
@@ -287,10 +410,19 @@ public class UniDataBase {
 		return null;
 	}
 	
+	/**
+	 * Add a new Course object into the array list of courses in the application
+	 * @param newCourse The new course to be added into the school system
+	 */
 	public static void addToCourses(Course newCourse) {
 		courses.add(newCourse);
 	}
 	
+	/** 
+	 * Update the course's course code
+	 * @param courseCode The current course code of the course that is to be changed
+	 * @param newCourseCode The new course code that is assigned to the course
+	 */
 	public static void updateCourseCode(String courseCode, String newCourseCode) {
 		Course course = findCourseByCode(courseCode);
 		course.setCourseCode(newCourseCode);
@@ -299,10 +431,21 @@ public class UniDataBase {
 		}
 	}
 	
+	/**
+	 * Update the school that the course is from.
+	 * @param courseCode The current course code of the course that is to be changed
+	 * @param newSchool The new school that is assigned to the course
+	 */
 	public static void updateCourseSchool(String courseCode, String newSchool) {
 		findCourseByCode(courseCode).setSchool(newSchool);
 	}
 	
+	/**
+	 * Update the current index number in a course with new index number
+	 * @param courseCode The course code of the course that is to be made changes to
+	 * @param currentIndexNumber The current class index number of the class
+	 * @param updatedIndexNumber The new class index number to be assigned to the class
+	 */
 	public static void updateCourseIndexNum(String courseCode, int currentIndexNumber, int updatedIndexNumber) {
 		Course course = findCourseByCode(courseCode);
 		ArrayList<ClassIndex> classIndexList = course.getIndexNumList();
@@ -312,11 +455,22 @@ public class UniDataBase {
 		}
 	}
 	
+	/**
+	 * Update the course's array list of class index with a new array list of class index
+	 * @param courseCode The course code of the course that is to be made changes to
+	 * @param newIndexNumList The new array list of class index that is to the replace the current array list of class index in the course.
+	 */
 	public static void updateCourseIndexNumList(String courseCode, ArrayList<ClassIndex> newIndexNumList) {
 		Course course = findCourseByCode(courseCode);
 		course.setIndexNumList(newIndexNumList);
 	}
 	
+	/**
+	 * Update the class's vacancy of a class index in a course
+	 * @param courseCode The course code of the course that is to be make changes to
+	 * @param indexNum The class index number of the class index that is to be made changes to
+	 * @param newVacantNum The new vacancy number of the class
+	 */
 	public static void updateCourseVacancy(String courseCode, int indexNum, int newVacantNum) {
 		Course course = findCourseByCode(courseCode);
 		ClassIndex classIndex = findClassIndex(indexNum);
@@ -335,13 +489,21 @@ public class UniDataBase {
 				notifyApp.courseAllocated(student,indexNum);
 			}
 	}
-
+	
+	/**
+	 * Add a new Student object into the array list of students in the application
+	 * @param newStudent The new student to be added into the school system
+	 */
 	public static void addToStudents(Student newStudent) {
 		students.add(newStudent);
 	}
 	
+	/**
+	 * Add a new student into the class (of the class index number)
+	 * @param student The student to be added into the class
+	 * @param classIndex The class that the student is to be added into
+	 */
 	public static void addCourseStudent(Student student, ClassIndex classIndex) {
-		
 		//classIndex is not filled yet
 		String courseCode = classIndex.getCourseCode();
 		Course course = findCourseByCode(courseCode);
@@ -360,6 +522,11 @@ public class UniDataBase {
 		}
 	}
 	
+	/**
+	 * Remove a student from the class (of the class index number)
+	 * @param student The student to be removed from the class
+	 * @param classIndex The class that the student is to be removed from
+	 */
 	public static void removeCourseStudent(Student student, ClassIndex classIndex) {
 		if (student.getStudentRecords().getStudentWaitList().contains(classIndex)) {
 			student.getStudentRecords().getStudentWaitList().remove(classIndex);
@@ -398,6 +565,12 @@ public class UniDataBase {
 		}
 	}
 	
+	/**
+	 * Change the class that a student is currently in into another another. If there is student in the waitlist of the current class, the student in the waitlist will be added into it.
+	 * @param student The student that is changing class.
+	 * @param currentClassIndex The current class the student is in.
+	 * @param newClassIndex The new class that the student will be transfered into.
+	 */
 	public static void changeClassIndex(Student student, ClassIndex currentClassIndex, ClassIndex newClassIndex) {
 		Course course = findCourseByCode(currentClassIndex.getCourseCode());
 		newClassIndex.getStudentList().add(student);
@@ -423,6 +596,13 @@ public class UniDataBase {
 		}
 	}
 	
+	/**
+	 * Swap the class index of student1 with the class index of student2. Both the class index need to belong to the same course for it to works
+	 * @param student1 1st student
+	 * @param student2 2nd student
+	 * @param classIndex1 Current class index of the 1st student
+	 * @param classIndex2 Current class index of the 2nd student
+	 */
 	public static void swopClassIndex(Student student1, Student student2, ClassIndex classIndex1, ClassIndex classIndex2) {
 		if (classIndex1.getCourseCode().equals(classIndex2.getCourseCode())) {
 			classIndex1.getStudentList().remove(student1);
@@ -436,6 +616,10 @@ public class UniDataBase {
 		}
 	}
 	
+	/**
+	 * Print the list of students enrolled in a course.
+	 * @param course Course object that the you want to get the list of students
+	 */
 	public static void printStudList(Course course) {
 		int indexNumListSize = course.getIndexNumList().size();
 		System.out.println(String.format("%-7s%-20s%-30s","Gender","Nationality","Name"));
@@ -449,6 +633,10 @@ public class UniDataBase {
 		}	
 	}
 	
+	/**
+	 * Print the list of students enrolled in a class (index).
+	 * @param classIndex ClassIndex object that you want to get the list of students
+	 */
 	public static void printStudList(ClassIndex classIndex) {
 		ArrayList<Student> studentList = classIndex.getStudentList();
 		System.out.println(String.format("%-7s%-20s%-30s","Gender","Nationality","Name"));
@@ -458,6 +646,13 @@ public class UniDataBase {
 		}
 	}
 	
+	/**
+	 * To check whether whether there is an existing class, in the courses arraylist, that utilizes the venue on the same day and clashes with its timing of usage
+	 * @param classVenue Location of the class
+	 * @param classDay Day of the class
+	 * @param classTime Timing of the class
+	 * @return True if there is already a class in the system that utilized the venue on the same day and clashes with its timing of usage
+	 */
 	public static boolean verifyLessonClash(String classVenue, String classDay, int[] classTime) {
 		int startTime1, startTime2,endTime1,endTime2;
 		for (int i=0; i<courses.size(); i++) {
@@ -482,6 +677,12 @@ public class UniDataBase {
 		return false;
 	}
 	
+	/**
+	 * Check whether the new class clashes with any other courses that the student has already registered.
+	 * @param student The student, which his registered course will be checked against
+	 * @param newClassIndex The new class that the student is trying to register
+	 * @return True if there is at least one clash in timing between the new class and the courses that the student has already registered
+	 */
 	public static boolean verifyTimetableClash(Student student, int newClassIndex) {
 		int startTime1, startTime2,endTime1,endTime2;
 		ClassIndex classIndex = findClassIndex(newClassIndex);
@@ -526,7 +727,14 @@ public class UniDataBase {
 		}
 		return false;
 	}
-	
+
+	/**
+	 * When the student is already registered in a class of a course, check whether the new class (of this course) clashes with any other courses that the student has already registered. 
+	 * @param student The student, which his registered course will be checked against
+	 * @param newClassIndex The new class that the student is trying to swap into
+	 * @param oldClassIndex The current class that the student is in
+	 * @return True if there is at least one clash in timing between the new class and the courses that the student has already registered
+	 */
 	public static boolean verifyTimetableClash(Student student, int newClassIndex,int oldClassIndex) {
 		ClassIndex classIndex = findClassIndex(newClassIndex);
 		Lesson lesson1, lesson2;
@@ -575,6 +783,9 @@ public class UniDataBase {
 		return false;
 	}
 	
+	/**
+	 * Print a list of courses currently available in the system
+	 */
 	public static void displayAllCourses() {
 		System.out.println(String.format("%-11s%-30s","Course Code","Course Name"));
 		System.out.println("---------------------");
@@ -583,6 +794,9 @@ public class UniDataBase {
 		}
 	}
 	
+	/**
+	 * Print a list of students currently in the course registration system.
+	 */
 	public static void displayAllStudents() {
 		System.out.println(String.format("%-10s%-7s%-20s%-30s","Matric No.","Gender","Nationality","Name"));
 		System.out.println("-----------------------------------------");	
