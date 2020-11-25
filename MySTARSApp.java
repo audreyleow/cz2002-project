@@ -5,6 +5,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter; 
 	
 public class MySTARSApp {
+
+	/**
+	 * Interface that handles interaction with the user specifically for logging in
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		String userNameLogIn;
 		String passwordLogIn = null;
@@ -68,5 +73,4 @@ public class MySTARSApp {
         }while(logInOption == 1);
 	}
 	
-}
-	 
+} 
