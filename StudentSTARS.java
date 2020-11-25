@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class StudentSTARS extends STARS {
-	
+		
+		/**
+		 * Interface that handles interaction with the Student user
+		 * @param studentLoggedIn
+		 */
 		public static void run (Student studentLoggedIn)
 		{
 			int inputChoice;
@@ -138,6 +142,7 @@ public class StudentSTARS extends STARS {
 			
 		}	
 	
+		// Registers/Add Student for a course by one of its Index Numbers
 		public static void addCourse(Student studentLoggedIn,int addIndexNumber) {
 			//verification
 			if (UniDataBase.verifyClassIndex(addIndexNumber)==false) {
@@ -187,6 +192,11 @@ public class StudentSTARS extends STARS {
 			}
 		}
 		
+		/**
+		 * Drop a course the Student is currently registered for
+		 * @param studentLoggedIn
+		 * @param dropIndexNumber
+		 */
 		public static void dropCourse(Student studentLoggedIn,int dropIndexNumber) {
 			//verification
 			if (UniDataBase.verifyClassIndex(dropIndexNumber)==false) {
@@ -218,6 +228,10 @@ public class StudentSTARS extends STARS {
 			System.out.println("You are not registered to course index "+ dropIndexNumber);
 		}
 		
+		/**
+		 * Print the courses the Student has registered for
+		 * @param studentLoggedIn
+		 */
 		public static void printCourses(Student studentLoggedIn) {
 			//print courses registered
 			System.out.println("Printing courses registered...");
@@ -281,6 +295,12 @@ public class StudentSTARS extends STARS {
 			}
 		}
 		
+		/**
+		 * Change index number the Student is currently registered for, to another index number of the same course
+		 * @param studentLoggedIn
+		 * @param oldIndexNumber
+		 * @param newIndexNumber
+		 */
 		public static void changeIndex(Student studentLoggedIn,int oldIndexNumber, int newIndexNumber) {
 			//verify indexes exist
 			if (UniDataBase.verifyClassIndex(oldIndexNumber)==false) {
@@ -335,6 +355,14 @@ public class StudentSTARS extends STARS {
 			
 		}
 		
+		/**
+		 * Checks the validity of the peer Student and swops their different index numbers for the same course
+		 * @param studentLoggedIn
+		 * @param userIndexNumber
+		 * @param peerUserName
+		 * @param peerPassword
+		 * @param peerIndexNumber
+		 */
 		public static void swopIndex(Student studentLoggedIn,int userIndexNumber, String peerUserName, String peerPassword, int peerIndexNumber ){
 			//verify indexes exist
 			if (UniDataBase.verifyClassIndex(userIndexNumber)==false) {
