@@ -3,6 +3,9 @@ import java.util.Scanner;
 
 public class AdminSTARS extends STARS{
 	
+	/**
+	 * Interface that handles interaction with the Admin user
+	 */
 	public static void run() 
 	{
 		int inputChoice;
@@ -990,12 +993,33 @@ public class AdminSTARS extends STARS{
 		}while(inputChoice!=11);
 	}
 	
+	/**
+	 * Modifying students' MySTARSApp access period
+	 * @param startMonth
+	 * @param startDate
+	 * @param startHour
+	 * @param startMinute
+	 * @param endMonth
+	 * @param endDate
+	 * @param endHour
+	 * @param endMinute
+	 */
 	public static void editStudAccess(int startMonth, int startDate, int startHour, int startMinute, int endMonth, int endDate, int endHour, int endMinute){
 		UniDataBase.setStartAccessDate(startMonth, startDate, startHour, startMinute);
 		UniDataBase.setEndAccessDate(endMonth, endDate, endHour, endMinute);
 		
 	}
 	
+	/**
+	 * Create a new Student object
+	 * @param name
+	 * @param matricNo
+	 * @param gender
+	 * @param nationality
+	 * @param userName
+	 * @param pwd
+	 * @param email
+	 */
 	public static void addStudent(String name, String matricNo, String gender, String nationality, String userName, String pwd ,String email){
 		//verifications
 		if (UniDataBase.verifyExistedStudent(matricNo,userName)==true) {
@@ -1014,6 +1038,11 @@ public class AdminSTARS extends STARS{
 		UniDataBase.displayAllStudents();
 	}
 	
+	/**
+	 * Update the course code of a course
+	 * @param currentCourseCode
+	 * @param updatedCourseCode
+	 */
 	public static void updateCourseCode(String currentCourseCode, String updatedCourseCode) {
 		//verifications
 		if (UniDataBase.verifyCourse(currentCourseCode)==false) {
@@ -1029,6 +1058,11 @@ public class AdminSTARS extends STARS{
 		System.out.println("Course code updated.");
 	}
 	
+	/**
+	 * Update the school of a course
+	 * @param courseCode
+	 * @param updatedSchool
+	 */
 	public static void updateCourseSchool(String courseCode, String updatedSchool) {
 		//verifications
 		if (UniDataBase.verifyCourse(courseCode)==false) {
@@ -1041,6 +1075,11 @@ public class AdminSTARS extends STARS{
 
 	}
 	
+	/**
+	 * Update the index number of a course
+	 * @param currentIndexNumber
+	 * @param updatedIndexNumber
+	 */
 	public static void updateCourseIndexNumber(int currentIndexNumber, int updatedIndexNumber) {
 		//verifications
 		if (UniDataBase.verifyClassIndex(currentIndexNumber)==false) {
@@ -1058,7 +1097,11 @@ public class AdminSTARS extends STARS{
 		System.out.println("Index number of course updated.");
 	}
 
-	
+	/**
+	 * Update the vacancy of an index number for a course
+	 * @param indexNumber
+	 * @param updatedVacancyNumber
+	 */
 	public static void updateIndexNumberVacancy(int indexNumber,int updatedVacancyNumber){
 		//verification
 		if (UniDataBase.verifyClassIndex(indexNumber)==false) {
@@ -1072,6 +1115,20 @@ public class AdminSTARS extends STARS{
 		System.out.println("Vacancy of course index updated.");
 	}
 	
+	/**
+	 * Create new Course that has a lecture session only 
+	 * @param courseCode
+	 * @param courseName
+	 * @param school
+	 * @param indexNum
+	 * @param classVacancy
+	 * @param lessonType
+	 * @param classVenue
+	 * @param classDay
+	 * @param classTiming
+	 * @param classWeek
+	 * @param acadUnits
+	 */
 	public static void createCourse(String courseCode,String courseName,String school,
 			int indexNum, int classVacancy,
 			String lessonType,String classVenue,String classDay,int[] classTiming,String classWeek,int acadUnits) {
@@ -1108,6 +1165,10 @@ public class AdminSTARS extends STARS{
 		UniDataBase.displayAllCourses();
 	}
 	
+	/**
+	 * Print list of students registered for a specific index number
+	 * @param indexNum
+	 */
 	public static void printStudListByIndex(int indexNum) {
 		//Verify existence of such a course index
 		if (UniDataBase.verifyClassIndex(indexNum)==true){  
@@ -1116,7 +1177,11 @@ public class AdminSTARS extends STARS{
 		}
 		else System.out.println("Course index not found.");
 	}
-		
+	
+	/**
+	 * Print list of students registered for a specific course
+	 * @param courseCode
+	 */
 	public static void printStudListByCourse(String courseCode) {	
 		//Verify existence of such a course
 		if (UniDataBase.verifyCourse(courseCode)==true){
@@ -1127,17 +1192,42 @@ public class AdminSTARS extends STARS{
 		
 	}
 	
+	/**
+	 * Create Lesson objects to populate the arraylist with various lesson information for the new ClassIndex object initialised
+	 * @param lessonType
+	 * @param lessonVenue
+	 * @param lessonDay
+	 * @param lessonTiming
+	 * @param lessonWeek
+	 * @return
+	 */
 	public static Lesson createLessonIndex(String lessonType, String lessonVenue, String lessonDay, int [] lessonTiming, String lessonWeek) {
 		return new Lesson(lessonType,lessonVenue,lessonDay,lessonTiming,lessonWeek);
 	}
 	
+	/**
+	 * Create ClassIndex objects to populate the arraylist with the various index numbers for the new Course initialised
+	 * @param courseName
+	 * @param courseCode
+	 * @param indexNum
+	 * @param classVacancy
+	 * @param lessonsList
+	 * @return
+	 */
 	public static ClassIndex createClassIndex(String courseName, String courseCode, int indexNum, int classVacancy, ArrayList <Lesson> lessonsList) {
 		ArrayList <Student> studentsList = new ArrayList <Student>();
 		ArrayList <Student> waitList = new ArrayList <Student>();
 		return new ClassIndex(courseName,courseCode,indexNum,classVacancy,lessonsList,waitList,studentsList);
 	}
 		
-	
+	/**
+	 * Create new Course that has lecture & tutorial sessions only or lecture, tutorial and lab sessions. 
+	 * @param newCourseCode
+	 * @param newCourseName
+	 * @param newSchool
+	 * @param tempIndexNumList
+	 * @param newAcadUnits
+	 */
 	public static void createCourse2(String newCourseCode, String newCourseName, String newSchool, ArrayList <ClassIndex>tempIndexNumList , int newAcadUnits) {
 		//verify course code
 		if (UniDataBase.verifyCourse(newCourseCode)==true) {
