@@ -1,9 +1,17 @@
-
 public class NotificationApp {
 	private Notification notification;
+	/**
+	 * Initialises Notification application (to allow for notification of successful course allocation for a student)
+	 * @param notification
+	 */
 	public NotificationApp(Notification notification) {
 		this.notification=notification;
 	}
+	/**
+	 * Notification message created to notify student when a course gets allocated to him/her
+	 * @param student
+	 * @param indexNum
+	 */
 	public void courseAllocated(Student student,int indexNum){
 	ClassIndex classIndex = UniDataBase.findClassIndex(indexNum);
 	String messageSubject = "Course Allocated";
